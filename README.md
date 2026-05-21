@@ -1,5 +1,10 @@
 # Bigram
 
+## Published Models
+
+- Bigram Nano 1 on Hugging Face: https://huggingface.co/aevynt/bigram-nano-1
+- Local model card: [models/bigram-nano-1.md](models/bigram-nano-1.md)
+
 Mô hình ngôn ngữ tiếng Việt với kiến trúc **recurrent-depth**, thiết kế để huấn luyện từ đầu — không fine-tune model có sẵn.
 
 Ba đặc trưng cốt lõi: khối transformer được **lặp lại** để suy luận sâu mà ít tham số; một **abstention head** dạy model biết khi nào nên nói "tôi không chắc" thay vì bịa; và một **tokenizer tách thanh điệu** riêng cho tiếng Việt. Chi tiết triết lý nằm trong `PHILOSOPHY.md`.
