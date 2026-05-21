@@ -140,6 +140,19 @@ def test_recurrence_changes_output():
     print(f"  [OK] test_recurrence_changes_output (diff={diff:.4f})")
 
 
+def test_eval_forward_is_deterministic():
+    """Eval forward should be deterministic with the default zero latent start."""
+    model, cfg = _make_model()
+    model.eval()
+    tok = torch.randint(0, cfg.model.vocab_size, (2, 16))
+    tone = torch.randint(0, cfg.model.tone_vocab_size, (2, 16))
+    with torch.no_grad():
+        o1 = model(tok, tone, num_recurrence=4)["logits"]
+        o2 = model(tok, tone, num_recurrence=4)["logits"]
+    assert torch.allclose(o1, o2), "Eval forward changed despite identical inputs"
+    print("  [OK] test_eval_forward_is_deterministic")
+
+
 def test_truncated_bptt_large_r():
     """Truncated BPTT: train được với r lớn hơn nhiều so với k."""
     torch.manual_seed(0)
@@ -188,6 +201,24 @@ def test_generate_runs():
     print("  [OK] test_generate_runs")
 
 
+def test_generate_with_nucleus_and_repetition_penalty():
+    """generate() should support top-p and repetition penalty sampling."""
+    model, cfg = _make_model()
+    model.eval()
+    torch.manual_seed(0)
+    tok = torch.randint(0, cfg.model.vocab_size, (1, 5))
+    out, out_tones, _ = model.generate(
+        tok,
+        max_new_tokens=5,
+        num_recurrence=4,
+        top_p=0.9,
+        repetition_penalty=1.1,
+    )
+    assert out.shape[1] >= 5
+    assert out.shape == out_tones.shape
+    print("  [OK] test_generate_with_nucleus_and_repetition_penalty")
+
+
 def test_param_count_reasonable():
     """Model tiny phải có số tham số hợp lý (không rỗng, không khổng lồ)."""
     model, cfg = _make_model()
@@ -205,9 +236,11 @@ def run_all():
     test_abstention_head_trains()
     test_tone_head_trains()
     test_recurrence_changes_output()
+    test_eval_forward_is_deterministic()
     test_truncated_bptt_large_r()
     test_sample_recurrence_distribution()
     test_generate_runs()
+    test_generate_with_nucleus_and_repetition_penalty()
     test_param_count_reasonable()
     print("test_model: TẤT CẢ ĐỀU PASS\n")
 

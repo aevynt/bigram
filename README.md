@@ -1,176 +1,199 @@
 # Bigram
 
-## Published Models
+Bigram is a compact Vietnamese-first language model stack built around recurrent-depth transformers. The project is meant for training small models from scratch, experimenting with test-time compute, and building tool-routing assistants without depending on a pretrained base model.
 
-- Bigram Nano 1 on Hugging Face: https://huggingface.co/aevynt/bigram-nano-1
+Published model:
+
+- Hugging Face: https://huggingface.co/aevynt/bigram-nano-1
 - Local model card: [models/bigram-nano-1.md](models/bigram-nano-1.md)
 
-Mô hình ngôn ngữ tiếng Việt với kiến trúc **recurrent-depth**, thiết kế để huấn luyện từ đầu — không fine-tune model có sẵn.
+## What Changed
 
-Ba đặc trưng cốt lõi: khối transformer được **lặp lại** để suy luận sâu mà ít tham số; một **abstention head** dạy model biết khi nào nên nói "tôi không chắc" thay vì bịa; và một **tokenizer tách thanh điệu** riêng cho tiếng Việt. Chi tiết triết lý nằm trong `PHILOSOPHY.md`.
+The current codebase includes an upgraded Bigram core:
 
-## Cài đặt
+- Deterministic recurrent state initialization by default, so evaluation and generation are stable for a fixed prompt and sampling seed.
+- Optional adaptive recurrent early-exit during evaluation, which can stop extra recurrent steps when the latent state has converged.
+- Improved generation controls with `top_p` nucleus sampling and `repetition_penalty`.
+- The original stochastic latent initialization remains available through `state_init_mode="normal"` for experiments.
+
+## Architecture
+
+Bigram uses a prelude/recurrent/coda layout:
+
+1. Token and Vietnamese tone embeddings are combined.
+2. Prelude transformer blocks project the input into a latent stream.
+3. A recurrent transformer core is applied for multiple reasoning steps.
+4. Coda transformer blocks decode the final latent state.
+5. Output heads predict the next token, tone, and optional abstention score.
+
+Core components:
+
+- Grouped Query Attention with RoPE.
+- Sandwich normalization and LayerScale for recurrent stability.
+- Optional Mixture of Experts feed-forward blocks.
+- Tonal tokenizer support for Vietnamese diacritics.
+- Abstention head for later calibration against hallucination.
+
+## Install
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Cần Python 3.9 trở lên. PyTorch là thư viện nặng nhất; nếu có GPU NVIDIA, hãy cài bản CUDA tương ứng theo hướng dẫn ở pytorch.org.
+Python 3.9 or newer is required. CUDA is optional, but real training runs need a GPU.
 
-## Kiểm tra codebase
-
-Trước khi train, chạy bộ test để chắc chắn mọi thứ hoạt động:
+## Run Tests
 
 ```bash
 python tests/run_all.py
 ```
 
-Toàn bộ test chạy trên CPU trong khoảng một phút. Nếu thấy "TẤT CẢ BỘ TEST ĐỀU PASS" thì codebase sẵn sàng.
+For the model-only tests:
 
-## Pipeline sử dụng
+```bash
+python tests/test_model.py
+```
 
-Quy trình gồm bốn bước. Giả sử bạn đã có một file văn bản tiếng Việt `data/corpus.txt` (mỗi dòng một câu hoặc đoạn).
-
-### Bước 0 — Train tokenizer
+## Train A Tokenizer
 
 ```bash
 python scripts/train_tokenizer.py \
-    --input data/corpus.txt \
-    --output data/tokenizer.json \
-    --vocab-size 32000
+  --input data/corpus.txt \
+  --output data/tokenizer.json \
+  --vocab-size 32000 \
+  --min-frequency 2
 ```
 
-Tokenizer chỉ train một lần và cố định. Mọi bước sau phụ thuộc vào nó.
-
-### Bước 1 — Chuẩn bị dữ liệu
-
-Mã hóa văn bản thành file nhị phân. Chạy hai lần, một cho tập train, một cho tập validation:
+## Prepare Binary Data
 
 ```bash
 python scripts/prepare_data.py \
-    --tokenizer data/tokenizer.json \
-    --input data/corpus.txt \
-    --output-prefix data/train
+  --tokenizer data/tokenizer.json \
+  --input data/train.txt \
+  --output-prefix data/train
 
 python scripts/prepare_data.py \
-    --tokenizer data/tokenizer.json \
-    --input data/val_corpus.txt \
-    --output-prefix data/val
+  --tokenizer data/tokenizer.json \
+  --input data/val.txt \
+  --output-prefix data/val
 ```
 
-### Bước 2 — Huấn luyện model
+## Pretrain
+
+Use a config file from `configs/` or a preset supported by the training script.
 
 ```bash
 python scripts/train.py \
-    --train-data data/train \
-    --val-data data/val \
-    --tokenizer data/tokenizer.json \
-    --preset small \
-    --out-dir checkpoints
+  --train-data data/train \
+  --val-data data/val \
+  --tokenizer data/tokenizer.json \
+  --config configs/tiny.json \
+  --max-steps 1000 \
+  --out-dir checkpoints/pretrain
 ```
 
-Có hai preset dựng sẵn: `tiny` (model siêu nhỏ, chạy được trên CPU, dùng để thử nghiệm) và `small` (khoảng 0.5B tham số, cần GPU). Để dùng cấu hình tùy chỉnh, sửa file trong `configs/` rồi truyền `--config configs/your_config.json`.
+## Supervised Fine-Tuning
 
-Train tiếp từ một checkpoint:
+SFT data is JSONL with one object per line:
 
-```bash
-python scripts/train.py --resume checkpoints/ckpt_step1000.pt ... 
+```json
+{"prompt": "Xin chào!", "response": "Chào bạn, mình là Bigram."}
 ```
 
-### Bước 3 — Sinh văn bản
-
-```bash
-python scripts/generate.py \
-    --checkpoint checkpoints/ckpt_final.pt \
-    --tokenizer data/tokenizer.json \
-    --prompt "Thủ đô của Việt Nam là" \
-    --recurrence 32 \
-    --max-new-tokens 50
-```
-
-Tham số `--recurrence` điều khiển số vòng "suy nghĩ" — câu hỏi khó thì đặt cao hơn. Thêm `--abstention-threshold 0.5` để bật cơ chế chống hallucination: model sẽ dừng nếu không đủ tự tin.
-
-## Pipeline đầy đủ — alignment
-
-Ba bước trên cho ra một *base model* — nó tiếp nối văn bản nhưng chưa phải trợ lý hội thoại. Để hoàn thiện, có ba giai đoạn alignment, chạy lần lượt. Mỗi giai đoạn nạp checkpoint của giai đoạn trước.
-
-### Giai đoạn 3a — SFT (Supervised Fine-Tuning)
-
-Dạy model trả lời, từ các cặp câu hỏi/trả lời. File `.jsonl`, mỗi dòng `{"prompt": "...", "response": "..."}`.
+Run SFT:
 
 ```bash
 python scripts/train_sft.py \
-    --data data/sft.jsonl \
-    --tokenizer data/tokenizer.json \
-    --init checkpoints/ckpt_final.pt \
-    --out-dir checkpoints_sft
+  --data data/sft.jsonl \
+  --val-data data/sft_val.jsonl \
+  --tokenizer data/tokenizer.json \
+  --init checkpoints/pretrain/ckpt_final.pt \
+  --out-dir checkpoints/sft
 ```
 
-### Giai đoạn 3b — DPO (Direct Preference Optimization)
-
-Tinh chỉnh theo sở thích con người. File `.jsonl`, mỗi dòng `{"prompt": "...", "chosen": "...", "rejected": "..."}`. DPO được chọn thay cho RL/PPO vì ổn định hơn nhiều — quan trọng cho mục tiêu "AI đáng tin" của Bigram. Phải chạy *sau* SFT.
+## Generate
 
 ```bash
-python scripts/train_dpo.py \
-    --data data/preferences.jsonl \
-    --tokenizer data/tokenizer.json \
-    --init checkpoints_sft/ckpt_final.pt \
-    --out-dir checkpoints_dpo --beta 0.1
+python scripts/generate.py \
+  --checkpoint checkpoints/sft/ckpt_final.pt \
+  --tokenizer data/tokenizer.json \
+  --prompt "Thủ đô Việt Nam là" \
+  --recurrence 8 \
+  --temperature 0.7 \
+  --top-k 40 \
+  --top-p 0.9 \
+  --repetition-penalty 1.1 \
+  --max-new-tokens 80
 ```
 
-### Giai đoạn 4 — Calibration
+Generation knobs:
 
-Huấn luyện abstention head — dạy model biết khi nào nên nói "tôi không chắc". Đây là bước hiện thực hóa chống hallucination, và đi cuối cùng. Tạo dữ liệu mẫu bằng `python scripts/make_calibration_data.py`.
+- `--recurrence`: number of recurrent reasoning steps.
+- `--temperature`: sampling sharpness.
+- `--top-k`: keep only the highest-k token logits.
+- `--top-p`: nucleus sampling threshold.
+- `--repetition-penalty`: discourages repeating prompt or generated tokens.
+- `--abstention-threshold`: stop generation when the calibrated abstention head is not confident enough.
+
+## Configuration
+
+The main model fields live in `bigram/config.py` and JSON files under `configs/`.
+
+Useful recurrent-depth settings:
+
+- `mean_recurrence`: average recurrence used during training when no explicit recurrence is passed.
+- `backprop_depth`: number of final recurrent steps kept in the gradient graph.
+- `state_init_mode`: `zeros` for deterministic inference, `normal` for the legacy stochastic start.
+- `recurrent_early_exit_tol`: disabled at `0.0`; set a positive tolerance to allow eval-time early exit.
+- `recurrent_early_exit_min_steps`: minimum recurrent steps before early exit is considered.
+
+## Nano Models
+
+Nano checkpoints and tokenizers are stored outside the Python package layout:
+
+- `nano1/`: Bigram Nano 1 local artifacts.
+- `nano2/`: Bigram Nano 2 experimental router/synthesizer artifacts.
+- `models/`: local model cards and publishing notes.
+
+The public Nano 1 release is available at:
+
+```text
+https://huggingface.co/aevynt/bigram-nano-1
+```
+
+Example Nano 1 chat command:
 
 ```bash
-python scripts/train_calibration.py \
-    --data data/calibration.jsonl \
-    --tokenizer data/tokenizer.json \
-    --init checkpoints_dpo/dpo_final.pt \
-    --out-dir checkpoints_final
+python scripts/chat_nano1.py \
+  --checkpoint nano1/sft/ckpt_final.pt \
+  --tokenizer nano1/tokenizer.json
 ```
 
-Sau giai đoạn 4, dùng `generate.py` với `--abstention-threshold` để model biết từ chối khi không chắc.
+Example Nano 2 pipeline command:
 
-## Cấu trúc thư mục
-
+```bash
+python scripts/pipeline_nano2.py \
+  --model-a nano2/model_a/sft/ckpt_final.pt \
+  --model-b nano2/model_b/sft/ckpt_final.pt \
+  --tokenizer nano2/tokenizer.json
 ```
+
+## Repository Layout
+
+```text
 bigram/
-├── bigram/              # Package chính
-│   ├── config.py        # Toàn bộ siêu tham số
-│   ├── model/           # Kiến trúc mạng nơ-ron
-│   ├── tokenizer/       # Xử lý tiếng Việt (tách thanh + BPE)
-│   ├── data/            # Chuẩn bị và nạp dữ liệu
-│   ├── training/        # Vòng lặp huấn luyện
-│   └── utils/           # Tiện ích phụ trợ
-├── scripts/             # Script dòng lệnh (train, generate, ...)
-├── tests/               # Bộ kiểm thử
-├── configs/             # File cấu hình mẫu
-├── data/                # Nơi đặt dữ liệu của bạn
-├── PHILOSOPHY.md        # Triết lý thiết kế và 3 trụ cột
-└── README.md            # File này
+  bigram/        Python package
+  configs/       model and training configs
+  data/          local datasets and JSONL files
+  models/        model cards
+  scripts/       training, data, generation, and pipeline scripts
+  tests/         unit and mechanism tests
 ```
 
-## Dùng như một thư viện Python
+## Notes
 
-Ngoài các script, có thể import trực tiếp:
+This repository validates the training mechanics and architecture. Model quality still depends on data quality, training duration, and hardware. For production-like behavior, train on a larger clean corpus, hold out a real validation set, and run task-specific evaluations before publishing checkpoints.
 
-```python
-from bigram import BigramModel, BigramConfig, BigramTokenizer, Trainer
-from bigram import tiny_config, small_config
+## License
 
-cfg = small_config()
-model = BigramModel(cfg.model)
-```
-
-## Về dữ liệu
-
-Codebase này **không kèm dữ liệu** — bạn cần tự chuẩn bị corpus tiếng Việt. Định dạng đơn giản: một file `.txt`, mỗi dòng một câu hoặc đoạn văn. Chất lượng và quy mô dữ liệu quyết định phần lớn chất lượng model. Để pre-training thực sự, cần ít nhất vài GB văn bản sạch.
-
-Cho giai đoạn SFT, lớp `JsonlSFTDataset` đọc file `.jsonl` với mỗi dòng dạng `{"prompt": "...", "response": "..."}`.
-
-## Trạng thái
-
-Codebase hiện thực hóa **đầy đủ pipeline 5 giai đoạn**: train tokenizer, pre-training với recurrent depth, SFT, DPO, và calibration cho abstention head. Mỗi giai đoạn có script CLI riêng và đã được kiểm thử về mặt cơ chế (loss giảm, gradient hợp lệ, checkpoint nối đúng).
-
-Một lưu ý thẳng thắn: bộ test xác nhận *cơ chế* training chạy đúng — đó là điều kiện cần, không phải điều kiện đủ. Để model thực sự "nói chuyện được" cần GPU và dữ liệu quy mô lớn, là phần việc nằm ngoài codebase này. Xem `PHILOSOPHY.md` để hiểu lý do thiết kế từng giai đoạn.
+See [LICENSE](LICENSE).

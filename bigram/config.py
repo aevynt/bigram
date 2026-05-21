@@ -48,6 +48,9 @@ class ModelConfig:
     recurrence_sigma: float = 0.5    # Độ lệch chuẩn của phân phối sample r.
     backprop_depth: int = 8          # k: chỉ backprop qua k vòng cuối (truncated BPTT).
     state_init_std: float = 1.0      # Độ lệch chuẩn khi khởi tạo latent state s0 ~ N(0, std^2).
+    state_init_mode: str = "zeros"   # "zeros" = deterministic latent start, "normal" = legacy random start.
+    recurrent_early_exit_tol: float = 0.0  # Eval-only: stop recurrence when state delta falls below this.
+    recurrent_early_exit_min_steps: int = 2  # Minimum recurrent steps before early-exit can trigger.
 
     # --- Mixture of Experts (MoE) trong khối recurrent ---
     use_moe: bool = True             # Bật/tắt MoE. Tắt -> dùng MLP dày thông thường.
@@ -88,6 +91,12 @@ class ModelConfig:
         if self.use_moe:
             assert self.n_experts_active <= self.n_experts, \
                 "Số expert active không thể lớn hơn tổng số expert"
+        assert self.state_init_mode in {"zeros", "normal"}, \
+            "state_init_mode phải là 'zeros' hoặc 'normal'"
+        assert self.recurrent_early_exit_tol >= 0.0, \
+            "recurrent_early_exit_tol không được âm"
+        assert self.recurrent_early_exit_min_steps >= 1, \
+            "recurrent_early_exit_min_steps phải >= 1"
 
 
 @dataclass

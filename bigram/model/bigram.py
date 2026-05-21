@@ -195,6 +195,24 @@ class BigramModel(nn.Module):
             aux = aux + a
         return self.final_norm(x), aux
 
+    def init_recurrent_state(self, e: torch.Tensor,
+                             generator: torch.Generator = None) -> torch.Tensor:
+        """
+        Initialize the recurrent latent state.
+
+        The default ``zeros`` mode makes inference deterministic for a fixed
+        prompt and sampling seed. ``normal`` keeps the original stochastic
+        latent start for experiments that explicitly want it.
+        """
+        if self.config.state_init_mode == "normal":
+            return torch.randn(
+                e.shape,
+                dtype=e.dtype,
+                device=e.device,
+                generator=generator,
+            ) * self.config.state_init_std
+        return torch.zeros_like(e)
+
     # ------------------------------------------------------------------
     # Forward chính
     # ------------------------------------------------------------------
@@ -237,8 +255,8 @@ class BigramModel(nn.Module):
         # --- Prelude ---
         e, aux_total = self.run_prelude(x)
 
-        # --- Khởi tạo latent state s0 ~ N(0, std^2) ---
-        state = torch.randn_like(e) * cfg.state_init_std
+        # --- Khởi tạo latent state ---
+        state = self.init_recurrent_state(e, generator)
 
         # --- Vòng lặp recurrent với TRUNCATED BACKPROP ---
         # Ý tưởng: chỉ k vòng CUỐI mới cần gradient. Các vòng trước chạy trong
@@ -257,9 +275,22 @@ class BigramModel(nn.Module):
 
         # Phần 2: k vòng cuối — CÓ gradient (sẽ được backprop).
         n_grad = r - n_no_grad
+        steps_done = n_no_grad
         for _ in range(n_grad):
+            prev_state = state
             state, aux = self.run_recurrent_step(e, state)
             aux_total = aux_total + aux
+            steps_done += 1
+
+            # Eval-only adaptive compute. If the recurrent latent state has
+            # converged, stop spending extra recurrent steps. Training still
+            # uses the full sampled depth so optimization remains predictable.
+            if (not self.training
+                    and cfg.recurrent_early_exit_tol > 0.0
+                    and steps_done >= cfg.recurrent_early_exit_min_steps):
+                delta = (state - prev_state).float().pow(2).mean().sqrt()
+                if delta.item() <= cfg.recurrent_early_exit_tol:
+                    break
 
         # --- Coda: giải mã ---
         decoded, aux = self.run_coda(state)
@@ -292,6 +323,8 @@ class BigramModel(nn.Module):
                  num_recurrence: int = None,
                  temperature: float = 1.0,
                  top_k: int = None,
+                 top_p: float = None,
+                 repetition_penalty: float = 1.0,
                  abstention_threshold: float = None):
         """
         Sinh văn bản theo kiểu tự hồi quy (autoregressive).
@@ -331,10 +364,28 @@ class BigramModel(nn.Module):
 
             # Lấy mẫu token tiếp theo.
             logits = logits / max(temperature, 1e-6)
+            if repetition_penalty and repetition_penalty != 1.0:
+                for row, history in enumerate(token_ids):
+                    seen = torch.unique(history)
+                    logits[row, seen] = torch.where(
+                        logits[row, seen] < 0,
+                        logits[row, seen] * repetition_penalty,
+                        logits[row, seen] / repetition_penalty,
+                    )
             if top_k is not None:
                 # Chỉ giữ top_k logit lớn nhất, phần còn lại gán -inf.
                 v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
                 logits[logits < v[:, [-1]]] = float("-inf")
+            if top_p is not None and 0.0 < top_p < 1.0:
+                sorted_logits, sorted_idx = torch.sort(logits, descending=True)
+                sorted_probs = F.softmax(sorted_logits, dim=-1)
+                cumulative = sorted_probs.cumsum(dim=-1)
+                remove = cumulative > top_p
+                remove[..., 1:] = remove[..., :-1].clone()
+                remove[..., 0] = False
+                sorted_logits = sorted_logits.masked_fill(remove, float("-inf"))
+                logits = torch.full_like(logits, float("-inf"))
+                logits.scatter_(dim=-1, index=sorted_idx, src=sorted_logits)
             probs = F.softmax(logits, dim=-1)
             next_token = torch.multinomial(probs, num_samples=1)
 

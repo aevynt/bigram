@@ -63,6 +63,10 @@ def main():
                         help="Độ 'sáng tạo'. Thấp -> an toàn, cao -> đa dạng")
     parser.add_argument("--top-k", type=int, default=40,
                         help="Chỉ lấy mẫu trong top-k token có xác suất cao nhất")
+    parser.add_argument("--top-p", type=float, default=None,
+                        help="Nucleus sampling threshold, for example 0.9")
+    parser.add_argument("--repetition-penalty", type=float, default=1.0,
+                        help="Penalty for tokens already present in the context")
     parser.add_argument("--abstention-threshold", type=float, default=None,
                         help="Ngưỡng từ chối (0-1). Đặt để bật chống hallucination")
     parser.add_argument("--seed", type=int, default=1337)
@@ -96,6 +100,8 @@ def main():
         num_recurrence=args.recurrence,
         temperature=args.temperature,
         top_k=args.top_k,
+        top_p=args.top_p,
+        repetition_penalty=args.repetition_penalty,
         abstention_threshold=args.abstention_threshold,
     )
 
