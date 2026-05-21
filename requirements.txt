@@ -1,0 +1,14 @@
+# Thư viện cần thiết để chạy Bigram
+# Cài đặt:  pip install -r requirements.txt
+
+# Mạng nơ-ron — bắt buộc.
+torch>=2.1.0
+
+# Tính toán mảng — bắt buộc (xử lý dữ liệu nhị phân).
+numpy>=1.24.0
+
+# Tokenizer BPE của HuggingFace — bắt buộc.
+tokenizers>=0.15.0
+
+# Kiểm thử — tùy chọn (có thể chạy tests/run_all.py thay thế).
+pytest>=7.0.0

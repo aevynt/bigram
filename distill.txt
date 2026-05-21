@@ -1,0 +1,196 @@
+NHIỆM VỤ: Sinh data SFT chất lượng cao cho Bigram
+
+Mày là AI agent chuyên sinh data huấn luyện. Nhiệm vụ là sinh
+ra 8 file data SFT tiếng Việt chất lượng cao, có reasoning,
+sạch, đa dạng. Chạy liên tục từ file 1 đến file 8 không dừng.
+
+═══════════════════════════════════════════════════════════════
+QUY TẮC CHUNG - ÁP DỤNG CHO TẤT CẢ FILE
+═══════════════════════════════════════════════════════════════
+
+FORMAT MỖI DÒNG:
+{"prompt": "...", "response": "..."}
+
+CHẤT LƯỢNG RESPONSE:
+- Tiếng Việt có dấu đầy đủ, tự nhiên, không cứng nhắc
+- Không viết tắt, không bỏ dấu, không teencode
+- Không dùng ký tự — " " …
+- Response có chiều sâu: giải thích tại sao, không chỉ nói gì
+- Với câu hỏi phức tạp: trình bày từng bước rõ ràng
+- Với câu hỏi đơn giản: ngắn gọn súc tích, không lan man
+- Không bịa số liệu cụ thể (giá, ngày, tên người thật)
+- Nếu không chắc: nói rõ "tôi không chắc chắn về..."
+
+REASONING CAO CẤP:
+Với các câu hỏi cần suy luận, response phải thể hiện quá
+trình tư duy: phân tích vấn đề, xem xét các góc độ, đưa ra
+kết luận có căn cứ. Không nhảy thẳng vào đáp án.
+
+VALIDATE TRƯỚC KHI GHI:
+- Mỗi dòng phải là JSON hợp lệ, parse được
+- Prompt không rỗng
+- Response tối thiểu 20 ký tự
+- Không có ký tự — " " … trong bất kỳ field nào
+- Loại bỏ dòng không đạt trước khi ghi file
+
+TÊN FILE:
+Format: data/<timestamp>-<số thứ tự>.jsonl
+Ví dụ: data/20260520-1.jsonl, data/20260520-2.jsonl
+Timestamp lấy từ ngày hiện tại định dạng YYYYMMDD.
+
+SỐ DÒNG MỖI FILE: 100 dòng hợp lệ sau khi validate.
+
+═══════════════════════════════════════════════════════════════
+PHÂN BỔ CHỦ ĐỀ - THỰC HIỆN ĐÚNG THỨ TỰ
+═══════════════════════════════════════════════════════════════
+
+FILE 1 — Lập trình và debug (100 dòng)
+
+Phân bổ:
+  - Debug lỗi code Python (25): đưa ra đoạn code lỗi, giải
+    thích nguyên nhân, sửa và giải thích tại sao sửa vậy
+  - Giải thích khái niệm lập trình (25): OOP, đệ quy, độ
+    phức tạp thuật toán, design pattern, v.v.
+  - Viết hàm/script Python (25): yêu cầu cụ thể, code sạch
+    có comment, giải thích logic
+  - So sánh kỹ thuật/công nghệ (25): khi nào dùng cái nào,
+    trade-off, ví dụ thực tế
+
+Ví dụ mẫu:
+  prompt: "Hàm này bị lỗi gì: def tinh_tb(ds): return sum(ds)/len(ds)"
+  response: "Hàm có một vấn đề tiềm ẩn: nếu ds là danh sách
+  rỗng, len(ds) sẽ bằng 0 và Python sẽ ném ra lỗi
+  ZeroDivisionError. Cách sửa: kiểm tra danh sách rỗng trước
+  khi tính. [code đã sửa và giải thích]"
+
+---
+
+FILE 2 — Toán học và suy luận logic (100 dòng)
+
+Phân bổ:
+  - Phương trình bậc hai (20): giải từng bước, kiểm tra nghiệm
+  - Phương trình bậc nhất hai ẩn (20): phương pháp thế hoặc
+    cộng, trình bày rõ từng bước
+  - Toán lời văn (20): đọc hiểu đề, xác định ẩn, lập phương
+    trình, giải, kết luận
+  - Logic và suy luận (20): bài toán logic, câu đố, phân tích
+    điều kiện, loại trừ
+  - Xác suất và thống kê cơ bản (20): tính xác suất, trung
+    bình, trung vị, giải thích ý nghĩa
+
+Mỗi bài toán phải có: đọc đề, xác định hướng giải, các bước
+tính, kết luận. Không nhảy thẳng vào đáp án.
+
+---
+
+FILE 3 — Phân tích và tư duy phản biện (100 dòng)
+
+Phân bổ:
+  - Phân tích ưu nhược điểm (25): một quyết định, công nghệ,
+    phương pháp - đánh giá đa chiều
+  - So sánh hai lựa chọn (25): framework, ngôn ngữ, phương
+    pháp học - khi nào chọn cái nào
+  - Tìm lỗi trong lập luận (25): một đoạn lập luận có lỗi
+    logic, chỉ ra lỗi và giải thích
+  - Đưa ra quyết định có căn cứ (25): tình huống cụ thể,
+    phân tích các yếu tố, kết luận có lý do
+
+---
+
+FILE 4 — Hỏi đáp kiến thức (100 dòng)
+
+Phân bổ:
+  - Khoa học tự nhiên (25): vật lý, hóa học, sinh học cơ bản -
+    giải thích nguyên lý, không chỉ định nghĩa
+  - Lịch sử và địa lý (25): sự kiện, nguyên nhân kết quả,
+    ý nghĩa - không bịa số liệu cụ thể
+  - Công nghệ và AI (25): giải thích cơ chế hoạt động,
+    ứng dụng thực tế, hạn chế
+  - Kinh tế và tài chính cơ bản (25): khái niệm, cơ chế,
+    ví dụ thực tế - không dự đoán thị trường
+
+---
+
+FILE 5 — Viết lách và ngôn ngữ (100 dòng)
+
+Phân bổ:
+  - Viết email chuyên nghiệp (25): xin việc, báo cáo, xin lỗi,
+    đề xuất - đúng format, tự nhiên
+  - Giải thích khái niệm ngôn ngữ (25): ngữ pháp tiếng Việt,
+    cách dùng từ, phân biệt nghĩa
+  - Tóm tắt và diễn đạt lại (25): đưa đoạn văn dài, tóm tắt
+    ý chính, giải thích bằng ngôn ngữ đơn giản hơn
+  - Phân tích văn bản (25): tìm luận điểm chính, đánh giá
+    lập luận, nhận xét phong cách
+
+---
+
+FILE 6 — Tình huống thực tế và tư vấn (100 dòng)
+
+Phân bổ:
+  - Kế hoạch học tập (25): lộ trình học một kỹ năng cụ thể,
+    ưu tiên bước nào trước, tại sao
+  - Giải quyết vấn đề kỹ thuật (25): lỗi môi trường, cài đặt,
+    cấu hình - hướng dẫn từng bước
+  - Tư vấn lựa chọn công cụ (25): stack công nghệ, thư viện,
+    công cụ - dựa trên yêu cầu cụ thể
+  - Phân tích case study (25): tình huống thực tế trong lập
+    trình hoặc quản lý dự án, phân tích và đề xuất
+
+---
+
+FILE 7 — Câu hỏi ranh giới và từ chối hợp lý (100 dòng)
+
+Phân bổ:
+  - Thông tin thời gian thực (25): giá, thời tiết, tin tức -
+    giải thích không có dữ liệu thực tế, gợi ý cách tìm
+  - Thông tin cá nhân (25): số điện thoại, địa chỉ, mật khẩu -
+    từ chối lịch sự, giải thích lý do
+  - Yêu cầu không rõ ràng (25): câu hỏi mơ hồ - đặt câu hỏi
+    làm rõ hoặc trả lời nhiều trường hợp có thể
+  - Câu hỏi phi lý với AI (25): bạn ăn gì, bạn mặc gì -
+    nhận ra, trả lời tự nhiên hài hước không cứng nhắc
+
+---
+
+FILE 8 — Tổng hợp đa dạng chủ đề (100 dòng)
+
+100 dòng đa dạng, không lặp lại chủ đề đã có trong file 1-7.
+Ưu tiên các câu hỏi có reasoning phức tạp, cần nhiều bước
+suy luận. Phân bổ tự do miễn đa dạng và chất lượng cao.
+
+═══════════════════════════════════════════════════════════════
+QUY TRÌNH THỰC HIỆN
+═══════════════════════════════════════════════════════════════
+
+Với mỗi file, thực hiện đúng thứ tự:
+
+  1. Sinh đủ 110 dòng (dư 10% để bù sau khi validate)
+  2. Validate từng dòng:
+     - JSON parse được
+     - Không có ký tự cấm — " " …
+     - Response >= 20 ký tự
+     - Tiếng Việt có dấu
+  3. Loại dòng không đạt, giữ đúng 100 dòng hợp lệ.
+     Nếu thiếu thì sinh thêm cho đủ.
+  4. Ghi ra file data/<timestamp>-<số>.jsonl
+  5. Báo cáo một dòng:
+     "File <số>: <tên file> - <số dòng> dòng - loại <n> dòng lỗi"
+  6. Tiếp tục file tiếp theo ngay, không dừng chờ xác nhận
+
+Sau khi xong file 8, báo cáo tổng:
+  - Danh sách 8 file với đường dẫn đầy đủ
+  - Tổng số dòng
+  - Tổng số dòng bị loại
+
+═══════════════════════════════════════════════════════════════
+RÀNG BUỘC
+═══════════════════════════════════════════════════════════════
+
+- Chạy liên tục 8 file, không dừng giữa chừng chờ xác nhận
+- Không tạo thư mục data/ nếu đã tồn tại
+- Không ghi đè file đã có, dùng timestamp để tránh trùng
+- Không bịa số liệu thực tế (giá hôm nay, tên người thật,
+  ngày tháng cụ thể trong lịch sử gần đây)
+- Nếu lỗi kỹ thuật khi ghi file: báo cáo, thử lại một lần,
+  nếu vẫn lỗi thì dừng và báo cáo chi tiết

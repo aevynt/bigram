@@ -1,0 +1,60 @@
+{"prompt": "xăng RON 95 giá mới nhất?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng RON 95 mới nhất\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình giá vé máy bay đi Đà Nẵng hôm nay khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vé máy bay đi Đà Nẵng hôm nay\"}}\n</tool_call>"}
+{"prompt": "giải 2x^2 + 3x - 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải 2x^2 + 3x - 2 = 0\"}}\n</tool_call>"}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì khoáng chất và muối từ đất đá theo sông suối chảy ra biển rồi tích tụ lâu dài."}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "cho mình biết giá vàng hôm nay thay đổi thế nào so với tuần trước?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng hôm nay so với tuần trước\"}}\n</tool_call>"}
+{"prompt": "dự báo thời tiết Hà Nội tuần này?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Hà Nội tuần này\"}}\n</tool_call>"}
+{"prompt": "cho mình biết dự báo thời tiết Đà Nẵng cuối tuần này thế nào?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Đà Nẵng cuối tuần\"}}\n</tool_call>"}
+{"prompt": "bạn khỏe không?", "response": "Mình vẫn ổn và sẵn sàng hỗ trợ bạn."}
+{"prompt": "bạn mặc gì hôm nay?", "response": "Mình không mặc đồ, chỉ mặc định dạng văn bản thôi."}
+{"prompt": "An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 5x + 6 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 5x + 6 = 0\"}}\n</tool_call>"}
+{"prompt": "bạn bao nhiêu tuổi?", "response": "Mình không có tuổi đời như người thật, nhưng tên mình là Bigram Nano 2."}
+{"prompt": "xem giúp tin tức mới nhất về thị trường chứng khoán Việt Nam là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức chứng khoán Việt Nam mới nhất\"}}\n</tool_call>"}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học dữ liệu thì Python dễ bắt đầu hơn, còn làm web thì JavaScript hợp hơn."}
+{"prompt": "giải x^2 + 2x + 1 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải x^2 + 2x + 1 = 0\"}}\n</tool_call>"}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "thủ đô Việt Nam là gì?", "response": "Thủ đô Việt Nam là Hà Nội."}
+{"prompt": "màu của lá cây thường là gì?", "response": "Lá cây thường có màu xanh."}
+{"prompt": "xăng RON 95 giá mới nhất?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng RON 95 mới nhất\"}}\n</tool_call>"}
+{"prompt": "USD đổi sang VND hiện nay?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"USD đổi sang VND hiện nay\"}}\n</tool_call>"}
+{"prompt": "tối nay có lịch bóng đá gì?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "thủ đô Việt Nam là gì?", "response": "Thủ đô Việt Nam là Hà Nội."}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "vì sao cây cần ánh sáng?", "response": "<think>đã biết câu trả lời</think>\nCây cần ánh sáng để quang hợp, tạo chất dinh dưỡng và duy trì sự sống."}
+{"prompt": "vì sao cây cần ánh sáng?", "response": "<think>đã biết câu trả lời</think>\nCây cần ánh sáng để quang hợp, tạo chất dinh dưỡng và duy trì sự sống."}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "giải hệ x + y = 10 và x - y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ x + y = 10 và x - y = 4\"}}\n</tool_call>"}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "cho mình biết dân số Hà Nội hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Hà Nội hiện tại\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x + y = 5 và x - y = 1", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x + y = 5 và x - y = 1\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 4x + 4 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 4x + 4 = 0\"}}\n</tool_call>"}
+{"prompt": "giải 2x^2 + 3x - 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải 2x^2 + 3x - 2 = 0\"}}\n</tool_call>"}
+{"prompt": "Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "lịch thi đấu bóng đá tối nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch thi đấu bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "bạn ăn cơm chưa?", "response": "Mình không ăn cơm, nhưng vẫn sẵn sàng trả lời bạn."}
+{"prompt": "mình cần biết tin tức mới nhất về thị trường chứng khoán Việt Nam là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức chứng khoán Việt Nam mới nhất\"}}\n</tool_call>"}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "mình cần biết tỷ giá USD hôm nay tại ngân hàng là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá USD hôm nay ngân hàng\"}}\n</tool_call>"}
+{"prompt": "An có 5 kẹo, cho 2 rồi mua thêm 3, còn mấy cái?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"An có 5 kẹo, cho 2 rồi mua thêm 3, còn mấy cái?\"}}\n</tool_call>"}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "một năm có bao nhiêu tháng?", "response": "<think>đã biết câu trả lời</think>\nMột năm có 12 tháng."}
+{"prompt": "dự báo thời tiết Hà Nội tuần này?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Hà Nội tuần này\"}}\n</tool_call>"}
+{"prompt": "học buổi sáng hay buổi tối tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nBuổi sáng thường tỉnh táo, buổi tối yên tĩnh hơn. Quan trọng là chọn lúc bạn tập trung nhất."}
+{"prompt": "tại sao kim loại dẫn điện?", "response": "<think>đã biết câu trả lời</think>\nKim loại dẫn điện vì có nhiều electron tự do có thể di chuyển trong mạng tinh thể."}
+{"prompt": "giá cổ phiếu VNM hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá cổ phiếu VNM hiện tại\"}}\n</tool_call>"}
+{"prompt": "nên ghi chú bằng tay hay bằng máy?", "response": "<think>đã biết câu trả lời</think>\nGhi tay giúp nhớ tốt hơn, còn ghi bằng máy nhanh và dễ tìm kiếm hơn."}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì muối khoáng từ đất đá theo sông suối chảy ra biển và tích tụ lâu dài."}
+{"prompt": "giải hệ 3x + y = 8 và x + y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 3x + y = 8 và x + y = 4\"}}\n</tool_call>"}
+{"prompt": "cho mình biết giá bitcoin hôm nay tăng hay giảm?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hôm nay\"}}\n</tool_call>"}
+{"prompt": "chào buổi sáng", "response": "Chào buổi sáng, chúc bạn một ngày rõ ràng và nhẹ nhàng."}
+{"prompt": "đọc sách giấy hay sách điện tử tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nSách giấy dễ tập trung, còn sách điện tử tiện mang theo. Chọn theo thói quen đọc của bạn."}
+{"prompt": "bạn là ChatGPT à?", "response": "Không, mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "tra giúp mình dân số Việt Nam hiện tại khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Việt Nam hiện tại\"}}\n</tool_call>"}
+{"prompt": "giá vàng mới nhất là bao nhiêu?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng mới nhất\"}}\n</tool_call>"}

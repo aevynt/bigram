@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# Môi trường ảo
+venv/
+.venv/
+env/
+
+# Checkpoint và dữ liệu (thường rất nặng — không nên commit)
+checkpoints/
+*.pt
+*.bin
+data/*.txt
+data/*.json
+!data/.gitkeep
+
+# Khác
+.DS_Store
+*.tmp
+*.log

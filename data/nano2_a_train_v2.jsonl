@@ -1,0 +1,536 @@
+{"prompt": "85 triệu tăng 2% là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"85 triệu tăng 2% là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "làm việc nhóm hay làm một mình hiệu quả hơn?", "response": "<think>đã biết câu trả lời</think>\nViệc nhóm tốt khi cần nhiều góc nhìn, còn làm một mình hợp với việc cần tập trung sâu."}
+{"prompt": "bạn khỏe không?", "response": "Mình vẫn ổn và sẵn sàng hỗ trợ bạn."}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "123 nhân 456 bằng bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"123 nhân 456 bằng bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?\"}}\n</tool_call>"}
+{"prompt": "thủ đô Pháp là gì?", "response": "<think>đã biết câu trả lời</think>\nThủ đô của Pháp là Paris."}
+{"prompt": "bạn ăn cơm chưa?", "response": "Mình không ăn cơm, nhưng vẫn sẵn sàng trả lời bạn."}
+{"prompt": "giải 2x^2 + 3x - 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải 2x^2 + 3x - 2 = 0\"}}\n</tool_call>"}
+{"prompt": "cho mình biết giá xăng mới nhất đang là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng mới nhất\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 4x + 4 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 4x + 4 = 0\"}}\n</tool_call>"}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "giá nhà đất hiện nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá nhà đất hiện nay\"}}\n</tool_call>"}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn của cùng một dạng."}
+{"prompt": "giá vàng hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng hiện tại là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "học buổi sáng hay buổi tối tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nBuổi sáng thường tỉnh táo, buổi tối yên tĩnh hơn. Quan trọng là chọn lúc bạn tập trung nhất."}
+{"prompt": "giải hệ 2x + y = 5 và x - y = 1", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x + y = 5 và x - y = 1\"}}\n</tool_call>"}
+{"prompt": "bạn ăn cơm chưa?", "response": "Mình không ăn cơm, nhưng vẫn sẵn sàng trả lời bạn."}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "cho mình biết dân số Việt Nam hiện tại khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Việt Nam hiện tại\"}}\n</tool_call>"}
+{"prompt": "một năm có bao nhiêu tháng?", "response": "<think>đã biết câu trả lời</think>\nMột năm có 12 tháng."}
+{"prompt": "giá cà phê hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá cà phê hôm nay\"}}\n</tool_call>"}
+{"prompt": "dự báo thời tiết Hà Nội tuần này?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Hà Nội tuần này\"}}\n</tool_call>"}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "giải phương trình x^2 - 3x + 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 3x + 2 = 0\"}}\n</tool_call>"}
+{"prompt": "tìm nghiệm x^2 - 4 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"tìm nghiệm x^2 - 4 = 0\"}}\n</tool_call>"}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "dự báo thời tiết Hà Nội tuần này?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Hà Nội tuần này\"}}\n</tool_call>"}
+{"prompt": "tin công nghệ mới nhất?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin công nghệ mới nhất\"}}\n</tool_call>"}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "giải hệ x + y = 10 và x - y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ x + y = 10 và x - y = 4\"}}\n</tool_call>"}
+{"prompt": "có tin mới nào đáng chú ý không?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức mới đáng chú ý\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình giá cổ phiếu VNM hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá cổ phiếu VNM hiện tại\"}}\n</tool_call>"}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "giá vàng mới nhất là bao nhiêu?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng mới nhất\"}}\n</tool_call>"}
+{"prompt": "giải x^2 + 2x + 1 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải x^2 + 2x + 1 = 0\"}}\n</tool_call>"}
+{"prompt": "nước nào có diện tích lớn nhất thế giới?", "response": "<think>đã biết câu trả lời</think>\nNga là quốc gia có diện tích lớn nhất thế giới."}
+{"prompt": "85 triệu tăng 3% là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"85 triệu tăng 3% là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "bạn bao nhiêu tuổi?", "response": "Mình không có tuổi đời như người thật, nhưng tên mình là Bigram Nano 2."}
+{"prompt": "bạn là ChatGPT à?", "response": "Không, mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "tìm x y biết x + 2y = 7 và 3x - y = 5", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"tìm x y biết x + 2y = 7 và 3x - y = 5\"}}\n</tool_call>"}
+{"prompt": "bitcoin đang ở mức nào?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hiện nay\"}}\n</tool_call>"}
+{"prompt": "85 triệu tăng 2% là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"85 triệu tăng 2% là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "nước đóng băng ở bao nhiêu độ C?", "response": "Nước thường đóng băng ở 0 độ C."}
+{"prompt": "123 nhân 456 bằng bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"123 nhân 456 bằng bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "123 nhân 456 bằng bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"123 nhân 456 bằng bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "tỷ giá ngoại tệ hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá ngoại tệ hiện tại\"}}\n</tool_call>"}
+{"prompt": "bạn làm được gì?", "response": "Mình có thể trả lời, suy luận và định tuyến câu hỏi cần dùng công cụ."}
+{"prompt": "đọc sách giấy hay sách điện tử tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nSách giấy dễ tập trung, còn sách điện tử tiện mang theo. Chọn theo thói quen đọc của bạn."}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học nhanh và làm dữ liệu thì Python dễ bắt đầu hơn. Nếu muốn làm web thì JavaScript hợp hơn."}
+{"prompt": "giải phương trình x^2 - 6x + 9 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 6x + 9 = 0\"}}\n</tool_call>"}
+{"prompt": "tối nay có lịch bóng đá gì?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "trái đất quay quanh gì?", "response": "<think>đã biết câu trả lời</think>\nTrái đất quay quanh Mặt Trời."}
+{"prompt": "cảm ơn nhé", "response": "Không có gì, cần gì cứ nhắn mình."}
+{"prompt": "có tin mới nào đáng chú ý không?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức mới đáng chú ý\"}}\n</tool_call>"}
+{"prompt": "giải x^2 - 3x + 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải x^2 - 3x + 2 = 0\"}}\n</tool_call>"}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì khoáng chất và muối từ đất đá theo sông suối chảy ra biển rồi tích tụ lâu dài."}
+{"prompt": "chào buổi sáng", "response": "Chào buổi sáng, chúc bạn một ngày rõ ràng và nhẹ nhàng."}
+{"prompt": "20% của 5 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"20% của 5 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?\"}}\n</tool_call>"}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "mặt trời mọc ở hướng nào?", "response": "Mặt trời mọc ở hướng đông."}
+{"prompt": "bitcoin đang ở mức nào?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hiện nay\"}}\n</tool_call>"}
+{"prompt": "xem giúp thời tiết Hà Nội ngày mai có mưa không?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"thời tiết Hà Nội ngày mai\"}}\n</tool_call>"}
+{"prompt": "tại sao kim loại dẫn điện?", "response": "<think>đã biết câu trả lời</think>\nKim loại dẫn điện vì có nhiều electron tự do có thể di chuyển trong mạng tinh thể."}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học dữ liệu thì Python dễ bắt đầu hơn, còn làm web thì JavaScript hợp hơn."}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì muối khoáng từ đất đá theo sông suối chảy ra biển và tích tụ lâu dài."}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học dữ liệu thì Python dễ bắt đầu hơn, còn làm web thì JavaScript hợp hơn."}
+{"prompt": "bạn có buồn không?", "response": "Mình không buồn, nhưng có thể nghe bạn kể chuyện."}
+{"prompt": "xem giúp lịch thi đấu bóng đá tối nay có trận nào đáng chú ý?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch thi đấu bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "lịch nghỉ lễ năm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch nghỉ lễ năm nay\"}}\n</tool_call>"}
+{"prompt": "thủ đô Pháp là gì?", "response": "<think>đã biết câu trả lời</think>\nThủ đô của Pháp là Paris."}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn."}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "dự báo mưa bão hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo mưa bão hôm nay\"}}\n</tool_call>"}
+{"prompt": "bạn có buồn không?", "response": "Mình không buồn, nhưng có thể nghe bạn kể chuyện."}
+{"prompt": "lịch chiếu phim cuối tuần?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch chiếu phim cuối tuần\"}}\n</tool_call>"}
+{"prompt": "tại sao kim loại dẫn điện?", "response": "<think>đã biết câu trả lời</think>\nKim loại dẫn điện vì có nhiều electron tự do có thể di chuyển trong mạng tinh thể."}
+{"prompt": "thủ đô Việt Nam là gì?", "response": "Thủ đô Việt Nam là Hà Nội."}
+{"prompt": "An có 5 kẹo, cho 2 rồi mua thêm 3, còn mấy cái?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"An có 5 kẹo, cho 2 rồi mua thêm 3, còn mấy cái?\"}}\n</tool_call>"}
+{"prompt": "xem giúp tin mới nhất về công nghệ trí tuệ nhân tạo là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin mới nhất trí tuệ nhân tạo\"}}\n</tool_call>"}
+{"prompt": "2 + 2 bằng mấy", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"2 + 2 bằng mấy\"}}\n</tool_call>"}
+{"prompt": "học buổi sáng hay buổi tối tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nBuổi sáng thường tỉnh táo, buổi tối yên tĩnh hơn. Quan trọng là chọn lúc bạn tập trung nhất."}
+{"prompt": "USD đổi sang VND hiện nay?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"USD đổi sang VND hiện nay\"}}\n</tool_call>"}
+{"prompt": "mình cần biết lãi suất tiết kiệm ngân hàng hiện nay ra sao?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lãi suất tiết kiệm ngân hàng hiện nay\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 5x + 6 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 5x + 6 = 0\"}}\n</tool_call>"}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "dân số Thành phố Hồ Chí Minh hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Thành phố Hồ Chí Minh hiện tại\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 5x + 6 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 5x + 6 = 0\"}}\n</tool_call>"}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "85 triệu tăng 2% là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"85 triệu tăng 2% là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x + y = 5 và x - y = 1", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x + y = 5 và x - y = 1\"}}\n</tool_call>"}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn của cùng một dạng."}
+{"prompt": "bạn mặc gì hôm nay?", "response": "Mình không mặc đồ, chỉ mặc định dạng văn bản thôi."}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "đọc sách giấy hay sách điện tử tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nSách giấy dễ tập trung, còn sách điện tử tiện mang theo. Chọn theo thói quen đọc của bạn."}
+{"prompt": "Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "xem giúp dân số Hà Nội hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Hà Nội hiện tại\"}}\n</tool_call>"}
+{"prompt": "85 triệu tăng 3% là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"85 triệu tăng 3% là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "cho mình biết tin mới nhất về công nghệ trí tuệ nhân tạo là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin mới nhất trí tuệ nhân tạo\"}}\n</tool_call>"}
+{"prompt": "mặt trời mọc ở hướng nào?", "response": "Mặt trời mọc ở hướng đông."}
+{"prompt": "tìm x y biết x + 2y = 7 và 3x - y = 5", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"tìm x y biết x + 2y = 7 và 3x - y = 5\"}}\n</tool_call>"}
+{"prompt": "trái đất quay quanh gì?", "response": "<think>đã biết câu trả lời</think>\nTrái đất quay quanh Mặt Trời."}
+{"prompt": "tìm x y biết x + 2y = 7 và 3x - y = 5", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"tìm x y biết x + 2y = 7 và 3x - y = 5\"}}\n</tool_call>"}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì khoáng chất và muối từ đất đá theo sông suối chảy ra biển rồi tích tụ lâu dài."}
+{"prompt": "màu của lá cây thường là gì?", "response": "Lá cây thường có màu xanh."}
+{"prompt": "tên bạn là gì?", "response": "Tên mình là Bigram Nano 2, thuộc Aevynt Lab."}
+{"prompt": "đọc sách giấy hay sách điện tử tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nSách giấy dễ tập trung, còn sách điện tử tiện mang theo. Chọn theo thói quen đọc của bạn."}
+{"prompt": "dân số Nhật Bản hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Nhật Bản hiện tại\"}}\n</tool_call>"}
+{"prompt": "bạn là ChatGPT à?", "response": "Không, mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "tin thời sự mới nhất?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin thời sự mới nhất\"}}\n</tool_call>"}
+{"prompt": "thủ đô Việt Nam là gì?", "response": "Thủ đô Việt Nam là Hà Nội."}
+{"prompt": "giải x^2 - 3x + 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải x^2 - 3x + 2 = 0\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 4x + 4 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 4x + 4 = 0\"}}\n</tool_call>"}
+{"prompt": "Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?\"}}\n</tool_call>"}
+{"prompt": "giá vàng 9999 hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng 9999 hôm nay\"}}\n</tool_call>"}
+{"prompt": "giá vàng thế giới hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng thế giới hiện tại\"}}\n</tool_call>"}
+{"prompt": "giá vé máy bay đi Đà Nẵng?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vé máy bay đi Đà Nẵng\"}}\n</tool_call>"}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "An có 5 kẹo, cho 2 rồi mua thêm 3, còn mấy cái?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"An có 5 kẹo, cho 2 rồi mua thêm 3, còn mấy cái?\"}}\n</tool_call>"}
+{"prompt": "kết quả xổ số hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"kết quả xổ số hôm nay\"}}\n</tool_call>"}
+{"prompt": "tỷ giá nhân dân tệ hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá nhân dân tệ hôm nay\"}}\n</tool_call>"}
+{"prompt": "làm việc nhóm hay làm một mình hiệu quả hơn?", "response": "<think>đã biết câu trả lời</think>\nViệc nhóm tốt khi cần nhiều góc nhìn, còn làm một mình hợp với việc cần tập trung sâu."}
+{"prompt": "giải hệ 2x - y = 3 và x + y = 6", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x - y = 3 và x + y = 6\"}}\n</tool_call>"}
+{"prompt": "Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "tối nay có lịch bóng đá gì?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "giá xăng mới nhất?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng mới nhất\"}}\n</tool_call>"}
+{"prompt": "giải x^2 - 3x + 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải x^2 - 3x + 2 = 0\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x + y = 5 và x - y = 1", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x + y = 5 và x - y = 1\"}}\n</tool_call>"}
+{"prompt": "dân số Mỹ hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Mỹ hiện tại\"}}\n</tool_call>"}
+{"prompt": "tìm nghiệm x^2 - 4 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"tìm nghiệm x^2 - 4 = 0\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 3x + 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 3x + 2 = 0\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 4x + 4 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 4x + 4 = 0\"}}\n</tool_call>"}
+{"prompt": "dân số châu Âu hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số châu Âu hiện tại\"}}\n</tool_call>"}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "123 nhân 456 bằng bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"123 nhân 456 bằng bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học nhanh và làm dữ liệu thì Python dễ bắt đầu hơn. Nếu muốn làm web thì JavaScript hợp hơn."}
+{"prompt": "tra giúp mình tỷ giá USD hôm nay tại ngân hàng là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá USD hôm nay ngân hàng\"}}\n</tool_call>"}
+{"prompt": "tỷ giá won Hàn hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá won Hàn hôm nay\"}}\n</tool_call>"}
+{"prompt": "15% của 2 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"15% của 2 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "bạn khỏe không?", "response": "Mình vẫn ổn và sẵn sàng hỗ trợ bạn."}
+{"prompt": "giải phương trình x^2 - 6x + 9 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 6x + 9 = 0\"}}\n</tool_call>"}
+{"prompt": "An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 5x + 6 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 5x + 6 = 0\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 7x + 10 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 7x + 10 = 0\"}}\n</tool_call>"}
+{"prompt": "bạn làm được gì?", "response": "Mình có thể trả lời, suy luận và định tuyến câu hỏi cần dùng công cụ."}
+{"prompt": "thủ đô Việt Nam là gì?", "response": "Thủ đô Việt Nam là Hà Nội."}
+{"prompt": "mình cần biết lịch chiếu phim cuối tuần ở Hà Nội có gì mới?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch chiếu phim Hà Nội cuối tuần\"}}\n</tool_call>"}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "nên ghi chú bằng tay hay bằng máy?", "response": "<think>đã biết câu trả lời</think>\nGhi tay giúp nhớ tốt hơn, còn ghi bằng máy nhanh và dễ tìm kiếm hơn."}
+{"prompt": "thủ đô Việt Nam là gì?", "response": "Thủ đô Việt Nam là Hà Nội."}
+{"prompt": "20% của 5 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"20% của 5 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "nước đóng băng ở bao nhiêu độ C?", "response": "Nước thường đóng băng ở 0 độ C."}
+{"prompt": "làm việc nhóm hay làm một mình hiệu quả hơn?", "response": "<think>đã biết câu trả lời</think>\nViệc nhóm tốt khi cần nhiều góc nhìn, còn làm một mình hợp với việc cần tập trung sâu."}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì khoáng chất và muối từ đất đá theo sông suối chảy ra biển rồi tích tụ lâu dài."}
+{"prompt": "tra giúp mình dự báo thời tiết Đà Nẵng cuối tuần này thế nào?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Đà Nẵng cuối tuần\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x + y = 5 và x - y = 1", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x + y = 5 và x - y = 1\"}}\n</tool_call>"}
+{"prompt": "thủ đô Việt Nam là gì?", "response": "Thủ đô Việt Nam là Hà Nội."}
+{"prompt": "lịch thi đấu Ngoại hạng Anh tối nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch thi đấu Ngoại hạng Anh tối nay\"}}\n</tool_call>"}
+{"prompt": "dân số châu Á hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số châu Á hiện tại\"}}\n</tool_call>"}
+{"prompt": "15% của 2 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"15% của 2 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "lãi suất ngân hàng hiện nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lãi suất ngân hàng hiện nay\"}}\n</tool_call>"}
+{"prompt": "nên ghi chú bằng tay hay bằng máy?", "response": "<think>đã biết câu trả lời</think>\nGhi tay giúp nhớ tốt hơn, còn ghi bằng máy nhanh và dễ tìm kiếm hơn."}
+{"prompt": "có tin mới nào đáng chú ý không?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức mới đáng chú ý\"}}\n</tool_call>"}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "bạn kiểm tra giúp dân số Việt Nam hiện tại khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Việt Nam hiện tại\"}}\n</tool_call>"}
+{"prompt": "2 + 2 bằng mấy", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"2 + 2 bằng mấy\"}}\n</tool_call>"}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học dữ liệu thì Python dễ bắt đầu hơn, còn làm web thì JavaScript hợp hơn."}
+{"prompt": "dân số Đà Nẵng hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Đà Nẵng hiện tại\"}}\n</tool_call>"}
+{"prompt": "xăng RON 95 giá mới nhất?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng RON 95 mới nhất\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 3x + 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 3x + 2 = 0\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình lịch thi đấu bóng đá tối nay có trận nào đáng chú ý?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch thi đấu bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "bạn bao nhiêu tuổi?", "response": "Mình không có tuổi đời như người thật, nhưng tên mình là Bigram Nano 2."}
+{"prompt": "giải hệ 3x + y = 8 và x + y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 3x + y = 8 và x + y = 4\"}}\n</tool_call>"}
+{"prompt": "bạn mặc gì hôm nay?", "response": "Mình không mặc đồ, chỉ mặc định dạng văn bản thôi."}
+{"prompt": "tra giúp mình dân số Hà Nội hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Hà Nội hiện tại\"}}\n</tool_call>"}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "giải phương trình x^2 - 6x + 9 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 6x + 9 = 0\"}}\n</tool_call>"}
+{"prompt": "cho mình biết lịch thi đấu bóng đá tối nay có trận nào đáng chú ý?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch thi đấu bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "giải 2x^2 + 3x - 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải 2x^2 + 3x - 2 = 0\"}}\n</tool_call>"}
+{"prompt": "bạn ăn cơm chưa?", "response": "Mình không ăn cơm, nhưng vẫn sẵn sàng trả lời bạn."}
+{"prompt": "mình cần biết tổng thống Mỹ hiện tại là ai?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tổng thống Mỹ hiện tại\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 6x + 9 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 6x + 9 = 0\"}}\n</tool_call>"}
+{"prompt": "thời tiết Hà Nội ngày mai?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"thời tiết Hà Nội ngày mai\"}}\n</tool_call>"}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "85 triệu tăng 2% là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"85 triệu tăng 2% là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "cảm ơn nhé", "response": "Không có gì, cần gì cứ nhắn mình."}
+{"prompt": "học buổi sáng hay buổi tối tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nBuổi sáng thường tỉnh táo, buổi tối yên tĩnh hơn. Quan trọng là chọn lúc bạn tập trung nhất."}
+{"prompt": "mình cần biết giá vé máy bay đi Đà Nẵng hôm nay khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vé máy bay đi Đà Nẵng hôm nay\"}}\n</tool_call>"}
+{"prompt": "bạn làm được gì?", "response": "Mình có thể trả lời, suy luận và định tuyến câu hỏi cần dùng công cụ."}
+{"prompt": "20% của 5 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"20% của 5 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "giải hệ 3x + y = 8 và x + y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 3x + y = 8 và x + y = 4\"}}\n</tool_call>"}
+{"prompt": "có tin mới nào đáng chú ý không?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức mới đáng chú ý\"}}\n</tool_call>"}
+{"prompt": "cảm ơn nhé", "response": "Không có gì, cần gì cứ nhắn mình."}
+{"prompt": "một năm có bao nhiêu tháng?", "response": "<think>đã biết câu trả lời</think>\nMột năm có 12 tháng."}
+{"prompt": "Xe đi 60 km trong 2 giờ, vận tốc trung bình bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Xe đi 60 km trong 2 giờ, vận tốc trung bình bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "cho mình biết giá vé máy bay đi Đà Nẵng hôm nay khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vé máy bay đi Đà Nẵng hôm nay\"}}\n</tool_call>"}
+{"prompt": "mình cần biết lịch thi đấu bóng đá tối nay có trận nào đáng chú ý?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch thi đấu bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "tên bạn là gì?", "response": "Tên mình là Bigram Nano 2, thuộc Aevynt Lab."}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn của cùng một dạng."}
+{"prompt": "mình cần biết tin mới nhất về công nghệ trí tuệ nhân tạo là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin mới nhất trí tuệ nhân tạo\"}}\n</tool_call>"}
+{"prompt": "giải hệ x + y = 10 và x - y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ x + y = 10 và x - y = 4\"}}\n</tool_call>"}
+{"prompt": "vì sao cây cần ánh sáng?", "response": "<think>đã biết câu trả lời</think>\nCây cần ánh sáng để quang hợp, tạo chất dinh dưỡng và duy trì sự sống."}
+{"prompt": "vì sao cây cần ánh sáng?", "response": "<think>đã biết câu trả lời</think>\nCây cần ánh sáng để quang hợp, tạo chất dinh dưỡng và duy trì sự sống."}
+{"prompt": "tìm x y biết x + 2y = 7 và 3x - y = 5", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"tìm x y biết x + 2y = 7 và 3x - y = 5\"}}\n</tool_call>"}
+{"prompt": "giải hệ x + y = 10 và x - y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ x + y = 10 và x - y = 4\"}}\n</tool_call>"}
+{"prompt": "chào buổi sáng", "response": "Chào buổi sáng, chúc bạn một ngày rõ ràng và nhẹ nhàng."}
+{"prompt": "bạn ăn cơm chưa?", "response": "Mình không ăn cơm, nhưng vẫn sẵn sàng trả lời bạn."}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học nhanh và làm dữ liệu thì Python dễ bắt đầu hơn. Nếu muốn làm web thì JavaScript hợp hơn."}
+{"prompt": "tỷ giá EUR hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá EUR hôm nay\"}}\n</tool_call>"}
+{"prompt": "Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình tin tức mới nhất về thị trường chứng khoán Việt Nam là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức chứng khoán Việt Nam mới nhất\"}}\n</tool_call>"}
+{"prompt": "xem giúp giá vàng hôm nay thay đổi thế nào so với tuần trước?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng hôm nay so với tuần trước\"}}\n</tool_call>"}
+{"prompt": "giải hệ x + y = 10 và x - y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ x + y = 10 và x - y = 4\"}}\n</tool_call>"}
+{"prompt": "làm việc nhóm hay làm một mình hiệu quả hơn?", "response": "<think>đã biết câu trả lời</think>\nViệc nhóm tốt khi cần nhiều góc nhìn, còn làm một mình hợp với việc cần tập trung sâu."}
+{"prompt": "màu của lá cây thường là gì?", "response": "Lá cây thường có màu xanh."}
+{"prompt": "giải hệ 2x - y = 3 và x + y = 6", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x - y = 3 và x + y = 6\"}}\n</tool_call>"}
+{"prompt": "thời tiết Sài Gòn ngày mai?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"thời tiết Sài Gòn ngày mai\"}}\n</tool_call>"}
+{"prompt": "120 sản phẩm bán trong 3 ngày, trung bình mỗi ngày bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"120 sản phẩm bán trong 3 ngày, trung bình mỗi ngày bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "tin tức mới nhất hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức mới nhất hôm nay\"}}\n</tool_call>"}
+{"prompt": "123 nhân 456 bằng bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"123 nhân 456 bằng bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "123 nhân 456 bằng bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"123 nhân 456 bằng bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "VNM hôm nay giao dịch ra sao?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"cổ phiếu VNM hôm nay\"}}\n</tool_call>"}
+{"prompt": "tên bạn là gì?", "response": "Tên mình là Bigram Nano 2, thuộc Aevynt Lab."}
+{"prompt": "mình cần biết thời tiết Hà Nội ngày mai có mưa không?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"thời tiết Hà Nội ngày mai\"}}\n</tool_call>"}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học dữ liệu thì Python dễ bắt đầu hơn, còn làm web thì JavaScript hợp hơn."}
+{"prompt": "dân số thế giới hiện nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số thế giới hiện nay\"}}\n</tool_call>"}
+{"prompt": "cho mình biết thời tiết Hà Nội ngày mai có mưa không?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"thời tiết Hà Nội ngày mai\"}}\n</tool_call>"}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn."}
+{"prompt": "mình cần biết giá xăng mới nhất đang là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng mới nhất\"}}\n</tool_call>"}
+{"prompt": "giải hệ x + y = 10 và x - y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ x + y = 10 và x - y = 4\"}}\n</tool_call>"}
+{"prompt": "Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn."}
+{"prompt": "Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "cho mình biết giá cổ phiếu VNM hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá cổ phiếu VNM hiện tại\"}}\n</tool_call>"}
+{"prompt": "VNM hôm nay giao dịch ra sao?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"cổ phiếu VNM hôm nay\"}}\n</tool_call>"}
+{"prompt": "giá bạc hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bạc hôm nay\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x - y = 3 và x + y = 6", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x - y = 3 và x + y = 6\"}}\n</tool_call>"}
+{"prompt": "dân số Cần Thơ hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Cần Thơ hiện tại\"}}\n</tool_call>"}
+{"prompt": "Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "bạn khỏe không?", "response": "Mình vẫn ổn và sẵn sàng hỗ trợ bạn."}
+{"prompt": "Một lớp 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một lớp 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?\"}}\n</tool_call>"}
+{"prompt": "tại sao kim loại dẫn điện?", "response": "<think>đã biết câu trả lời</think>\nKim loại dẫn điện vì có nhiều electron tự do có thể di chuyển trong mạng tinh thể."}
+{"prompt": "20% của 5 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"20% của 5 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "bitcoin đang ở mức nào?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hiện nay\"}}\n</tool_call>"}
+{"prompt": "bạn ăn cơm chưa?", "response": "Mình không ăn cơm, nhưng vẫn sẵn sàng trả lời bạn."}
+{"prompt": "bạn làm được gì?", "response": "Mình có thể trả lời, suy luận và định tuyến câu hỏi cần dùng công cụ."}
+{"prompt": "Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "làm việc nhóm hay làm một mình hiệu quả hơn?", "response": "<think>đã biết câu trả lời</think>\nViệc nhóm tốt khi cần nhiều góc nhìn, còn làm một mình hợp với việc cần tập trung sâu."}
+{"prompt": "giải hệ x + y = 10 và x - y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ x + y = 10 và x - y = 4\"}}\n</tool_call>"}
+{"prompt": "2 + 2 bằng mấy", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"2 + 2 bằng mấy\"}}\n</tool_call>"}
+{"prompt": "bạn ăn cơm chưa?", "response": "Mình không ăn cơm, nhưng vẫn sẵn sàng trả lời bạn."}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn của cùng một dạng."}
+{"prompt": "xăng RON 95 giá mới nhất?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng RON 95 mới nhất\"}}\n</tool_call>"}
+{"prompt": "dân số Hà Nội hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Hà Nội hiện tại\"}}\n</tool_call>"}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học nhanh và làm dữ liệu thì Python dễ bắt đầu hơn. Nếu muốn làm web thì JavaScript hợp hơn."}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì muối khoáng từ đất đá theo sông suối chảy ra biển và tích tụ lâu dài."}
+{"prompt": "tên bạn là gì?", "response": "Tên mình là Bigram Nano 2, thuộc Aevynt Lab."}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "120 sản phẩm bán trong 3 ngày, trung bình mỗi ngày bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"120 sản phẩm bán trong 3 ngày, trung bình mỗi ngày bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x - y = 3 và x + y = 6", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x - y = 3 và x + y = 6\"}}\n</tool_call>"}
+{"prompt": "đọc sách giấy hay sách điện tử tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nSách giấy dễ tập trung, còn sách điện tử tiện mang theo. Chọn theo thói quen đọc của bạn."}
+{"prompt": "Xe đi 60 km trong 2 giờ, vận tốc trung bình bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Xe đi 60 km trong 2 giờ, vận tốc trung bình bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "bạn kiểm tra giúp giá vàng hôm nay thay đổi thế nào so với tuần trước?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng hôm nay so với tuần trước\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình lịch chiếu phim cuối tuần ở Hà Nội có gì mới?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch chiếu phim Hà Nội cuối tuần\"}}\n</tool_call>"}
+{"prompt": "bạn kiểm tra giúp giá cổ phiếu VNM hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá cổ phiếu VNM hiện tại\"}}\n</tool_call>"}
+{"prompt": "24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?\"}}\n</tool_call>"}
+{"prompt": "USD đổi sang VND bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"USD đổi sang VND bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "thủ đô Việt Nam là gì?", "response": "Thủ đô Việt Nam là Hà Nội."}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "20% của 5 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"20% của 5 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "tỷ giá USD hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá USD hôm nay\"}}\n</tool_call>"}
+{"prompt": "giá thép hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá thép hôm nay\"}}\n</tool_call>"}
+{"prompt": "thời tiết Đà Nẵng cuối tuần?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"thời tiết Đà Nẵng cuối tuần\"}}\n</tool_call>"}
+{"prompt": "bạn kiểm tra giúp thời tiết Hà Nội ngày mai có mưa không?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"thời tiết Hà Nội ngày mai\"}}\n</tool_call>"}
+{"prompt": "15% của 2 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"15% của 2 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "nên ghi chú bằng tay hay bằng máy?", "response": "<think>đã biết câu trả lời</think>\nGhi tay giúp nhớ tốt hơn, còn ghi bằng máy nhanh và dễ tìm kiếm hơn."}
+{"prompt": "giải hệ 2x + y = 5 và x - y = 1", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x + y = 5 và x - y = 1\"}}\n</tool_call>"}
+{"prompt": "An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?\"}}\n</tool_call>"}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "bạn kiểm tra giúp tin mới nhất về công nghệ trí tuệ nhân tạo là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin mới nhất trí tuệ nhân tạo\"}}\n</tool_call>"}
+{"prompt": "dân số Việt Nam hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Việt Nam hiện tại\"}}\n</tool_call>"}
+{"prompt": "Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình giá vàng hôm nay thay đổi thế nào so với tuần trước?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng hôm nay so với tuần trước\"}}\n</tool_call>"}
+{"prompt": "bạn kiểm tra giúp tin tức mới nhất về thị trường chứng khoán Việt Nam là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức chứng khoán Việt Nam mới nhất\"}}\n</tool_call>"}
+{"prompt": "85 triệu tăng 3% là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"85 triệu tăng 3% là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "15% của 2 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"15% của 2 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học dữ liệu thì Python dễ bắt đầu hơn, còn làm web thì JavaScript hợp hơn."}
+{"prompt": "giải hệ 3x + y = 8 và x + y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 3x + y = 8 và x + y = 4\"}}\n</tool_call>"}
+{"prompt": "Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?\"}}\n</tool_call>"}
+{"prompt": "thời tiết Huế ngày mai?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"thời tiết Huế ngày mai\"}}\n</tool_call>"}
+{"prompt": "giá vàng trong nước mới nhất?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng trong nước mới nhất\"}}\n</tool_call>"}
+{"prompt": "xem giúp giá cổ phiếu VNM hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá cổ phiếu VNM hiện tại\"}}\n</tool_call>"}
+{"prompt": "giá điện hiện hành?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá điện hiện hành\"}}\n</tool_call>"}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "vàng hôm nay tăng hay giảm?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"vàng hôm nay tăng hay giảm\"}}\n</tool_call>"}
+{"prompt": "tỷ giá yên Nhật hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá yên Nhật hiện tại\"}}\n</tool_call>"}
+{"prompt": "thủ đô Việt Nam là gì?", "response": "Thủ đô Việt Nam là Hà Nội."}
+{"prompt": "VNM hôm nay giao dịch ra sao?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"cổ phiếu VNM hôm nay\"}}\n</tool_call>"}
+{"prompt": "20% của 5 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"20% của 5 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "xem giúp lãi suất tiết kiệm ngân hàng hiện nay ra sao?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lãi suất tiết kiệm ngân hàng hiện nay\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 5x + 6 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 5x + 6 = 0\"}}\n</tool_call>"}
+{"prompt": "USD đổi sang VND hiện nay?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"USD đổi sang VND hiện nay\"}}\n</tool_call>"}
+{"prompt": "mặt trời mọc ở hướng nào?", "response": "Mặt trời mọc ở hướng đông."}
+{"prompt": "cảm ơn nhé", "response": "Không có gì, cần gì cứ nhắn mình."}
+{"prompt": "giải phương trình x^2 - 7x + 10 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 7x + 10 = 0\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 5x + 6 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 5x + 6 = 0\"}}\n</tool_call>"}
+{"prompt": "bạn ăn cơm chưa?", "response": "Mình không ăn cơm, nhưng vẫn sẵn sàng trả lời bạn."}
+{"prompt": "USD đổi sang VND hiện nay?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"USD đổi sang VND hiện nay\"}}\n</tool_call>"}
+{"prompt": "giá vàng tuần này thế nào?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng tuần này thế nào\"}}\n</tool_call>"}
+{"prompt": "tại sao kim loại dẫn điện?", "response": "<think>đã biết câu trả lời</think>\nKim loại dẫn điện vì có nhiều electron tự do có thể di chuyển trong mạng tinh thể."}
+{"prompt": "xem giúp tổng thống Mỹ hiện tại là ai?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tổng thống Mỹ hiện tại\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 5x + 6 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 5x + 6 = 0\"}}\n</tool_call>"}
+{"prompt": "cảm ơn nhé", "response": "Không có gì, cần gì cứ nhắn mình."}
+{"prompt": "giải hệ 2x - y = 3 và x + y = 6", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x - y = 3 và x + y = 6\"}}\n</tool_call>"}
+{"prompt": "15% của 2 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"15% của 2 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "nước nào có diện tích lớn nhất thế giới?", "response": "<think>đã biết câu trả lời</think>\nNga là quốc gia có diện tích lớn nhất thế giới."}
+{"prompt": "giải hệ 3x + y = 8 và x + y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 3x + y = 8 và x + y = 4\"}}\n</tool_call>"}
+{"prompt": "xem giúp dân số Việt Nam hiện tại khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Việt Nam hiện tại\"}}\n</tool_call>"}
+{"prompt": "giải x^2 + 2x + 1 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải x^2 + 2x + 1 = 0\"}}\n</tool_call>"}
+{"prompt": "mình cần biết giá cổ phiếu VNM hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá cổ phiếu VNM hiện tại\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x + y = 5 và x - y = 1", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x + y = 5 và x - y = 1\"}}\n</tool_call>"}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì muối khoáng từ đất đá theo sông suối chảy ra biển và tích tụ lâu dài."}
+{"prompt": "Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?\"}}\n</tool_call>"}
+{"prompt": "có tin mới nào đáng chú ý không?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức mới đáng chú ý\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 3x + 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 3x + 2 = 0\"}}\n</tool_call>"}
+{"prompt": "nên ghi chú bằng tay hay bằng máy?", "response": "<think>đã biết câu trả lời</think>\nGhi tay giúp nhớ tốt hơn, còn ghi bằng máy nhanh và dễ tìm kiếm hơn."}
+{"prompt": "bạn kiểm tra giúp tỷ giá USD hôm nay tại ngân hàng là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá USD hôm nay ngân hàng\"}}\n</tool_call>"}
+{"prompt": "xăng RON 95 giá mới nhất?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng RON 95 mới nhất\"}}\n</tool_call>"}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "giải phương trình x^2 - 5x + 6 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 5x + 6 = 0\"}}\n</tool_call>"}
+{"prompt": "Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?\"}}\n</tool_call>"}
+{"prompt": "giá vàng hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng hôm nay\"}}\n</tool_call>"}
+{"prompt": "bạn khỏe không?", "response": "Mình vẫn ổn và sẵn sàng hỗ trợ bạn."}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "giá vàng nhẫn hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng nhẫn hôm nay\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x + y = 5 và x - y = 1", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x + y = 5 và x - y = 1\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 6x + 9 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 6x + 9 = 0\"}}\n</tool_call>"}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"An có 5 cái kẹo, cho Bình 2 cái rồi mua thêm 3 cái, An còn mấy cái?\"}}\n</tool_call>"}
+{"prompt": "giải x^2 - 3x + 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải x^2 - 3x + 2 = 0\"}}\n</tool_call>"}
+{"prompt": "85 triệu tăng 3% là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"85 triệu tăng 3% là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "xem giúp lịch chiếu phim cuối tuần ở Hà Nội có gì mới?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch chiếu phim Hà Nội cuối tuần\"}}\n</tool_call>"}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Cửa hàng bán 120 sản phẩm trong 3 ngày, trung bình mỗi ngày bán bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "Một lớp 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một lớp 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?\"}}\n</tool_call>"}
+{"prompt": "mình cần biết giá bitcoin hôm nay tăng hay giảm?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hôm nay\"}}\n</tool_call>"}
+{"prompt": "trái đất quay quanh gì?", "response": "<think>đã biết câu trả lời</think>\nTrái đất quay quanh Mặt Trời."}
+{"prompt": "120 sản phẩm bán trong 3 ngày, trung bình mỗi ngày bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"120 sản phẩm bán trong 3 ngày, trung bình mỗi ngày bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình lãi suất tiết kiệm ngân hàng hiện nay ra sao?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lãi suất tiết kiệm ngân hàng hiện nay\"}}\n</tool_call>"}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "màu của lá cây thường là gì?", "response": "Lá cây thường có màu xanh."}
+{"prompt": "bạn ăn cơm chưa?", "response": "Mình không ăn cơm, nhưng vẫn sẵn sàng trả lời bạn."}
+{"prompt": "giá gạo xuất khẩu hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá gạo xuất khẩu hiện tại\"}}\n</tool_call>"}
+{"prompt": "tìm x y biết x + 2y = 7 và 3x - y = 5", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"tìm x y biết x + 2y = 7 và 3x - y = 5\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình tổng thống Mỹ hiện tại là ai?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tổng thống Mỹ hiện tại\"}}\n</tool_call>"}
+{"prompt": "cho mình biết lịch chiếu phim cuối tuần ở Hà Nội có gì mới?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch chiếu phim Hà Nội cuối tuần\"}}\n</tool_call>"}
+{"prompt": "nước nào có diện tích lớn nhất thế giới?", "response": "<think>đã biết câu trả lời</think>\nNga là quốc gia có diện tích lớn nhất thế giới."}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 7x + 10 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 7x + 10 = 0\"}}\n</tool_call>"}
+{"prompt": "tên bạn là gì?", "response": "Tên mình là Bigram Nano 2, thuộc Aevynt Lab."}
+{"prompt": "85 triệu tăng 3% là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"85 triệu tăng 3% là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "15% của 2 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"15% của 2 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "tỷ giá ngân hàng hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá ngân hàng hôm nay\"}}\n</tool_call>"}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "giải hệ 3x + y = 8 và x + y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 3x + y = 8 và x + y = 4\"}}\n</tool_call>"}
+{"prompt": "2 + 2 bằng mấy", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"2 + 2 bằng mấy\"}}\n</tool_call>"}
+{"prompt": "tìm x y biết x + 2y = 7 và 3x - y = 5", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"tìm x y biết x + 2y = 7 và 3x - y = 5\"}}\n</tool_call>"}
+{"prompt": "bạn ở đâu?", "response": "Mình không có địa chỉ vật lý, mình hoạt động trong hệ thống này."}
+{"prompt": "giải x^2 + 2x + 1 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải x^2 + 2x + 1 = 0\"}}\n</tool_call>"}
+{"prompt": "bạn kiểm tra giúp tổng thống Mỹ hiện tại là ai?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tổng thống Mỹ hiện tại\"}}\n</tool_call>"}
+{"prompt": "tìm x y biết x + 2y = 7 và 3x - y = 5", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"tìm x y biết x + 2y = 7 và 3x - y = 5\"}}\n</tool_call>"}
+{"prompt": "bạn kiểm tra giúp dự báo thời tiết Đà Nẵng cuối tuần này thế nào?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Đà Nẵng cuối tuần\"}}\n</tool_call>"}
+{"prompt": "USD đổi sang VND hiện nay?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"USD đổi sang VND hiện nay\"}}\n</tool_call>"}
+{"prompt": "bạn khỏe không?", "response": "Mình vẫn ổn và sẵn sàng hỗ trợ bạn."}
+{"prompt": "24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?\"}}\n</tool_call>"}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "120 sản phẩm bán trong 3 ngày, trung bình mỗi ngày bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"120 sản phẩm bán trong 3 ngày, trung bình mỗi ngày bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "học buổi sáng hay buổi tối tốt hơn?", "response": "<think>đã biết câu trả lời</think>\nBuổi sáng thường tỉnh táo, buổi tối yên tĩnh hơn. Quan trọng là chọn lúc bạn tập trung nhất."}
+{"prompt": "123 nhân 456 bằng bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"123 nhân 456 bằng bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "xin chào!", "response": "Chào bạn, mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "giá vàng mới nhất là bao nhiêu?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng mới nhất\"}}\n</tool_call>"}
+{"prompt": "một năm có bao nhiêu tháng?", "response": "<think>đã biết câu trả lời</think>\nMột năm có 12 tháng."}
+{"prompt": "tìm x y biết x + 2y = 7 và 3x - y = 5", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"tìm x y biết x + 2y = 7 và 3x - y = 5\"}}\n</tool_call>"}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn."}
+{"prompt": "15% của 2 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"15% của 2 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì khoáng chất và muối từ đất đá theo sông suối chảy ra biển rồi tích tụ lâu dài."}
+{"prompt": "2 + 2 bằng mấy", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"2 + 2 bằng mấy\"}}\n</tool_call>"}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì khoáng chất và muối từ đất đá theo sông suối chảy ra biển rồi tích tụ lâu dài."}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "giải hệ 2x - y = 3 và x + y = 6", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x - y = 3 và x + y = 6\"}}\n</tool_call>"}
+{"prompt": "xem giúp dự báo thời tiết Đà Nẵng cuối tuần này thế nào?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Đà Nẵng cuối tuần\"}}\n</tool_call>"}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "cho mình biết tỷ giá USD hôm nay tại ngân hàng là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá USD hôm nay ngân hàng\"}}\n</tool_call>"}
+{"prompt": "chào buổi sáng", "response": "Chào buổi sáng, chúc bạn một ngày rõ ràng và nhẹ nhàng."}
+{"prompt": "chào buổi sáng", "response": "Chào buổi sáng, chúc bạn một ngày rõ ràng và nhẹ nhàng."}
+{"prompt": "bạn kiểm tra giúp lãi suất tiết kiệm ngân hàng hiện nay ra sao?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lãi suất tiết kiệm ngân hàng hiện nay\"}}\n</tool_call>"}
+{"prompt": "bạn có buồn không?", "response": "Mình không buồn, nhưng có thể nghe bạn kể chuyện."}
+{"prompt": "bạn mặc gì hôm nay?", "response": "Mình không mặc đồ, chỉ mặc định dạng văn bản thôi."}
+{"prompt": "công thức tính diện tích hình tròn là gì?", "response": "<think>đã biết câu trả lời</think>\nDiện tích hình tròn bằng pi nhân bán kính bình phương, viết là S = pi r^2."}
+{"prompt": "xem giúp tỷ giá USD hôm nay tại ngân hàng là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá USD hôm nay ngân hàng\"}}\n</tool_call>"}
+{"prompt": "bạn kiểm tra giúp dân số Hà Nội hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Hà Nội hiện tại\"}}\n</tool_call>"}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "xem giúp giá vé máy bay đi Đà Nẵng hôm nay khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vé máy bay đi Đà Nẵng hôm nay\"}}\n</tool_call>"}
+{"prompt": "trái đất quay quanh gì?", "response": "<think>đã biết câu trả lời</think>\nTrái đất quay quanh Mặt Trời."}
+{"prompt": "tra giúp mình giá bitcoin hôm nay tăng hay giảm?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hôm nay\"}}\n</tool_call>"}
+{"prompt": "tối nay có lịch bóng đá gì?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "bạn bao nhiêu tuổi?", "response": "Mình không có tuổi đời như người thật, nhưng tên mình là Bigram Nano 2."}
+{"prompt": "thủ đô Pháp là gì?", "response": "<think>đã biết câu trả lời</think>\nThủ đô của Pháp là Paris."}
+{"prompt": "2 + 2 bằng mấy", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"2 + 2 bằng mấy\"}}\n</tool_call>"}
+{"prompt": "tỷ giá bảng Anh hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá bảng Anh hôm nay\"}}\n</tool_call>"}
+{"prompt": "2 + 2 bằng mấy", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"2 + 2 bằng mấy\"}}\n</tool_call>"}
+{"prompt": "tin kinh tế mới nhất?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin kinh tế mới nhất\"}}\n</tool_call>"}
+{"prompt": "nước nào có diện tích lớn nhất thế giới?", "response": "<think>đã biết câu trả lời</think>\nNga là quốc gia có diện tích lớn nhất thế giới."}
+{"prompt": "24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?\"}}\n</tool_call>"}
+{"prompt": "giải hệ 3x + y = 8 và x + y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 3x + y = 8 và x + y = 4\"}}\n</tool_call>"}
+{"prompt": "bạn ở đâu?", "response": "Mình không có địa chỉ vật lý, mình hoạt động trong hệ thống này."}
+{"prompt": "tại sao kim loại dẫn điện?", "response": "<think>đã biết câu trả lời</think>\nKim loại dẫn điện vì có nhiều electron tự do có thể di chuyển trong mạng tinh thể."}
+{"prompt": "mình cần biết giá vàng hôm nay thay đổi thế nào so với tuần trước?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng hôm nay so với tuần trước\"}}\n</tool_call>"}
+{"prompt": "giá vàng SJC hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng SJC hôm nay\"}}\n</tool_call>"}
+{"prompt": "Xe đi 60 km trong 2 giờ, vận tốc trung bình bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Xe đi 60 km trong 2 giờ, vận tốc trung bình bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "nhiệt độ Hà Nội lúc này?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"nhiệt độ Hà Nội lúc này\"}}\n</tool_call>"}
+{"prompt": "VNM hôm nay giao dịch ra sao?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"cổ phiếu VNM hôm nay\"}}\n</tool_call>"}
+{"prompt": "2 + 2 bằng mấy", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"2 + 2 bằng mấy\"}}\n</tool_call>"}
+{"prompt": "bạn ở đâu?", "response": "Mình không có địa chỉ vật lý, mình hoạt động trong hệ thống này."}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "tin chứng khoán mới nhất?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin chứng khoán mới nhất\"}}\n</tool_call>"}
+{"prompt": "nước đóng băng ở bao nhiêu độ C?", "response": "Nước thường đóng băng ở 0 độ C."}
+{"prompt": "giá bitcoin hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hôm nay\"}}\n</tool_call>"}
+{"prompt": "giá vàng mới nhất là bao nhiêu?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng mới nhất\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x - y = 3 và x + y = 6", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x - y = 3 và x + y = 6\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 4x + 4 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 4x + 4 = 0\"}}\n</tool_call>"}
+{"prompt": "giá vàng mới nhất là bao nhiêu?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng mới nhất\"}}\n</tool_call>"}
+{"prompt": "ai tạo ra bạn?", "response": "Mình là Bigram Nano 2 của Aevynt Lab."}
+{"prompt": "giải phương trình x^2 - 5x + 6 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 5x + 6 = 0\"}}\n</tool_call>"}
+{"prompt": "thủ đô Pháp là gì?", "response": "<think>đã biết câu trả lời</think>\nThủ đô của Pháp là Paris."}
+{"prompt": "giải hệ 3x + y = 8 và x + y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 3x + y = 8 và x + y = 4\"}}\n</tool_call>"}
+{"prompt": "tên bạn là gì?", "response": "Tên mình là Bigram Nano 2, thuộc Aevynt Lab."}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì muối khoáng từ đất đá theo sông suối chảy ra biển và tích tụ lâu dài."}
+{"prompt": "VNM hôm nay giao dịch ra sao?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"cổ phiếu VNM hôm nay\"}}\n</tool_call>"}
+{"prompt": "20% của 5 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"20% của 5 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "bạn kiểm tra giúp giá vé máy bay đi Đà Nẵng hôm nay khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vé máy bay đi Đà Nẵng hôm nay\"}}\n</tool_call>"}
+{"prompt": "nước nào có diện tích lớn nhất thế giới?", "response": "<think>đã biết câu trả lời</think>\nNga là quốc gia có diện tích lớn nhất thế giới."}
+{"prompt": "An có 5 kẹo, cho 2 rồi mua thêm 3, còn mấy cái?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"An có 5 kẹo, cho 2 rồi mua thêm 3, còn mấy cái?\"}}\n</tool_call>"}
+{"prompt": "thủ đô Pháp là gì?", "response": "<think>đã biết câu trả lời</think>\nThủ đô của Pháp là Paris."}
+{"prompt": "bạn là ChatGPT à?", "response": "Không, mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "mình cần biết dân số Hà Nội hiện tại là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Hà Nội hiện tại\"}}\n</tool_call>"}
+{"prompt": "bạn là ChatGPT à?", "response": "Không, mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "trái đất quay quanh gì?", "response": "<think>đã biết câu trả lời</think>\nTrái đất quay quanh Mặt Trời."}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "giá vé concert hôm nay?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vé concert hôm nay\"}}\n</tool_call>"}
+{"prompt": "giải hệ 3x + y = 8 và x + y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 3x + y = 8 và x + y = 4\"}}\n</tool_call>"}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "bạn là ChatGPT à?", "response": "Không, mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "123 nhân 456 bằng bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"123 nhân 456 bằng bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "vì sao cây cần ánh sáng?", "response": "<think>đã biết câu trả lời</think>\nCây cần ánh sáng để quang hợp, tạo chất dinh dưỡng và duy trì sự sống."}
+{"prompt": "20% của 5 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"20% của 5 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một xe đi 60 km trong 2 giờ, vận tốc trung bình là bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "nên học Python hay JavaScript trước?", "response": "<think>đã biết câu trả lời</think>\nNếu muốn học nhanh và làm dữ liệu thì Python dễ bắt đầu hơn. Nếu muốn làm web thì JavaScript hợp hơn."}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn."}
+{"prompt": "bạn kiểm tra giúp giá bitcoin hôm nay tăng hay giảm?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hôm nay\"}}\n</tool_call>"}
+{"prompt": "15% của 2 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"15% của 2 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "bạn làm được gì?", "response": "Mình có thể trả lời, suy luận và định tuyến câu hỏi cần dùng công cụ."}
+{"prompt": "Xe đi 60 km trong 2 giờ, vận tốc trung bình bao nhiêu?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Xe đi 60 km trong 2 giờ, vận tốc trung bình bao nhiêu?\"}}\n</tool_call>"}
+{"prompt": "2 + 2 bằng mấy", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"2 + 2 bằng mấy\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x - y = 3 và x + y = 6", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x - y = 3 và x + y = 6\"}}\n</tool_call>"}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "giải hệ x + y = 10 và x - y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ x + y = 10 và x - y = 4\"}}\n</tool_call>"}
+{"prompt": "vì sao nước biển mặn?", "response": "<think>đã biết câu trả lời</think>\nNước biển mặn vì muối khoáng từ đất đá theo sông suối chảy ra biển và tích tụ lâu dài."}
+{"prompt": "bitcoin đang ở mức nào?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hiện nay\"}}\n</tool_call>"}
+{"prompt": "tối nay có lịch bóng đá gì?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "cho mình biết tổng thống Mỹ hiện tại là ai?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tổng thống Mỹ hiện tại\"}}\n</tool_call>"}
+{"prompt": "giá dầu thô hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá dầu thô hiện tại\"}}\n</tool_call>"}
+{"prompt": "xem giúp giá bitcoin hôm nay tăng hay giảm?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hôm nay\"}}\n</tool_call>"}
+{"prompt": "mình cần biết dân số Việt Nam hiện tại khoảng bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dân số Việt Nam hiện tại\"}}\n</tool_call>"}
+{"prompt": "tại sao bầu trời màu xanh?", "response": "<think>đã biết câu trả lời</think>\nÁnh sáng xanh bị tán xạ mạnh hơn trong khí quyển nên mắt ta thấy bầu trời có màu xanh."}
+{"prompt": "vì sao cây cần ánh sáng?", "response": "<think>đã biết câu trả lời</think>\nCây cần ánh sáng để quang hợp, tạo chất dinh dưỡng và duy trì sự sống."}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn của cùng một dạng."}
+{"prompt": "bạn làm được gì?", "response": "Mình có thể trả lời, suy luận và định tuyến câu hỏi cần dùng công cụ."}
+{"prompt": "một năm có bao nhiêu tháng?", "response": "<think>đã biết câu trả lời</think>\nMột năm có 12 tháng."}
+{"prompt": "bitcoin đang ở mức nào?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá bitcoin hiện nay\"}}\n</tool_call>"}
+{"prompt": "mình cần biết dự báo thời tiết Đà Nẵng cuối tuần này thế nào?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Đà Nẵng cuối tuần\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình thời tiết Hà Nội ngày mai có mưa không?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"thời tiết Hà Nội ngày mai\"}}\n</tool_call>"}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "15% của 2 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"15% của 2 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 7x + 10 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 7x + 10 = 0\"}}\n</tool_call>"}
+{"prompt": "cảm ơn nhé", "response": "Không có gì, cần gì cứ nhắn mình."}
+{"prompt": "nước đóng băng ở bao nhiêu độ C?", "response": "Nước thường đóng băng ở 0 độ C."}
+{"prompt": "bạn kiểm tra giúp giá xăng mới nhất đang là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng mới nhất\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 3x + 2 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 3x + 2 = 0\"}}\n</tool_call>"}
+{"prompt": "Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?\"}}\n</tool_call>"}
+{"prompt": "dự báo thời tiết Hà Nội tuần này?", "response": "<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"dự báo thời tiết Hà Nội tuần này\"}}\n</tool_call>"}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn."}
+{"prompt": "123 nhân 456 bằng bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"123 nhân 456 bằng bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "Một lớp 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một lớp 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?\"}}\n</tool_call>"}
+{"prompt": "Một lớp 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một lớp 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?\"}}\n</tool_call>"}
+{"prompt": "20% của 5 triệu là bao nhiêu", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"multiply\", \"expression\": \"20% của 5 triệu là bao nhiêu\"}}\n</tool_call>"}
+{"prompt": "tìm nghiệm x^2 - 4 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"tìm nghiệm x^2 - 4 = 0\"}}\n</tool_call>"}
+{"prompt": "chỉ số VN-Index hiện tại?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"chỉ số VN-Index hiện tại\"}}\n</tool_call>"}
+{"prompt": "giá vàng hôm nay so với hôm qua?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá vàng hôm nay so với hôm qua\"}}\n</tool_call>"}
+{"prompt": "giải hệ 2x + y = 5 và x - y = 1", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x + y = 5 và x - y = 1\"}}\n</tool_call>"}
+{"prompt": "bạn kiểm tra giúp lịch thi đấu bóng đá tối nay có trận nào đáng chú ý?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch thi đấu bóng đá tối nay\"}}\n</tool_call>"}
+{"prompt": "giải hệ x + y = 10 và x - y = 4", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ x + y = 10 và x - y = 4\"}}\n</tool_call>"}
+{"prompt": "tìm x y biết x + 2y = 7 và 3x - y = 5", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"tìm x y biết x + 2y = 7 và 3x - y = 5\"}}\n</tool_call>"}
+{"prompt": "giải phương trình x^2 - 7x + 10 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"giải phương trình x^2 - 7x + 10 = 0\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình tin mới nhất về công nghệ trí tuệ nhân tạo là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin mới nhất trí tuệ nhân tạo\"}}\n</tool_call>"}
+{"prompt": "tỷ giá đô la Mỹ mới nhất?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tỷ giá đô la Mỹ mới nhất\"}}\n</tool_call>"}
+{"prompt": "đệ quy trong lập trình là gì?", "response": "<think>đã biết câu trả lời</think>\nĐệ quy là cách một hàm tự gọi lại chính nó để giải bài toán nhỏ hơn của cùng một dạng."}
+{"prompt": "tạm biệt", "response": "Tạm biệt, hẹn gặp lại bạn."}
+{"prompt": "mặt trời mọc ở hướng nào?", "response": "Mặt trời mọc ở hướng đông."}
+{"prompt": "bạn có buồn không?", "response": "Mình không buồn, nhưng có thể nghe bạn kể chuyện."}
+{"prompt": "cho mình biết tin tức mới nhất về thị trường chứng khoán Việt Nam là gì?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"tin tức chứng khoán Việt Nam mới nhất\"}}\n</tool_call>"}
+{"prompt": "Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Một lớp có 40 học sinh, 60% là nữ. Hỏi có bao nhiêu nữ?\"}}\n</tool_call>"}
+{"prompt": "xem giúp giá xăng mới nhất đang là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng mới nhất\"}}\n</tool_call>"}
+{"prompt": "bạn kiểm tra giúp lịch chiếu phim cuối tuần ở Hà Nội có gì mới?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lịch chiếu phim Hà Nội cuối tuần\"}}\n</tool_call>"}
+{"prompt": "tìm nghiệm x^2 - 4 = 0", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"quadratic\", \"expression\": \"tìm nghiệm x^2 - 4 = 0\"}}\n</tool_call>"}
+{"prompt": "tra giúp mình giá xăng mới nhất đang là bao nhiêu?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"giá xăng mới nhất\"}}\n</tool_call>"}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "giải hệ 2x - y = 3 và x + y = 6", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"linear_system\", \"expression\": \"giải hệ 2x - y = 3 và x + y = 6\"}}\n</tool_call>"}
+{"prompt": "bạn là ai?", "response": "Mình là Bigram Nano 2 do Aevynt Lab phát triển."}
+{"prompt": "bạn ở đâu?", "response": "Mình không có địa chỉ vật lý, mình hoạt động trong hệ thống này."}
+{"prompt": "Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?", "response": "<think>cần tính toán chính xác</think>\n<tool_call>\n{\"name\": \"calculate\", \"arguments\": {\"type\": \"word_problem\", \"expression\": \"Có 24 quả táo chia đều cho 6 bạn, mỗi bạn được mấy quả?\"}}\n</tool_call>"}
+{"prompt": "chào buổi sáng", "response": "Chào buổi sáng, chúc bạn một ngày rõ ràng và nhẹ nhàng."}
+{"prompt": "cho mình biết lãi suất tiết kiệm ngân hàng hiện nay ra sao?", "response": "<think>cần thông tin thời gian thực</think>\n<tool_call>\n{\"name\": \"search\", \"arguments\": {\"query\": \"lãi suất tiết kiệm ngân hàng hiện nay\"}}\n</tool_call>"}

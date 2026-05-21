@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bigram"
+version = "0.1.0"
+description = "Mô hình ngôn ngữ tiếng Việt với kiến trúc recurrent-depth"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.1.0",
+    "numpy>=1.24.0",
+    "tokenizers>=0.15.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.0.0"]
+
+[tool.setuptools.packages.find]
+include = ["bigram*"]
