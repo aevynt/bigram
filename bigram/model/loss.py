@@ -65,6 +65,9 @@ def compute_total_loss(outputs: dict,
                        abstention_targets: torch.Tensor = None,
                        abstention_mask: torch.Tensor = None,
                        tone_targets: torch.Tensor = None,
+                       tool_router_targets: torch.Tensor = None,
+                       tool_name_targets: torch.Tensor = None,
+                       verifier_targets: torch.Tensor = None,
                        ignore_index: int = -100) -> dict:
     """
     Gộp tất cả thành phần loss lại.
@@ -104,10 +107,50 @@ def compute_total_loss(outputs: dict,
             outputs["tone_logits"], tone_targets, ignore_index
         )
 
-    # 5) Tổng có trọng số.
+    # 5) Tool loss — router toàn chuỗi, tool name chỉ tại vị trí tool_call.
+    tool = torch.tensor(0.0, device=lm.device)
+    router_loss = torch.tensor(0.0, device=lm.device)
+    name_loss = torch.tensor(0.0, device=lm.device)
+    if tool_router_targets is not None and "tool_router_logits" in outputs:
+        b, s, c = outputs["tool_router_logits"].shape
+        router_loss = F.cross_entropy(
+            outputs["tool_router_logits"].reshape(b * s, c),
+            tool_router_targets.reshape(b * s),
+            ignore_index=ignore_index,
+        )
+        tool = router_loss
+    if tool_name_targets is not None and "tool_name_logits" in outputs:
+        name_targets = tool_name_targets.clone()
+        if tool_router_targets is not None:
+            name_targets = name_targets.masked_fill(
+                tool_router_targets != 1, ignore_index)
+        b, s, n = outputs["tool_name_logits"].shape
+        valid = name_targets != ignore_index
+        if valid.any():
+            name_loss = F.cross_entropy(
+                outputs["tool_name_logits"].reshape(b * s, n),
+                name_targets.reshape(b * s),
+                ignore_index=ignore_index,
+            )
+            tool = tool + name_loss
+
+    # 6) Verifier loss — nhị phân claim/source supported score.
+    verifier = torch.tensor(0.0, device=lm.device)
+    if verifier_targets is not None and "verifier_logits" in outputs:
+        v_targets = verifier_targets.float()
+        valid = verifier_targets != ignore_index
+        if valid.any():
+            raw = F.binary_cross_entropy_with_logits(
+                outputs["verifier_logits"], v_targets, reduction="none"
+            )
+            verifier = raw.masked_select(valid).mean()
+
+    # 7) Tổng có trọng số.
     total = (lm
              + config.abstention_loss_coef * abst
              + config.tone_loss_coef * tone
+             + config.tool_loss_coef * tool
+             + config.verifier_loss_coef * verifier
              + aux)
 
     return {
@@ -115,5 +158,9 @@ def compute_total_loss(outputs: dict,
         "lm": lm.detach(),
         "abstention": abst.detach() if torch.is_tensor(abst) else abst,
         "tone": tone.detach() if torch.is_tensor(tone) else tone,
+        "tool": tool.detach() if torch.is_tensor(tool) else tool,
+        "tool_router": router_loss.detach() if torch.is_tensor(router_loss) else router_loss,
+        "tool_name": name_loss.detach() if torch.is_tensor(name_loss) else name_loss,
+        "verifier": verifier.detach() if torch.is_tensor(verifier) else verifier,
         "aux": aux.detach() if torch.is_tensor(aux) else aux,
     }

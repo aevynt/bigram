@@ -36,9 +36,11 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.utils.checkpoint import checkpoint
 
 from .block import TransformerBlock
 from .layers import RMSNorm
+from .tooling import ToolHead
 
 
 def sample_recurrence(mean_r: float, sigma: float,
@@ -65,6 +67,7 @@ class BigramModel(nn.Module):
     def __init__(self, config):
         super().__init__()
         self.config = config
+        self.gradient_checkpointing = False
         h = config.hidden_size
 
         # --- Embedding ---
@@ -77,16 +80,22 @@ class BigramModel(nn.Module):
         self.embed_scale = math.sqrt(h) if config.embedding_scale else 1.0
 
         # --- PRELUDE: lP layer đưa input vào latent space ---
+        prelude_use_moe = config.use_moe and config.moe_scope == "all"
         self.prelude = nn.ModuleList([
-            TransformerBlock(config) for _ in range(config.n_prelude_layers)
+            TransformerBlock(config, use_moe=prelude_use_moe)
+            for _ in range(config.n_prelude_layers)
         ])
 
         # --- RECURRENT CORE: lR layer, được lặp lại nhiều vòng ---
         # Adapter: nhận [latent_state ; embedding] (ghép -> 2h) và chiếu về h.
         # Việc ghép (concat) thay vì cộng giúp ổn định hơn ở quy mô lớn (Huginn).
+        recurrent_use_moe = (
+            config.use_moe and config.moe_scope in {"all", "recurrent_only"}
+        )
         self.recurrent_adapter = nn.Linear(2 * h, h, bias=False)
         self.recurrent = nn.ModuleList([
-            TransformerBlock(config) for _ in range(config.n_recurrent_layers)
+            TransformerBlock(config, use_moe=recurrent_use_moe)
+            for _ in range(config.n_recurrent_layers)
         ])
         # RMSNorm ở cuối khối recurrent.
         self.recurrent_norm = RMSNorm(h, config.norm_eps)
@@ -117,6 +126,10 @@ class BigramModel(nn.Module):
         # sinh ra giữ được dấu thanh tiếng Việt thay vì mất dấu.
         if config.use_tone_head:
             self.tone_head = nn.Linear(h, config.tone_vocab_size, bias=False)
+        if config.use_tool_head:
+            self.tool_head = ToolHead(config)
+        if config.use_verifier_head:
+            self.verifier_head = nn.Linear(h, 1, bias=True)
 
         # Khởi tạo trọng số.
         self.apply(self._init_weights)
@@ -165,7 +178,10 @@ class BigramModel(nn.Module):
         """Chạy các layer prelude. Trả về (embedding latent e, aux_loss tổng)."""
         aux = 0.0
         for layer in self.prelude:
-            x, a = layer(x)
+            if self.training and self.gradient_checkpointing:
+                x, a = checkpoint(layer, x, use_reentrant=False)
+            else:
+                x, a = layer(x)
             aux = aux + a
         return x, aux
 
@@ -182,7 +198,10 @@ class BigramModel(nn.Module):
         # Cho qua lR layer transformer.
         aux = 0.0
         for layer in self.recurrent:
-            x, a = layer(x)
+            if self.training and self.gradient_checkpointing:
+                x, a = checkpoint(layer, x, use_reentrant=False)
+            else:
+                x, a = layer(x)
             aux = aux + a
         return self.recurrent_norm(x), aux
 
@@ -191,7 +210,10 @@ class BigramModel(nn.Module):
         x = state
         aux = 0.0
         for layer in self.coda:
-            x, a = layer(x)
+            if self.training and self.gradient_checkpointing:
+                x, a = checkpoint(layer, x, use_reentrant=False)
+            else:
+                x, a = layer(x)
             aux = aux + a
         return self.final_norm(x), aux
 
@@ -310,6 +332,10 @@ class BigramModel(nn.Module):
         if cfg.use_tone_head:
             # (b, s, tone_vocab_size) — dự đoán thanh điệu token tiếp theo.
             out["tone_logits"] = self.tone_head(decoded)
+        if cfg.use_tool_head:
+            out.update(self.tool_head(decoded))
+        if cfg.use_verifier_head:
+            out["verifier_logits"] = self.verifier_head(decoded).squeeze(-1)
 
         return out
 

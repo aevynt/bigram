@@ -16,7 +16,7 @@ Cấu trúc package:
 
 from .config import (
     BigramConfig, ModelConfig, TrainConfig, DataConfig,
-    tiny_config, small_config,
+    tiny_config, small_config, tensor1_config,
 )
 from .model import BigramModel, compute_total_loss, sample_recurrence
 from .tokenizer import BigramTokenizer
@@ -27,7 +27,7 @@ __version__ = "0.1.0"
 
 __all__ = [
     "BigramConfig", "ModelConfig", "TrainConfig", "DataConfig",
-    "tiny_config", "small_config",
+    "tiny_config", "small_config", "tensor1_config",
     "BigramModel", "compute_total_loss", "sample_recurrence",
     "BigramTokenizer",
     "prepare_corpus", "PackedDataset", "JsonlSFTDataset",

@@ -1,0 +1,46 @@
+{
+  "model": {
+    "vocab_size": 64000,
+    "tone_vocab_size": 8,
+    "hidden_size": 2048,
+    "intermediate_size": 5504,
+    "max_seq_len": 4096,
+    "n_prelude_layers": 2,
+    "n_recurrent_layers": 4,
+    "n_coda_layers": 2,
+    "n_heads": 32,
+    "n_kv_heads": 8,
+    "head_dim": 64,
+    "rope_theta": 1000000.0,
+    "mean_recurrence": 32.0,
+    "recurrence_sigma": 0.7,
+    "backprop_depth": 4,
+    "state_init_mode": "zeros",
+    "use_moe": true,
+    "moe_scope": "recurrent_only",
+    "n_experts": 4,
+    "n_experts_active": 2,
+    "use_vietnamese_expert": true,
+    "use_abstention_head": true,
+    "use_tone_head": true,
+    "use_tool_head": true,
+    "use_verifier_head": true,
+    "tie_embeddings": true
+  },
+  "train": {
+    "use_amp": true,
+    "compile_model": false
+  },
+  "data": {
+    "stage": "inference"
+  },
+  "inference": {
+    "recurrence_presets": {
+      "normal": 32,
+      "hard_reasoning": 96,
+      "factual": 64,
+      "code": 64
+    },
+    "abstention_threshold": 0.45
+  }
+}

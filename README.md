@@ -42,6 +42,16 @@ pip install -r requirements.txt
 
 Python 3.9 or newer is required. CUDA is optional, but real training runs need a GPU.
 
+## Bigram Tensor 1 on Windows Server
+
+For the Windows Server + 1x RTX A6000/Blackwell 48GB deployment path, use the Tensor 1 guide:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File run_windows_quickstart.ps1
+```
+
+Full docs: [docs/TENSOR1_WINDOWS_SERVER.md](docs/TENSOR1_WINDOWS_SERVER.md).
+
 ## Run Tests
 
 ```bash

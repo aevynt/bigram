@@ -13,6 +13,7 @@ from .prepare import prepare_corpus
 from .dataset import (
     PackedDataset, JsonlSFTDataset, PreferenceDataset, CalibrationDataset,
 )
+from .tool_sft import ToolSFTDataset
 
 __all__ = [
     "prepare_corpus",
@@ -20,4 +21,5 @@ __all__ = [
     "JsonlSFTDataset",
     "PreferenceDataset",
     "CalibrationDataset",
+    "ToolSFTDataset",
 ]

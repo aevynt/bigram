@@ -16,6 +16,7 @@ from .layers import RMSNorm, RotaryEmbedding, LayerScale
 from .attention import GroupedQueryAttention
 from .ffn import SwiGLUMlp, MoEFFN
 from .block import TransformerBlock
+from .tooling import ToolHead, TOOL_REGISTRY_DEFAULT
 
 __all__ = [
     "BigramModel",
@@ -30,4 +31,6 @@ __all__ = [
     "SwiGLUMlp",
     "MoEFFN",
     "TransformerBlock",
+    "ToolHead",
+    "TOOL_REGISTRY_DEFAULT",
 ]

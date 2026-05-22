@@ -54,6 +54,7 @@ class ModelConfig:
 
     # --- Mixture of Experts (MoE) trong khối recurrent ---
     use_moe: bool = True             # Bật/tắt MoE. Tắt -> dùng MLP dày thông thường.
+    moe_scope: str = "all"           # "all" | "recurrent_only" | "none".
     n_experts: int = 8               # Số expert "cạnh tranh" trong router.
     n_experts_active: int = 2        # Số expert được chọn mỗi token (top-k routing).
     use_vietnamese_expert: bool = True  # Thêm 1 expert luôn-bật dành riêng cho token tiếng Việt.
@@ -69,6 +70,15 @@ class ModelConfig:
     # đoán thanh điệu. Nhờ vậy văn bản sinh ra GIỮ ĐƯỢC DẤU THANH.
     use_tone_head: bool = True       # Bật đầu ra dự đoán thanh điệu.
     tone_loss_coef: float = 0.5      # Hệ số cho loss của tone head.
+
+    # --- Tool/verifier heads cho Bigram Tensor 1 ---
+    use_tool_head: bool = False      # Dự đoán ý định gọi tool, không execute tool trong model.
+    n_tools: int = 32                # Kích thước từ điển tool name.
+    tool_loss_coef: float = 0.3      # Hệ số loss tool routing/name.
+    citation_loss_coef: float = 0.2  # Dành cho calibration citation/verifier.
+    use_verifier_head: bool = False  # Dự đoán claim/source support score.
+    verifier_loss_coef: float = 0.2  # Hệ số loss verifier.
+    max_tool_json_len: int = 2048    # Giới hạn render/parse JSON tool-call ở runtime.
 
     # --- Khởi tạo & regularization ---
     init_std: float = 0.02           # Độ lệch chuẩn khi khởi tạo trọng số (kiểu GPT-2).
@@ -88,9 +98,15 @@ class ModelConfig:
         assert self.n_heads % self.n_kv_heads == 0, \
             "n_heads phải chia hết cho n_kv_heads (ràng buộc của GQA)"
         # Kiểm tra MoE.
+        assert self.moe_scope in {"all", "recurrent_only", "none"}, \
+            "moe_scope phải là 'all', 'recurrent_only', hoặc 'none'"
+        if self.moe_scope == "none":
+            self.use_moe = False
         if self.use_moe:
             assert self.n_experts_active <= self.n_experts, \
                 "Số expert active không thể lớn hơn tổng số expert"
+        if self.use_tool_head:
+            assert self.n_tools > 0, "n_tools phải > 0 khi bật tool head"
         assert self.state_init_mode in {"zeros", "normal"}, \
             "state_init_mode phải là 'zeros' hoặc 'normal'"
         assert self.recurrent_early_exit_tol >= 0.0, \
@@ -209,4 +225,52 @@ def small_config() -> BigramConfig:
     cfg.model.n_recurrent_layers = 4
     cfg.model.n_coda_layers = 2
     cfg.model.max_seq_len = 2048
+    return cfg
+
+
+def tensor1_config() -> BigramConfig:
+    """Cấu hình Bigram Tensor 1 khoảng 1B params cho 1 GPU 48GB."""
+    cfg = BigramConfig()
+    cfg.model.vocab_size = 64000
+    cfg.model.tone_vocab_size = 8
+    cfg.model.hidden_size = 2048
+    cfg.model.intermediate_size = 5504
+    cfg.model.max_seq_len = 4096
+    cfg.model.n_prelude_layers = 2
+    cfg.model.n_recurrent_layers = 4
+    cfg.model.n_coda_layers = 2
+    cfg.model.n_heads = 32
+    cfg.model.n_kv_heads = 8
+    cfg.model.head_dim = 64
+    cfg.model.rope_theta = 1000000.0
+    cfg.model.mean_recurrence = 24.0
+    cfg.model.recurrence_sigma = 0.7
+    cfg.model.backprop_depth = 4
+    cfg.model.state_init_mode = "zeros"
+    cfg.model.recurrent_early_exit_tol = 0.0
+    cfg.model.recurrent_early_exit_min_steps = 4
+    cfg.model.use_moe = True
+    cfg.model.moe_scope = "recurrent_only"
+    cfg.model.n_experts = 4
+    cfg.model.n_experts_active = 2
+    cfg.model.use_vietnamese_expert = True
+    cfg.model.use_abstention_head = True
+    cfg.model.use_tone_head = True
+    cfg.model.use_tool_head = True
+    cfg.model.use_verifier_head = True
+    cfg.model.dropout = 0.0
+    cfg.model.tie_embeddings = True
+
+    cfg.train.batch_size = 1
+    cfg.train.grad_accum_steps = 128
+    cfg.train.learning_rate = 2e-4
+    cfg.train.weight_decay = 0.1
+    cfg.train.warmup_steps = 2000
+    cfg.train.grad_clip = 1.0
+    cfg.train.use_amp = True
+    cfg.train.gradient_checkpointing = True
+    cfg.train.compile_model = False
+
+    cfg.data.stage = "pretrain"
+    cfg.model.__post_init__()
     return cfg

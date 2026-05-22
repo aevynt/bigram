@@ -41,6 +41,8 @@ class Trainer:
         else:
             self.device = self.tcfg.device
         self.model = model.to(self.device)
+        if hasattr(self.model, "gradient_checkpointing"):
+            self.model.gradient_checkpointing = bool(self.tcfg.gradient_checkpointing)
 
         # --- DataLoader ---
         self.train_loader = DataLoader(
@@ -82,6 +84,9 @@ class Trainer:
             abstention_targets=batch.get("abstention_targets"),
             abstention_mask=batch.get("abstention_mask"),
             tone_targets=batch.get("tone_targets"),
+            tool_router_targets=batch.get("tool_router_targets"),
+            tool_name_targets=batch.get("tool_name_targets"),
+            verifier_targets=batch.get("verifier_targets"),
         )
         return losses
 

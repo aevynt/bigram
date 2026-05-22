@@ -20,6 +20,13 @@ import test_model
 import test_tokenizer
 import test_data_training
 import test_alignment
+import test_tensor1_config
+import test_tool_schema
+import test_tool_registry
+import test_tool_sft_dataset
+import test_windows_tools
+import test_rag
+import test_server_import
 
 
 def main():
@@ -32,6 +39,13 @@ def main():
         ("Tokenizer", test_tokenizer.run_all),
         ("Data & Training", test_data_training.run_all),
         ("Alignment (SFT/DPO/Calibration)", test_alignment.run_all),
+        ("Tensor 1 Config", test_tensor1_config.run_all),
+        ("Tool Schema", test_tool_schema.run_all),
+        ("Tool Registry", test_tool_registry.run_all),
+        ("Tool SFT Dataset", test_tool_sft_dataset.run_all),
+        ("Windows Tools", test_windows_tools.run_all),
+        ("RAG", test_rag.run_all),
+        ("Server Import", test_server_import.run_all),
     ]
 
     failed = []

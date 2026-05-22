@@ -1,0 +1,48 @@
+{
+  "model": {
+    "vocab_size": 64000,
+    "tone_vocab_size": 8,
+    "hidden_size": 2048,
+    "intermediate_size": 5504,
+    "max_seq_len": 4096,
+    "n_prelude_layers": 2,
+    "n_recurrent_layers": 4,
+    "n_coda_layers": 2,
+    "n_heads": 32,
+    "n_kv_heads": 8,
+    "head_dim": 64,
+    "rope_theta": 1000000.0,
+    "mean_recurrence": 24.0,
+    "recurrence_sigma": 0.7,
+    "backprop_depth": 4,
+    "state_init_mode": "zeros",
+    "recurrent_early_exit_tol": 0.0,
+    "recurrent_early_exit_min_steps": 4,
+    "use_moe": true,
+    "moe_scope": "recurrent_only",
+    "n_experts": 4,
+    "n_experts_active": 2,
+    "use_vietnamese_expert": true,
+    "use_abstention_head": true,
+    "use_tone_head": true,
+    "use_tool_head": true,
+    "use_verifier_head": true,
+    "dropout": 0.0,
+    "tie_embeddings": true
+  },
+  "train": {
+    "batch_size": 1,
+    "grad_accum_steps": 128,
+    "learning_rate": 0.0002,
+    "weight_decay": 0.1,
+    "warmup_steps": 2000,
+    "grad_clip": 1.0,
+    "use_amp": true,
+    "gradient_checkpointing": true,
+    "compile_model": false,
+    "out_dir": "checkpoints/tensor1_48gb"
+  },
+  "data": {
+    "stage": "pretrain"
+  }
+}
