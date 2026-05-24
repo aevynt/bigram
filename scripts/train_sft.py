@@ -27,6 +27,11 @@ import argparse
 import os
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 import torch
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -56,12 +61,32 @@ def main():
                         help="Learning rate cho SFT")
     args = parser.parse_args()
 
-    tokenizer = BigramTokenizer.load(args.tokenizer)
-
-    # --- Dựng model: từ checkpoint nền, hoặc từ preset ---
+    # Tự động nhận diện loại tokenizer
+    is_bmssp = False
+    ckpt = None
     if args.init and os.path.exists(args.init):
         print(f"Khởi tạo model từ checkpoint nền: {args.init}")
         ckpt = torch.load(args.init, map_location="cpu")
+        is_bmssp = ckpt.get("config", {}).get("model", {}).get("tokenizer_type", "tonal") == "bmssp"
+    else:
+        try:
+            with open(args.tokenizer, "r", encoding="utf-8") as f:
+                import json
+                json.load(f)
+            is_bmssp = False
+        except Exception:
+            is_bmssp = True
+
+    if is_bmssp:
+        from bigram.tokenizer.bmssp import BMSSPTokenizer
+        tokenizer = BMSSPTokenizer.load(args.tokenizer)
+        print("Đã nạp tokenizer dạng BMSSP")
+    else:
+        tokenizer = BigramTokenizer.load(args.tokenizer)
+        print("Đã nạp tokenizer dạng Tonal BPE")
+
+    # --- Dựng model: từ checkpoint nền, hoặc từ preset ---
+    if ckpt is not None:
         model_cfg = ModelConfig(**ckpt["config"]["model"])
         from bigram import BigramConfig
         config = BigramConfig()

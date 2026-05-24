@@ -19,9 +19,15 @@ import argparse
 import os
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from bigram.tokenizer import BigramTokenizer
+from bigram.tokenizer.bmssp import BMSSPTokenizer
 from bigram.data import prepare_corpus
 from bigram.utils import format_number
 
@@ -36,6 +42,8 @@ def main():
                         help="Tiền tố output (sẽ thêm .tok.bin / .tone.bin)")
     parser.add_argument("--no-special", action="store_true",
                         help="Không bọc <bos>/<eos> cho từng dòng")
+    parser.add_argument("--tokenizer-type", default="tonal", choices=["tonal", "bmssp"],
+                        help="Loại tokenizer: tonal hoặc bmssp")
     args = parser.parse_args()
 
     if not os.path.exists(args.tokenizer):
@@ -45,8 +53,11 @@ def main():
         print(f"LỖI: không tìm thấy file dữ liệu {args.input}")
         sys.exit(1)
 
-    print(f"Nạp tokenizer từ {args.tokenizer}...")
-    tokenizer = BigramTokenizer.load(args.tokenizer)
+    print(f"Nạp tokenizer ({args.tokenizer_type}) từ {args.tokenizer}...")
+    if args.tokenizer_type == "bmssp":
+        tokenizer = BMSSPTokenizer.load(args.tokenizer)
+    else:
+        tokenizer = BigramTokenizer.load(args.tokenizer)
 
     print(f"Đang mã hóa {args.input}...")
     stats = prepare_corpus(

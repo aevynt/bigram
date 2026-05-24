@@ -94,7 +94,11 @@ class BigramModel(nn.Module):
         )
         self.recurrent_adapter = nn.Linear(2 * h, h, bias=False)
         self.recurrent = nn.ModuleList([
-            TransformerBlock(config, use_moe=recurrent_use_moe)
+            TransformerBlock(
+                config,
+                use_moe=recurrent_use_moe,
+                shared_kv=getattr(config, "use_sskv", False),
+            )
             for _ in range(config.n_recurrent_layers)
         ])
         # RMSNorm ở cuối khối recurrent.
@@ -235,6 +239,12 @@ class BigramModel(nn.Module):
             ) * self.config.state_init_std
         return torch.zeros_like(e)
 
+    def reset_kv_cache(self):
+        """Xóa cache KV trong tất cả các block attention SSKVP."""
+        for module in self.modules():
+            if module is not self and hasattr(module, "reset_kv_cache"):
+                module.reset_kv_cache()
+
     # ------------------------------------------------------------------
     # Forward chính
     # ------------------------------------------------------------------
@@ -258,6 +268,7 @@ class BigramModel(nn.Module):
           aux_loss        : scalar — loss cân bằng MoE.
           num_recurrence  : số vòng lặp thực tế đã dùng.
         """
+        self.reset_kv_cache()
         cfg = self.config
 
         # --- Quyết định số vòng lặp r ---

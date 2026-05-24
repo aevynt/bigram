@@ -21,7 +21,7 @@ import torch
 import torch.nn as nn
 
 from .layers import RMSNorm, LayerScale
-from .attention import GroupedQueryAttention
+from .attention import SSKVPAttention
 from .ffn import SwiGLUMlp, MoEFFN
 
 
@@ -32,7 +32,7 @@ class TransformerBlock(nn.Module):
     quyết định nhánh feed-forward là MoE hay MLP dày thường.
     """
 
-    def __init__(self, config, use_moe: bool = None):
+    def __init__(self, config, use_moe: bool = None, shared_kv: bool = False):
         super().__init__()
         # Nếu không chỉ định riêng, lấy theo config tổng.
         if use_moe is None:
@@ -41,7 +41,7 @@ class TransformerBlock(nn.Module):
 
         # --- Nhánh attention ---
         self.norm1 = RMSNorm(config.hidden_size, config.norm_eps)   # n1: trước Attn
-        self.attn = GroupedQueryAttention(config)
+        self.attn = SSKVPAttention(config, shared_kv=shared_kv)
         self.norm2 = RMSNorm(config.hidden_size, config.norm_eps)   # n2: sau Attn
         self.ls_attn = LayerScale(config.hidden_size, config.layerscale_init)
 

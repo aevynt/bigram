@@ -40,6 +40,8 @@ def prepare_corpus(text_path: str, tokenizer, out_prefix: str,
             if not line.strip():
                 continue
             tok, tone = tokenizer.encode(line, add_special=add_special_per_line)
+            if tone is None:
+                tone = [0] * len(tok)
             all_tokens.extend(tok)
             all_tones.extend(tone)
             n_lines += 1

@@ -21,10 +21,16 @@ import argparse
 import os
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 # Cho phép import package `bigram` khi chạy script trực tiếp.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from bigram.tokenizer import BigramTokenizer
+from bigram.tokenizer.bmssp import BMSSPTokenizer
 
 
 def main():
@@ -37,6 +43,8 @@ def main():
                         help="Kích thước từ điển mong muốn")
     parser.add_argument("--min-frequency", type=int, default=2,
                         help="Tần suất tối thiểu để gộp một cặp BPE")
+    parser.add_argument("--tokenizer-type", default="tonal", choices=["tonal", "bmssp"],
+                        help="Loại tokenizer: tonal hoặc bmssp")
     args = parser.parse_args()
 
     # Kiểm tra file đầu vào tồn tại.
@@ -45,14 +53,20 @@ def main():
             print(f"LỖI: không tìm thấy file {path}")
             sys.exit(1)
 
-    print(f"Đang train tokenizer từ {len(args.input)} file...")
+    print(f"Đang train tokenizer ({args.tokenizer_type}) từ {len(args.input)} file...")
     print(f"  Vocab size mục tiêu: {args.vocab_size}")
 
-    tokenizer = BigramTokenizer.train(
-        args.input,
-        vocab_size=args.vocab_size,
-        min_frequency=args.min_frequency,
-    )
+    if args.tokenizer_type == "bmssp":
+        tokenizer = BMSSPTokenizer.train(
+            args.input,
+            vocab_size=args.vocab_size,
+        )
+    else:
+        tokenizer = BigramTokenizer.train(
+            args.input,
+            vocab_size=args.vocab_size,
+            min_frequency=args.min_frequency,
+        )
 
     # Tạo thư mục output nếu chưa có.
     os.makedirs(os.path.dirname(os.path.abspath(args.output)), exist_ok=True)

@@ -68,7 +68,9 @@ class ModelConfig:
     # Tokenizer của Bigram nhận vào HAI luồng (âm gốc + thanh điệu), nên đầu
     # ra cũng có hai luồng tương ứng: lm_head dự đoán âm gốc, tone_head dự
     # đoán thanh điệu. Nhờ vậy văn bản sinh ra GIỮ ĐƯỢC DẤU THANH.
-    use_tone_head: bool = True       # Bật đầu ra dự đoán thanh điệu.
+    use_sskv: bool = True            # bật SS-KVP cho recurrent core
+    tokenizer_type: str = "bmssp"    # "bmssp" hoặc "tonal"
+    use_tone_head: bool = False      # tắt mặc định khi dùng BMSSP
     tone_loss_coef: float = 0.5      # Hệ số cho loss của tone head.
 
     # --- Tool/verifier heads cho Bigram Tensor 1 ---
@@ -107,6 +109,8 @@ class ModelConfig:
                 "Số expert active không thể lớn hơn tổng số expert"
         if self.use_tool_head:
             assert self.n_tools > 0, "n_tools phải > 0 khi bật tool head"
+        assert self.tokenizer_type in {"bmssp", "tonal"}, \
+            "tokenizer_type phải là 'bmssp' hoặc 'tonal'"
         assert self.state_init_mode in {"zeros", "normal"}, \
             "state_init_mode phải là 'zeros' hoặc 'normal'"
         assert self.recurrent_early_exit_tol >= 0.0, \
@@ -208,6 +212,9 @@ def tiny_config() -> BigramConfig:
     cfg.model.mean_recurrence = 4.0
     cfg.model.backprop_depth = 3
     cfg.model.n_experts = 4
+    cfg.model.tokenizer_type = "tonal"
+    cfg.model.use_tone_head = True
+    cfg.model.use_sskv = False
     cfg.train.batch_size = 4
     cfg.train.max_steps = 50
     return cfg
@@ -225,6 +232,9 @@ def small_config() -> BigramConfig:
     cfg.model.n_recurrent_layers = 4
     cfg.model.n_coda_layers = 2
     cfg.model.max_seq_len = 2048
+    cfg.model.tokenizer_type = "tonal"
+    cfg.model.use_tone_head = True
+    cfg.model.use_sskv = False
     return cfg
 
 

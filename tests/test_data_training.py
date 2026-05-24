@@ -16,6 +16,7 @@ Bao phủ:
 
 import os
 import sys
+import tempfile
 
 import torch
 
@@ -33,8 +34,10 @@ Học tập là con đường ngắn nhất dẫn tới thành công bền vữn
 """ * 40)
 
 
-def _setup_data(tmp="/tmp"):
+def _setup_data(tmp=None):
     """Tạo tokenizer + dữ liệu nhị phân cho test."""
+    if tmp is None:
+        tmp = tempfile.gettempdir()
     txt = os.path.join(tmp, "_test_dt_corpus.txt")
     with open(txt, "w", encoding="utf-8") as f:
         f.write(_SAMPLE)
@@ -103,7 +106,7 @@ def test_training_loss_decreases():
     cfg.train.log_interval = 100   # tắt log cho gọn.
     cfg.train.eval_interval = 100
     cfg.train.save_interval = 100
-    cfg.train.out_dir = "/tmp/_test_dt_ckpt"
+    cfg.train.out_dir = os.path.join(tempfile.gettempdir(), "_test_dt_ckpt")
 
     ds = PackedDataset(prefix + ".tok.bin", prefix + ".tone.bin",
                        block_size=cfg.model.max_seq_len)
@@ -131,7 +134,7 @@ def test_checkpoint_save_load():
     torch.manual_seed(0)
     tok, prefix, _ = _setup_data()
     cfg = tiny_config()
-    cfg.train.out_dir = "/tmp/_test_dt_ckpt2"
+    cfg.train.out_dir = os.path.join(tempfile.gettempdir(), "_test_dt_ckpt2")
     ds = PackedDataset(prefix + ".tok.bin", prefix + ".tone.bin",
                        block_size=cfg.model.max_seq_len)
     model = BigramModel(cfg.model)

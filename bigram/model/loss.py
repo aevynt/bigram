@@ -27,6 +27,11 @@ def language_modeling_loss(logits: torch.Tensor,
     ignore_index: các vị trí có giá trị này (ví dụ padding) sẽ bị bỏ qua.
     """
     b, s, v = logits.shape
+    # Kiểm tra tránh NaN loss khi toàn bộ batch đều bị ignore
+    active_mask = (targets != ignore_index)
+    if not active_mask.any():
+        return 0.0 * logits.sum()
+
     # F.cross_entropy nhận (N, C) và (N,). Gộp batch & seq lại.
     loss = F.cross_entropy(
         logits.reshape(b * s, v),

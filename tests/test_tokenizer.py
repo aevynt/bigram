@@ -15,6 +15,7 @@ Bao phủ:
 
 import os
 import sys
+import tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -33,8 +34,10 @@ Dòng sông quê hương êm đềm chảy qua bao thế hệ.
 """ * 30
 
 
-def _get_tokenizer(tmp_dir="/tmp"):
+def _get_tokenizer(tmp_dir=None):
     """Train một tokenizer nhỏ cho mục đích test."""
+    if tmp_dir is None:
+        tmp_dir = tempfile.gettempdir()
     path = os.path.join(tmp_dir, "_test_tok_corpus.txt")
     with open(path, "w", encoding="utf-8") as f:
         f.write(_SAMPLE_TEXT)
@@ -118,8 +121,10 @@ def test_tokenizer_special_tokens():
     print("  [OK] test_tokenizer_special_tokens")
 
 
-def test_tokenizer_save_load(tmp_path="/tmp"):
+def test_tokenizer_save_load(tmp_path=None):
     """Lưu rồi nạp lại tokenizer phải cho kết quả y hệt."""
+    if tmp_path is None:
+        tmp_path = tempfile.gettempdir()
     tok = _get_tokenizer()
     path = os.path.join(tmp_path, "_test_tok_save.json")
     tok.save(path)

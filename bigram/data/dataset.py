@@ -121,6 +121,10 @@ class JsonlSFTDataset(Dataset):
         # Mã hóa riêng prompt và response để biết ranh giới.
         p_tok, p_tone = self.tokenizer.encode(prompt, add_special=False)
         r_tok, r_tone = self.tokenizer.encode(response, add_special=False)
+        if p_tone is None:
+            p_tone = [0] * len(p_tok)
+        if r_tone is None:
+            r_tone = [0] * len(r_tok)
 
         # Ghép: <bos> prompt response <eos>
         bos = self.tokenizer.token_to_id("<bos>")
@@ -201,6 +205,10 @@ class PreferenceDataset(Dataset):
         """
         p_tok, p_tone = self.tokenizer.encode(prompt, add_special=False)
         r_tok, r_tone = self.tokenizer.encode(response, add_special=False)
+        if p_tone is None:
+            p_tone = [0] * len(p_tok)
+        if r_tone is None:
+            r_tone = [0] * len(r_tok)
 
         bos = self.tokenizer.token_to_id("<bos>")
         eos = self.tokenizer.token_to_id("<eos>")
@@ -289,6 +297,10 @@ class CalibrationDataset(Dataset):
 
         p_tok, p_tone = self.tokenizer.encode(prompt, add_special=False)
         r_tok, r_tone = self.tokenizer.encode(response, add_special=False)
+        if p_tone is None:
+            p_tone = [0] * len(p_tok)
+        if r_tone is None:
+            r_tone = [0] * len(r_tok)
 
         bos = self.tokenizer.token_to_id("<bos>")
         eos = self.tokenizer.token_to_id("<eos>")

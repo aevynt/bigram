@@ -100,3 +100,59 @@ class GroupedQueryAttention(nn.Module):
         # (b, n_heads, s, head_dim) -> (b, s, n_heads*head_dim)
         out = out.transpose(1, 2).contiguous().view(b, s, -1)
         return self.o_proj(out)
+
+
+class SSKVPAttention(GroupedQueryAttention):
+    """GQA hỗ trợ chia sẻ Key-Value (SS-KVP) qua các vòng lặp dọc."""
+
+    def __init__(self, config, shared_kv: bool = False):
+        super().__init__(config)
+        self.shared_kv = shared_kv
+        self._cached_k = None
+        self._cached_v = None
+
+    def reset_kv_cache(self):
+        """Xóa cache KV trước mỗi lần forward chính."""
+        self._cached_k = None
+        self._cached_v = None
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        b, s, _ = x.shape
+
+        # 1) Chiếu Q.
+        q = self.q_proj(x).view(b, s, self.n_heads, self.head_dim).transpose(1, 2)
+
+        # 2) Chiếu K, V (tính mới hoặc dùng cache).
+        if self.shared_kv:
+            if self._cached_k is None:
+                k = self.k_proj(x).view(b, s, self.n_kv_heads, self.head_dim).transpose(1, 2)
+                v = self.v_proj(x).view(b, s, self.n_kv_heads, self.head_dim).transpose(1, 2)
+                self._cached_k = k
+                self._cached_v = v
+            else:
+                k = self._cached_k
+                v = self._cached_v
+        else:
+            k = self.k_proj(x).view(b, s, self.n_kv_heads, self.head_dim).transpose(1, 2)
+            v = self.v_proj(x).view(b, s, self.n_kv_heads, self.head_dim).transpose(1, 2)
+
+        # 3) Áp dụng RoPE lên Q và K (V không xoay).
+        cos, sin = self.rope(s)
+        cos = cos.to(q.dtype)
+        sin = sin.to(q.dtype)
+        q, k = apply_rotary(q, k, cos, sin)
+
+        # 4) Nhân bản K, V cho đủ số query head (đặc trưng GQA).
+        k = self._repeat_kv(k)
+        v = self._repeat_kv(v)
+
+        # 5) Scaled dot-product attention với mask nhân quả.
+        dropout_p = self.dropout if self.training else 0.0
+        out = F.scaled_dot_product_attention(
+            q, k, v, is_causal=True, dropout_p=dropout_p
+        )
+
+        # 6) Gộp các head lại và chiếu về hidden_size.
+        out = out.transpose(1, 2).contiguous().view(b, s, -1)
+        return self.o_proj(out)
+

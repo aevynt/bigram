@@ -29,7 +29,7 @@ def load_model(ckpt_path: str, device: str):
     model.load_state_dict(ckpt["model"])
     model.to(device)
     model.eval()
-    return model
+    return model, model_cfg
 
 
 def generate_response(model, tokenizer, prompt: str,
@@ -42,7 +42,10 @@ def generate_response(model, tokenizer, prompt: str,
     tok, tone = tokenizer.encode(prompt, add_special=False)
     bos = tokenizer.token_to_id("<bos>")
     tok = [bos] + tok
-    tone = [0] + tone
+    if tone is None:
+        tone = [0] * len(tok)
+    else:
+        tone = [0] + tone
 
     prompt_len = len(tok)  # độ dài gốc để cắt bỏ phần prompt khỏi output.
 
@@ -98,8 +101,13 @@ def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     print(f"Đang nạp Bigram Plank 1 từ {args.checkpoint}...")
-    model = load_model(args.checkpoint, device)
-    tokenizer = BigramTokenizer.load(args.tokenizer)
+    model, model_cfg = load_model(args.checkpoint, device)
+    tok_type = getattr(model_cfg, "tokenizer_type", "tonal")
+    if tok_type == "bmssp":
+        from bigram.tokenizer.bmssp import BMSSPTokenizer
+        tokenizer = BMSSPTokenizer.load(args.tokenizer)
+    else:
+        tokenizer = BigramTokenizer.load(args.tokenizer)
     print("Sẵn sàng!\n")
     print("=" * 50)
     print("  Bigram Plank 1 — by Aevynt Lab")

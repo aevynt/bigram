@@ -81,14 +81,22 @@ def main():
 
     print(f"Nạp model từ {args.checkpoint}...")
     model, model_cfg = load_model_from_checkpoint(args.checkpoint, device)
-    tokenizer = BigramTokenizer.load(args.tokenizer)
+    tok_type = getattr(model_cfg, "tokenizer_type", "tonal")
+    if tok_type == "bmssp":
+        from bigram.tokenizer.bmssp import BMSSPTokenizer
+        tokenizer = BMSSPTokenizer.load(args.tokenizer)
+    else:
+        tokenizer = BigramTokenizer.load(args.tokenizer)
 
     # Mã hóa prompt.
     tok, tone = tokenizer.encode(args.prompt, add_special=False)
     # Thêm <bos> ở đầu để khớp cách model được train.
     bos = tokenizer.token_to_id("<bos>")
     tok = [bos] + tok
-    tone = [0] + tone
+    if tone is None:
+        tone = [0] * len(tok)
+    else:
+        tone = [0] + tone
 
     token_ids = torch.tensor([tok], dtype=torch.long, device=device)
     tone_ids = torch.tensor([tone], dtype=torch.long, device=device)

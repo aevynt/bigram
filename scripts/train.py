@@ -25,6 +25,11 @@ import argparse
 import os
 import sys
 
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8")
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from bigram import (
@@ -72,7 +77,12 @@ def main():
 
     # --- Đồng bộ vocab_size với tokenizer (nếu cung cấp) ---
     if args.tokenizer and os.path.exists(args.tokenizer):
-        tok = BigramTokenizer.load(args.tokenizer)
+        tok_type = getattr(config.model, "tokenizer_type", "tonal")
+        if tok_type == "bmssp":
+            from bigram.tokenizer.bmssp import BMSSPTokenizer
+            tok = BMSSPTokenizer.load(args.tokenizer)
+        else:
+            tok = BigramTokenizer.load(args.tokenizer)
         if tok.vocab_size != config.model.vocab_size:
             print(f"Điều chỉnh vocab_size: {config.model.vocab_size} "
                   f"-> {tok.vocab_size} (theo tokenizer)")
