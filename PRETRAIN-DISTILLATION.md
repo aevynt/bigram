@@ -61,13 +61,18 @@ QUY TẮC THỰC THI BẮT BUỘC:
 1. Hãy tạo thư mục `distilldata/` tại thư mục gốc của dự án (nếu chưa có).
 2. Hãy sinh trực tiếp dữ liệu học tập cao cấp cho 3 nhóm chủ đề: Toán học (Math), Khoa học máy tính (CS), và Vật lý (Physics).
 3. Ghi dữ liệu vào các file tương ứng:
-   - `distilldata/pretrain_math_001.jsonl` (Ít nhất 50 mẫu chuyên sâu về Toán/Logic)
-   - `distilldata/pretrain_cs_001.jsonl` (Ít nhất 50 mẫu chuyên sâu về Giải thuật/Code)
-   - `distilldata/pretrain_physics_001.jsonl` (Ít nhất 50 mẫu chuyên sâu về Vật lý/Khoa học tự nhiên)
-4. Mỗi mẫu phải là một dòng JSONL chuẩn:
+   - `distilldata/pretrain_math_001.jsonl` (Yêu cầu ít nhất 50 dòng JSONL chuyên sâu về Toán/Logic)
+   - `distilldata/pretrain_cs_001.jsonl` (Yêu cầu ít nhất 50 dòng JSONL chuyên sâu về Giải thuật/Code)
+   - `distilldata/pretrain_physics_001.jsonl` (Yêu cầu ít nhất 50 dòng JSONL chuyên sâu về Vật lý/Khoa học tự nhiên)
+4. Mỗi mẫu phải là một dòng JSONL chuẩn trên 1 dòng duy nhất:
    {"prompt": "Câu hỏi/Yêu cầu học tập", "response": "<think>\nLập luận logic\n</think>\nNội dung bài học/Code/Lời giải chi tiết"}
 5. Tuyệt đối không viết code chạy Python để gọi API hay gửi Batch API nào cả. Nhiệm vụ của bạn là TỰ SUY NGHĨ, SINH NỘI DUNG VÀ GHI TRỰC TIẾP thành các tệp tin dữ liệu thô này vào thư mục `distilldata/` bằng công cụ ghi file của mình.
 6. Đảm bảo ngôn ngữ tiếng Việt tự nhiên, chuẩn NFC, học thuật, không pha tạp tiếng Anh bồi. Các đoạn code minh họa phải tối ưu và được định dạng markdown chuẩn trong chuỗi JSON.
+7. **RÀO CẢN BẮT BUỘC VỀ SỐ LƯỢNG (ANTI-LAZINESS RULE)**:
+   - Bạn TUYỆT ĐỐI KHÔNG ĐƯỢC PHÉP DỪNG LẠI khi chưa sinh đủ ít nhất 50 mẫu chất lượng cao cho mỗi tệp tin (tổng cộng tối thiểu 150 mẫu cực kỳ dài và chi tiết qua 3 tệp tin).
+   - Nếu bạn bị giới hạn dung lượng token phản hồi (output limit) hoặc bị ngắt quãng giữa chừng, hãy chạy tiếp công cụ ghi file của bạn ở lượt sau để append (ghi nối tiếp) vào các tệp tin hiện tại. Không được phép bỏ cuộc hoặc cắt bớt nội dung.
+   - Hãy tự chạy lệnh đếm dòng hoặc đọc lại tệp tin để xác thực số lượng dòng thực tế đã ghi. Chỉ khi tất cả các file đã có đủ ít nhất 50 dòng JSONL hợp lệ, bạn mới được phép báo cáo hoàn thành nhiệm vụ.
 
-Hãy tiến hành sinh dữ liệu chi tiết và ghi trực tiếp vào các tệp tin trên ngay bây giờ!
+Hãy tiến hành sinh dữ liệu chi tiết, liên tục ghi và hoàn tất mục tiêu ngay bây giờ!
 ```
+
