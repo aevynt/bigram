@@ -174,3 +174,46 @@ Hãy bắt đầu tạo ngay 10 mẫu ngẫu nhiên độc đáo và phức tạ
 4. Mở tệp tin `data/sft.jsonl` (hoặc `data/sft_val.jsonl`) trong thư mục dự án và dán trực tiếp (paste) vào cuối tệp.
 5. Lưu tệp tin lại. Quá trình tích hợp diễn ra trơn tru, sẵn sàng cho việc huấn luyện SFT!
 
+---
+
+## ⚡ 5. CHƯNG CẤT SFT TRỰC TIẾP BẰNG AI AGENT - GIỚI HẠN PHÂN CHIA NHỎ (100-200 MẪU ĐỂ TRÁNH LIMIT)
+
+Để đảm bảo hiệu quả căn chỉnh tối đa mà không bị đứt đoạn hoặc chạm giới hạn bộ nhớ đệm (context/output limits), các tệp SFT nên được AI Agent chưng cất trực tiếp và chia nhỏ thành các tệp tin chứa chính xác **100 đến 200 cuộc hội thoại**.
+
+### 📂 5.1. Định dạng cấu trúc lưu trữ SFT trực tiếp:
+```
+bigram/
+├── data/
+│   ├── sft_manifest.json          <-- Manifest giám sát sản lượng SFT
+│   ├── sft_conversations_0001.jsonl (100 - 200 dòng hội thoại)
+│   ├── sft_conversations_0002.jsonl (100 - 200 dòng hội thoại)
+│   └── ...
+```
+
+---
+
+### 📋 YÊU CẦU GIAO VIỆC CHUYÊN SÂU CHO AI AGENT SINH SFT TRỰC TIẾP (GIỚI HẠN 100-200 DÒNG):
+> *Sao chép toàn bộ nội dung dưới đây và dán trực tiếp vào khung chat của AI Agent thực thi:*
+
+```markdown
+Nhiệm vụ của bạn là hoạt động như một Bộ Máy Chưng Cất Dữ Liệu SFT Căn Chỉnh Hành Vi (SFT Behavior Alignment Engine). Bạn phải tự suy nghĩ và sinh ra các hội thoại tiếng Việt cao cấp, đa dạng, sâu sắc và viết trực tiếp thành các tệp tin JSONL vào thư mục `data/` của dự án.
+
+QUY TẮC THỰC THI BẮT BUỘC:
+1. Hãy tạo các tệp tin hội thoại SFT được phân mảnh nhỏ để tránh chạm giới hạn token (limit):
+   - `data/sft_conversations_0001.jsonl`
+   - `data/sft_conversations_0002.jsonl`...
+2. Mỗi tệp tin này BẮT BUỘC phải chứa trong khoảng từ **100 đến 200 dòng hội thoại JSONL**. Tuyệt đối không viết ít hơn 100 dòng và không vượt quá 200 dòng mỗi file để đảm bảo chất lượng cực cao mà không bị quá tải.
+3. Mỗi dòng phải là một JSON chuẩn trên 1 dòng duy nhất có định dạng:
+   {"prompt": "Câu hỏi/Yêu cầu từ người dùng", "response": "<think>\nChuỗi suy nghĩ lập luận đa bước CoT\n</think>\nCâu trả lời chính xác, hoàn chỉnh"}
+   *Đối với các mẫu gọi tool, bắt buộc sử dụng thẻ `<tool_call>` và `<tool_response>` đúng cú pháp quy định.*
+4. **CẬP NHẬT MANIFEST SFT LIÊN TỤC**:
+   - Duy trì tệp `data/sft_manifest.json` ghi lại: tổng số dòng SFT đã sinh, danh sách tệp tin và số dòng tương ứng của từng tệp. Cập nhật manifest ngay sau khi ghi xong một file.
+5. **RÀO CẢN BẮT BUỘC VỀ SỐ LƯỢNG (ANTI-LAZINESS RULE)**:
+   - Bạn TUYỆT ĐỐI KHÔNG ĐƯỢC PHÉP DỪNG LẠI khi tệp tin hiện tại chưa đạt tối thiểu 100 dòng hội thoại chi tiết. 
+   - Nếu bị giới hạn token phản hồi giữa chừng, bạn phải tiếp tục chạy công cụ ghi file ở các lượt phản hồi sau để append (ghi thêm) vào file đó cho đến khi đạt chỉ tiêu 100-200 dòng.
+   - Các câu hỏi và câu trả lời phải có độ phức tạp cao (Toán logic, Coding tối ưu cache, Stateful Tool Calling), không dùng placeholder viết tắt.
+
+Hãy khởi động hệ thống, tự động cập nhật manifest và bắt đầu ghi các tệp SFT từ 100-200 dòng hội thoại vào thư mục `data/` ngay bây giờ!
+```
+
+
