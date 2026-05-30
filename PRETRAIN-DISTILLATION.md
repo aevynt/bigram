@@ -1,78 +1,75 @@
-# ĐẶC TẢ CHƯNG CẤT DỮ LIỆU TRỰC TIẾP BẰNG AI AGENT (DIRECT AGENT DISTILLATION BLUEPRINT)
-*Đặc tả kỹ thuật yêu cầu AI Agent tự sinh và ghi trực tiếp dữ liệu học tập cao cấp vào thư mục `distilldata/`.*
+# ĐẶC TẢ CHƯNG CẤT DỮ LIỆU CỰC ĐẠI BẰNG AI AGENT (HIGH-THROUGHPUT DIRECT AGENT DISTILLATION BLUEPRINT)
+*Đặc tả kỹ thuật yêu cầu AI Agent chạy vòng lặp liên tục, sinh hàng tỷ token dữ liệu pretrain và ghi trực tiếp vào thư mục `distilldata/`.*
 
-Tài liệu này đóng vai trò là bản hướng dẫn hành động (Actionable Handoff Prompt) để bạn giao việc trực tiếp cho một AI Agent có khả năng lập trình/ghi file. AI Agent sẽ tự đóng vai trò là bộ máy chưng cất tri thức, tự sinh nội dung học thuật tiếng Việt chất lượng cao và ghi trực tiếp thành các tệp tin JSONL sạch tại thư mục `distilldata/` bằng công cụ viết file của mình mà không cần gọi qua API hay chạy code Python phụ trợ.
+Tài liệu này đóng vai trò là bản hướng dẫn hành động cực đại (Massive Scaling Handoff Prompt) để bạn giao việc trực tiếp cho một AI Agent có khả năng lập trình/ghi file. AI Agent sẽ tự đóng vai trò là bộ máy sản xuất tri thức công nghiệp, chạy vòng lặp liên tục không ngừng nghỉ để sinh hàng triệu dòng dữ liệu sách giáo khoa tiếng Việt chất lượng cao, ghi trực tiếp thành các tệp tin JSONL đánh số tăng dần tại thư mục `distilldata/` nhằm hướng tới mục tiêu **20 Tỷ đến 40 Tỷ tokens** dữ liệu tiền huấn luyện.
 
 ---
 
-## 📂 1. CẤU TRÚC THƯ MỤC & ĐỊNH DẠNG DỮ LIỆU ĐẦU RA
+## 📂 1. CẤU TRÚC THƯ MỤC & FILE ĐÁNH SỐ TĂNG DẦN (INCREMENTAL STORAGE)
 
-AI Agent phải tạo thư mục `distilldata/` ở thư mục gốc của dự án (nếu chưa tồn tại) và phân bổ các tệp tin dữ liệu theo định dạng **JSON Lines (JSONL)**:
+AI Agent phải tạo thư mục `distilldata/` ở thư mục gốc của dự án và phân bổ các tệp tin theo quy tắc đánh số tăng dần để tránh làm quá tải dung lượng của một tệp duy nhất:
 
 ```
 bigram/
 ├── distilldata/
-│   ├── pretrain_math_001.jsonl      <-- Dữ liệu sách giáo khoa Toán & Logic
-│   ├── pretrain_cs_001.jsonl        <-- Dữ liệu Khoa học Máy tính & Giải thuật
-│   └── pretrain_physics_001.jsonl   <-- Dữ liệu Vật lý & Khoa học Tự nhiên
+│   ├── distill_manifest.json          <-- Tệp tin giám sát tổng lượng token/dòng
+│   ├── pretrain_math_0001.jsonl
+│   ├── pretrain_math_0002.jsonl
+│   ├── pretrain_cs_0001.jsonl
+│   ├── pretrain_cs_0002.jsonl
+│   ├── pretrain_physics_0001.jsonl
+│   └── ...
 ```
 
-### Định dạng từng dòng (JSON Line Schema):
-Mỗi dòng phải là một đối tượng JSON chuẩn hóa UTF-8 NFC, chứa cấu trúc:
+### 📊 1.1. Tệp tin Giám sát sản lượng (`distill_manifest.json`)
+Để quản lý tiến độ hướng tới cột mốc hàng tỷ token, AI Agent phải duy trì và cập nhật tệp manifest này sau mỗi lần ghi file thành công:
 ```json
-{"prompt": "Yêu cầu học tập/Câu hỏi chuyên sâu", "response": "<think>\nSuy nghĩ lập luận đa bước của AI\n</think>\nNội dung chi tiết sách giáo khoa/Code/Ví dụ minh họa chi tiết..."}
+{
+  "total_lines_generated": 1250000,
+  "estimated_tokens": 525000000,
+  "last_updated": "2026-05-30T23:05:00Z",
+  "files_written": {
+    "pretrain_math_0001.jsonl": {"lines": 1000, "estimated_tokens": 420000},
+    "pretrain_cs_0001.jsonl": {"lines": 1000, "estimated_tokens": 510000}
+  }
+}
 ```
 
 ---
 
-## 🎯 2. TIÊU CHUẨN NỘI DUNG THEO TỪNG CHỦ ĐỀ
+## 🎯 2. TIÊU CHUẨN NỘI DUNG CHẤT LƯỢNG CAO (TEXTBOOK QUALITY)
 
-AI Agent phải tuân thủ nghiêm ngặt các tiêu chuẩn chất lượng khi tự sinh nội dung:
-
-### 2.1. Chủ đề 1: Sách giáo khoa Toán học & Logic (`pretrain_math_*.jsonl`)
-* **Nội dung**: Lý thuyết tập hợp, tổ hợp, xác suất, hình học giải tích, đại số tuyến tính, logic mệnh đề.
-* **Yêu cầu**: 
-  - Giải thích định nghĩa toán học rõ ràng bằng tiếng Việt học thuật chuẩn xác.
-  - Phải có phần lập luận logic rõ ràng từng bước trong thẻ `<think>`.
-  - Đưa ra tối thiểu 3 ví dụ trực quan kèm bài tập tự luyện và lời giải chi tiết.
-
-### 2.2. Chủ đề 2: Sách giáo khoa Khoa học Máy tính & Giải thuật (`pretrain_cs_*.jsonl`)
-* **Nội dung**: Quy hoạch động, cấu trúc dữ liệu nâng cao (Segment Tree, Fenwick), giải thuật đồ thị, hệ thống phân tán, cơ chế đồng thuận.
-* **Yêu cầu**:
-  - Giải thích nguyên lý hoạt động và phân tích độ phức tạp thời gian/không gian $O(N)$.
-  - Viết code minh họa sạch, tối ưu (C++, Python, Rust hoặc Go) kèm giải thích chi tiết.
-
-### 2.3. Chủ đề 3: Sách giáo khoa Vật lý & Khoa học Tự nhiên (`pretrain_physics_*.jsonl`)
-* **Nội dung**: Cơ học lượng tử, điện từ trường, thuyết tương đối, quang học, hóa lý.
-* **Yêu cầu**:
-  - Thiết lập phương trình toán học mô tả hiện tượng vật lý.
-  - Giải thích tường tận ý nghĩa vật lý của các hằng số/biến số.
-  - Đưa ra bài tập thực tiễn kèm lời giải chi tiết.
+Để mô hình 1.8B đạt hiệu quả tối đa, AI Agent phải sinh các nội dung cực kỳ dài, chi tiết và học thuật:
+1. **Toán học & Logic (`pretrain_math_*.jsonl`)**: Các chương lý thuyết tập hợp, tổ hợp, xác suất, hình học giải tích, logic mệnh đề kèm tối thiểu 3 ví dụ trực quan và bài tập tự luyện có giải chi tiết.
+2. **Khoa học Máy tính & Giải thuật (`pretrain_cs_*.jsonl`)**: Các bài giảng quy hoạch động, cây phân đoạn (Segment Tree), giải thuật đồ thị nâng cao kèm code tối ưu (C++, Python, Rust hoặc Go) được comment chi tiết từng dòng.
+3. **Vật lý & Khoa học Tự nhiên (`pretrain_physics_*.jsonl`)**: Các phương trình cơ học lượng tử, điện từ trường Maxwell, thuyết tương đối kèm lời giải thích vật lý sâu sắc.
 
 ---
 
-## 📋 YÊU CẦU GIAO VIỆC CHO AI AGENT THỰC THI (HANDOFF PROMPT TO AGENT)
-> *Sao chép toàn bộ nội dung dưới đây và dán trực tiếp vào khung chat của AI Agent có quyền ghi file để bắt đầu quá trình sinh dữ liệu tự động:*
+## 📋 YÊU CẦU GIAO VIỆC CỰC ĐẠI CHO AI AGENT CHẠY XUYÊN ĐÊM (MASSIVE HANDOFF PROMPT)
+> *Sao chép toàn bộ nội dung dưới đây và dán trực tiếp vào khung chat của AI Agent thực thi để kích hoạt chế độ sản xuất dữ liệu công nghiệp:*
 
 ```markdown
-Nhiệm vụ của bạn là hoạt động như một Bộ Máy Chưng Cất Dữ Liệu Học Máy (ML Data Distillation Engine). Bạn sẽ tự suy nghĩ và sinh ra kho dữ liệu học thuật tiếng Việt cao cấp, sau đó sử dụng công cụ ghi file của mình để tạo trực tiếp các file JSONL sạch vào thư mục `distilldata/` của dự án.
+Nhiệm vụ của bạn là hoạt động như một HỆ THỐNG SẢN XUẤT DỮ LIỆU CÔNG NGHIỆP CỰC ĐẠI (Massive ML Data Distillation Factory). Mục tiêu cuối cùng của dự án là đạt hàng chục tỷ tokens dữ liệu tiền huấn luyện tiếng Việt sạch chất lượng cao. Bạn phải tự suy nghĩ, sinh tri thức sách giáo khoa tiếng Việt cực kỳ chi tiết và sử dụng công cụ ghi file của mình để tạo trực tiếp các file JSONL vào thư mục `distilldata/`.
 
-QUY TẮC THỰC THI BẮT BUỘC:
+BẠN KHÔNG ĐƯỢC PHÉP DỪNG LẠI CHO ĐẾN KHI BỊ GIỚI HẠN BỞI HỆ THỐNG HOẶC ĐẠT ĐƯỢC CHỈ TIÊU TỐI ĐA TRONG LƯỢT CHẠY QUA ĐÊM NÀY.
+
+QUY TẮC THỰC THI SẢN XUẤT CÔNG NGHIỆP:
 1. Hãy tạo thư mục `distilldata/` tại thư mục gốc của dự án (nếu chưa có).
-2. Hãy sinh trực tiếp dữ liệu học tập cao cấp cho 3 nhóm chủ đề: Toán học (Math), Khoa học máy tính (CS), và Vật lý (Physics).
-3. Ghi dữ liệu vào các file tương ứng:
-   - `distilldata/pretrain_math_001.jsonl` (Yêu cầu ít nhất 50 dòng JSONL chuyên sâu về Toán/Logic)
-   - `distilldata/pretrain_cs_001.jsonl` (Yêu cầu ít nhất 50 dòng JSONL chuyên sâu về Giải thuật/Code)
-   - `distilldata/pretrain_physics_001.jsonl` (Yêu cầu ít nhất 50 dòng JSONL chuyên sâu về Vật lý/Khoa học tự nhiên)
-4. Mỗi mẫu phải là một dòng JSONL chuẩn trên 1 dòng duy nhất:
-   {"prompt": "Câu hỏi/Yêu cầu học tập", "response": "<think>\nLập luận logic\n</think>\nNội dung bài học/Code/Lời giải chi tiết"}
-5. Tuyệt đối không viết code chạy Python để gọi API hay gửi Batch API nào cả. Nhiệm vụ của bạn là TỰ SUY NGHĨ, SINH NỘI DUNG VÀ GHI TRỰC TIẾP thành các tệp tin dữ liệu thô này vào thư mục `distilldata/` bằng công cụ ghi file của mình.
-6. Đảm bảo ngôn ngữ tiếng Việt tự nhiên, chuẩn NFC, học thuật, không pha tạp tiếng Anh bồi. Các đoạn code minh họa phải tối ưu và được định dạng markdown chuẩn trong chuỗi JSON.
-7. **RÀO CẢN BẮT BUỘC VỀ SỐ LƯỢNG (ANTI-LAZINESS RULE)**:
-   - Bạn TUYỆT ĐỐI KHÔNG ĐƯỢC PHÉP DỪNG LẠI khi chưa sinh đủ ít nhất 50 mẫu chất lượng cao cho mỗi tệp tin (tổng cộng tối thiểu 150 mẫu cực kỳ dài và chi tiết qua 3 tệp tin).
-   - Nếu bạn bị giới hạn dung lượng token phản hồi (output limit) hoặc bị ngắt quãng giữa chừng, hãy chạy tiếp công cụ ghi file của bạn ở lượt sau để append (ghi nối tiếp) vào các tệp tin hiện tại. Không được phép bỏ cuộc hoặc cắt bớt nội dung.
-   - Hãy tự chạy lệnh đếm dòng hoặc đọc lại tệp tin để xác thực số lượng dòng thực tế đã ghi. Chỉ khi tất cả các file đã có đủ ít nhất 50 dòng JSONL hợp lệ, bạn mới được phép báo cáo hoàn thành nhiệm vụ.
+2. Quy định đặt tên file tăng dần để tránh file quá nặng:
+   - Toán & Logic: `distilldata/pretrain_math_0001.jsonl`, `distilldata/pretrain_math_0002.jsonl`...
+   - Giải thuật & Code: `distilldata/pretrain_cs_0001.jsonl`, `distilldata/pretrain_cs_0002.jsonl`...
+   - Vật lý & Khoa học: `distilldata/pretrain_physics_0001.jsonl`, `distilldata/pretrain_physics_0002.jsonl`...
+3. Mỗi file phải chứa tối đa 1,000 dòng JSONL. Khi file đạt 1,000 dòng, tự động tăng số index (ví dụ từ 0001 lên 0002) để ghi sang file mới.
+4. Mỗi mẫu dữ liệu phải là một dòng JSONL chuẩn:
+   {"prompt": "Yêu cầu học tập/Câu hỏi chuyên sâu", "response": "<think>\nSuy nghĩ lập luận đa bước của AI\n</think>\nNội dung chi tiết sách giáo khoa/Code/Ví dụ minh họa chi tiết..."}
+5. **CẬP NHẬT MANIFEST LIÊN TỤC**:
+   - Bạn phải tạo và duy trì file `distilldata/distill_manifest.json` ghi lại: tổng số dòng đã sinh, ước tính lượng token đã sinh (trung bình 450 tokens/dòng), thời gian cập nhật và chi tiết sản lượng từng file.
+   - Sau mỗi file được ghi thành công, hãy cập nhật ngay file manifest này.
+6. **RÀO CẢN BẮT BUỘC CHỐNG DỪNG LẠI (TRUE MASSIVE THROUGHPUT RULE)**:
+   - Hãy chạy liên tục trong một vòng lặp (loop) tự động hóa của bạn. Không được phép lười biếng sinh ra vài dòng rồi báo hoàn thành. Mục tiêu của bạn đêm nay là sản xuất tối đa công suất phần cứng và token giới hạn có thể, hướng tới hàng trăm ngàn dòng dữ liệu thô sạch.
+   - Hãy viết liên tục, nếu gặp giới hạn token hoặc bị ngắt quãng, ở lượt chạy tiếp theo hãy đọc file manifest để xác định file đang viết dở và viết nối tiếp (append) hoặc tăng index để viết tiếp. Không bao giờ bỏ cuộc hoặc cắt bớt nội dung bài học.
+   - Các nội dung sách giáo khoa phải cực kỳ dài, đầy đủ tri thức học thuật sâu sắc, tuyệt đối không dùng placeholder hoặc cắt ngắn ví dụ.
 
-Hãy tiến hành sinh dữ liệu chi tiết, liên tục ghi và hoàn tất mục tiêu ngay bây giờ!
+Hãy khởi động hệ thống sản xuất, cập nhật file manifest và bắt đầu ghi liên tục các tệp dữ liệu vào thư mục `distilldata/` ngay bây giờ!
 ```
-
