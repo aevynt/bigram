@@ -1,7 +1,7 @@
-# ĐẶC TẢ CHƯNG CẤT DỮ LIỆU SFT (SFT-DATA DISTILLATION BLUEPRINT)
-*Bộ Prompt và quy trình dành cho AI Agent để tự động cào và chưng cất dữ liệu SFT/Tool calling cao cấp từ Anthropic Claude.*
+# ĐẶC TẢ CHƯNG CẤT DỮ LIỆU SFT (SFT-DATA DISTILLATION BLUEPRINT) - CLAUDE & OPENAI GPT
+*Bộ Prompt và quy trình dành cho AI Agent để tự động cào và chưng cất dữ liệu SFT/Tool calling cao cấp từ Anthropic Claude và OpenAI GPT.*
 
-Tài liệu này đặc tả cấu trúc dữ liệu SFT mong muốn và cung cấp các **System Prompts đỉnh cao** giúp AI Agent tự động gọi API Claude chưng cất hàng triệu dòng dữ liệu sạch tuyệt đối.
+Tài liệu này đặc tả cấu trúc dữ liệu SFT mong muốn và cung cấp các **System Prompts đỉnh cao** giúp AI Agent tự động gọi Batch API từ cả **Anthropic Claude** và **OpenAI GPT (GPT-4o / GPT-4o-mini)** để chưng cất hàng triệu dòng dữ liệu sạch tuyệt đối.
 
 ---
 
@@ -21,11 +21,11 @@ Mọi tệp dữ liệu SFT chưng cất phải được xuất ra dưới dạn
 
 ## 🎯 2. BỘ PROMPT CHƯNG CẤT CHUYÊN BIỆT (DISTILLATION PROMPTS)
 
-AI Agent sẽ nạp các System Prompt sau đây tương ứng với từng nhóm dữ liệu khi gọi API Claude 3.5:
+AI Agent sẽ nạp các System Prompt sau đây tương ứng với từng nhóm dữ liệu khi gọi API:
 
 ### 2.1. Nhóm 1: Suy luận đa bước chuyên sâu (System 2 CoT Reasoning)
 * **Mục tiêu**: Huấn luyện mô hình cách tư duy logic từng bước, tự sửa lỗi trước khi trả lời.
-* **System Prompt dành cho Claude**:
+* **System Prompt dành cho Claude & GPT-4o**:
 ```markdown
 BẠN LÀ MỘT CHUYÊN GIA TOÁN HỌC VÀ LOGIC HỌC HÀNG ĐẦU.
 Nhiệm vụ: Hãy tạo ra một câu hỏi toán đố, logic hoặc giải thuật hóc búa bằng tiếng Việt, sau đó viết câu trả lời hoàn chỉnh.
@@ -38,7 +38,7 @@ Quy tắc phản hồi bắt buộc:
 
 ### 2.2. Nhóm 2: Stateful Tool Calling (Gọi công cụ có trạng thái)
 * **Mục tiêu**: Huấn luyện mô hình cú pháp gọi tool hoàn hảo và cách phản hồi dựa trên kết quả trả về của tool.
-* **System Prompt dành cho Claude**:
+* **System Prompt dành cho Claude & GPT-4o**:
 ```markdown
 BẠN LÀ SIÊU TÁC TỬ HỆ THỐNG (SYSTEM AGENT).
 Nhiệm vụ: Tạo ra một kịch bản gọi công cụ hoàn chỉnh để giải quyết một yêu cầu thực tế của người dùng.
@@ -58,7 +58,7 @@ Quy tắc phản hồi bắt buộc:
 
 ### 2.3. Nhóm 3: Lập trình cao cấp và Debug (Advanced Programming)
 * **Mục tiêu**: Huấn luyện mô hình khả năng viết code chuẩn xác và giải thích code tường tận.
-* **System Prompt dành cho Claude**:
+* **System Prompt dành cho Claude & GPT-4o**:
 ```markdown
 BẠN LÀ MỘT KIẾN TRÚC SƯ PHẦN MỀM THƯỢNG HẠNG.
 Nhiệm vụ: Tạo ra một bài toán lập trình giải thuật phức tạp bằng tiếng Việt (ví dụ: tối ưu hóa cache, hệ thống phân tán, xử lý bất đồng bộ trong C++, Python, Rust hoặc Go).
@@ -72,12 +72,13 @@ Quy tắc phản hồi bắt buộc:
 
 ## ⚙️ 3. QUY TRÌNH CHẠY BATCH API TỰ ĐỘNG (PIPELINE EXECUTION)
 
-AI Agent thực hiện gom các request chưng cất thành file `.jsonl` theo chuẩn định dạng **Anthropic Batch API** để gửi lên server chạy không đồng bộ (giảm 50% chi phí):
+Để tối thiểu hóa chi phí, AI Agent phải sử dụng tính năng **Batch API (giảm 50% chi phí)** của cả Anthropic và OpenAI. Dưới đây là đặc tả định dạng gửi yêu cầu.
 
-### Cấu trúc 1 dòng trong file gửi Batch API:
+### 3.1. Phân hệ 1: Anthropic Batch API (Dành cho Claude 3.5 Haiku/Sonnet)
+Gom các request thành file `.jsonl` theo cấu trúc:
 ```json
 {
-  "custom_id": "math_reasoning_001",
+  "custom_id": "math_reasoning_claude_001",
   "params": {
     "model": "claude-3-5-haiku-20241022",
     "max_tokens": 2048,
@@ -89,18 +90,52 @@ AI Agent thực hiện gom các request chưng cất thành file `.jsonl` theo c
 }
 ```
 
-### Câu lệnh Python mẫu để Agent submit file batch lên Anthropic:
+#### Code Python submit Batch Anthropic:
 ```python
 import anthropic
-
 client = anthropic.Anthropic()
-
-# Submit batch job
 batch = client.beta.messages.batches.create(
-    requests=[
-        # Load danh sách request từ file JSONL...
-    ]
+    requests=[/* Load danh sách request từ file JSONL */]
 )
-print(f"Đã gửi Batch thành công! Job ID: {batch.id}")
+print(f"Đã gửi Anthropic Batch thành công! Job ID: {batch.id}")
 ```
-AI Agent giám sát trạng thái Job ID qua đêm, tải kết quả về, lọc sạch tạp chất qua màng lọc Regex/AST và lưu trữ trực tiếp vào thư mục `data/` của dự án Bigram.
+
+### 3.2. Phân hệ 2: OpenAI Batch API (Dành cho GPT-4o / GPT-4o-mini)
+GPT-4o-mini Batch API siêu rẻ (**$0.30 / triệu output tokens**), rất thích hợp để chưng cất hàng chục tỷ token tri thức nền tảng.
+Gom các request thành file `.jsonl` theo cấu trúc:
+```json
+{
+  "custom_id": "math_reasoning_gpt_001",
+  "method": "POST",
+  "url": "/v1/chat/completions",
+  "body": {
+    "model": "gpt-4o-mini",
+    "max_tokens": 2048,
+    "messages": [
+      {"role": "system", "content": "Hệ thống prompt đặc tả tương ứng ở Mục 2..."},
+      {"role": "user", "content": "Hãy tạo một bài toán suy luận logic phức tạp và giải nó."}
+    ]
+  }
+}
+```
+
+#### Code Python submit Batch OpenAI:
+```python
+from openai import OpenAI
+client = OpenAI()
+
+# 1. Tải file request lên OpenAI
+file_upload = client.files.create(
+  file=open("openai_batch_requests.jsonl", "rb"),
+  purpose="batch"
+)
+
+# 2. Khởi động Batch Job
+batch = client.batches.create(
+  input_file_id=file_upload.id,
+  endpoint="/v1/chat/completions",
+  completion_window="24h"
+)
+print(f"Đã gửi OpenAI Batch thành công! Job ID: {batch.id}")
+```
+AI Agent giám sát trạng thái Job ID của cả hai bên qua đêm, tải kết quả về, lọc sạch tạp chất qua màng lọc Regex/AST và lưu trữ trực tiếp vào thư mục `data/` của dự án Bigram.
