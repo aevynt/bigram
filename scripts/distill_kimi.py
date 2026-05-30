@@ -4,9 +4,9 @@ import json
 import time
 import random
 import asyncio
-import aiohttp
 import logging
 from pathlib import Path
+from openai import AsyncOpenAI
 
 # Đảm bảo Windows console in ký tự UTF-8 tiếng Việt chuẩn xác không bị lỗi mã hóa
 if sys.stdout.encoding != 'utf-8':
@@ -27,16 +27,14 @@ logging.basicConfig(
 
 # THÔNG SỐ CẤU HÌNH HỆ THỐNG
 API_KEY = os.environ.get("OPENROUTER_API_KEY")
-API_URL = "https://openrouter.ai/api/v1/chat/completions"
 MODEL_NAME = "moonshotai/kimi-k2.6:free"
 
-OUTPUT_DIR = Path("distilldata")
+OUTPUT_DIR = Path(r"E:\DISTILL")
 MANIFEST_PATH = OUTPUT_DIR / "distill_manifest.json"
 MAX_LINES_PER_FILE = 1000  # Chia nhỏ file để tránh OOM / lỗi đọc ghi
 CONCURRENT_REQUESTS = 1    # Đặt bằng 1 để tránh lỗi Rate Limit (429) của tài khoản Free OpenRouter
 MAX_RETRIES = 5            # Số lần thử lại tối đa khi gặp lỗi mạng/rate limit
 BACKOFF_FACTOR = 2         # Hệ số tăng thời gian chờ khi bị chặn (exponential backoff)
-
 
 # Danh sách bộ chủ đề đa dạng để sinh dữ liệu Pretrain
 TOPIC_SEEDS = {
@@ -97,7 +95,6 @@ SYSTEM_PROMPTS = {
     )
 }
 
-
 class KimiDistiller:
     def __init__(self):
         if not API_KEY:
@@ -107,6 +104,12 @@ class KimiDistiller:
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         self.manifest = self.load_manifest()
         self.semaphore = asyncio.Semaphore(CONCURRENT_REQUESTS)
+        
+        # Khởi tạo AsyncOpenAI Client tương thích hoàn toàn với OpenRouter SDK streaming và reasoning
+        self.client = AsyncOpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=API_KEY,
+        )
 
     def load_manifest(self):
         if MANIFEST_PATH.exists():
@@ -130,17 +133,14 @@ class KimiDistiller:
             logging.error(f"Lỗi ghi manifest: {e}")
 
     def get_next_file_info(self, topic):
-        files = self.manifest["files_written"]
         index = 1
         while True:
             file_name = f"pretrain_{topic}_{index:04d}.jsonl"
             file_path = OUTPUT_DIR / file_name
             
-            # Nếu file chưa tồn tại hoặc tồn tại nhưng chưa đủ số dòng tối đa
             if not file_path.exists():
                 return file_path, file_name, 0
             
-            # Đếm số dòng hiện tại của file
             try:
                 with open(file_path, "r", encoding="utf-8") as f:
                     lines = sum(1 for _ in f)
@@ -151,58 +151,71 @@ class KimiDistiller:
             
             index += 1
 
-    async def fetch_completion(self, session, system_prompt, user_prompt):
-        headers = {
-            "Authorization": f"Bearer {API_KEY}",
-            "HTTP-Referer": "https://github.com/aevynt/bigram",
-            "X-Title": "Bigram V2 Distiller",
-            "Content-Type": "application/json"
-        }
-        
-        payload = {
-            "model": MODEL_NAME,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
-            "temperature": 0.7,
-            "max_tokens": 4000
-        }
-
+    async def fetch_completion_stream(self, system_prompt, user_prompt):
+        """
+        Sử dụng cơ chế OpenAI SDK Streaming kết nối OpenRouter.
+        Tự động trích xuất nội dung reasoning_tokens từ chunk.usage cuối cùng.
+        Cơ chế này cực kỳ bền bỉ và tránh lỗi Rate Limit tốt hơn HTTP Post thô.
+        """
         for retry in range(MAX_RETRIES):
             try:
-                async with session.post(API_URL, headers=headers, json=payload, timeout=120) as resp:
-                    if resp.status == 200:
-                        data = await resp.json()
-                        content = data["choices"][0]["message"]["content"]
-                        # Ước lượng lượng token thực tế từ OpenRouter
-                        tokens = data.get("usage", {}).get("total_tokens", len(content) // 2)
-                        return content, tokens
-                    elif resp.status == 429: # Rate Limit
-                        wait_time = (BACKOFF_FACTOR ** retry) + random.uniform(1, 3)
-                        logging.warning(f"Gặp Rate Limit (429). Đang chờ {wait_time:.2f}s trước khi thử lại...")
-                        await asyncio.sleep(wait_time)
-                    else:
-                        text = await resp.text()
-                        logging.error(f"Lỗi phản hồi API (Status {resp.status}): {text}")
-                        await asyncio.sleep(5)
-            except Exception as e:
-                logging.error(f"Lỗi kết nối ngoại lệ (Lần thử {retry+1}): {e}")
-                await asyncio.sleep(5)
-        
-        return None, 0
+                # Gọi API streaming thông qua OpenAI Client chính thức
+                response_stream = await self.client.chat.completions.create(
+                    model=MODEL_NAME,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    temperature=0.7,
+                    max_tokens=4000,
+                    stream=True,
+                    extra_body={
+                        "include_reasoning": True  # Kích hoạt trích xuất reasoning tokens từ Kimi K2.6
+                    }
+                )
 
-    async def worker(self, session, topic, job_id):
+                content = ""
+                reasoning_tokens = 0
+                estimated_total_tokens = 0
+
+                async for chunk in response_stream:
+                    # Trích xuất content
+                    if chunk.choices and chunk.choices[0].delta.content:
+                        content += chunk.choices[0].delta.content
+                    
+                    # Trích xuất usage ở chunk cuối cùng nếu có
+                    if hasattr(chunk, 'usage') and chunk.usage:
+                        estimated_total_tokens = chunk.usage.total_tokens
+                        if hasattr(chunk.usage, 'reasoning_tokens') and chunk.usage.reasoning_tokens:
+                            reasoning_tokens = chunk.usage.reasoning_tokens
+
+                # Nếu ko lấy được token từ usage, tự tính toán ước lượng
+                if estimated_total_tokens == 0:
+                    estimated_total_tokens = len(content) // 2
+
+                return content, estimated_total_tokens, reasoning_tokens
+
+            except Exception as e:
+                # Xử lý Rate Limit (lỗi API 429) và các lỗi mạng
+                wait_time = (BACKOFF_FACTOR ** retry) + random.uniform(1, 3)
+                if "429" in str(e) or "Rate Limit" in str(e):
+                    logging.warning(f"Gặp Rate Limit (429) qua OpenRouter SDK. Đang chờ {wait_time:.2f}s trước khi thử lại...")
+                else:
+                    logging.error(f"Lỗi kết nối SDK (Lần thử {retry+1}): {e}. Đang chờ {wait_time:.2f}s...")
+                await asyncio.sleep(wait_time)
+        
+        return None, 0, 0
+
+    async def worker(self, topic, job_id):
         async with self.semaphore:
-            # Chọn ngẫu nhiên một hạt giống chủ đề
             seed = random.choice(TOPIC_SEEDS[topic])
             system_prompt = SYSTEM_PROMPTS[topic]
             user_prompt = f"Hãy biên soạn chương sách giáo khoa chi tiết về chủ đề: '{seed}'."
             
             logging.info(f"Đang xử lý luồng #{job_id} | Chủ đề: {topic.upper()} | Hạt giống: {seed}")
             
-            # Gọi API lấy dữ liệu
-            content, tokens = await self.fetch_completion(session, system_prompt, user_prompt)
+            # Gọi API lấy dữ liệu qua luồng stream SDK
+            content, tokens, reasoning_tokens = await self.fetch_completion_stream(system_prompt, user_prompt)
             
             if not content:
                 logging.error(f"Thất bại hoàn toàn khi tải dữ liệu cho luồng #{job_id}")
@@ -211,14 +224,13 @@ class KimiDistiller:
             # Chuẩn bị dữ liệu ghi file
             record = {
                 "prompt": user_prompt,
-                "response": f"<think>\n[Hệ thống tự động biên soạn tri thức - Kimi K2.6]\nChủ đề: {seed}\n</think>\n{content}"
+                "response": f"<think>\n[Hệ thống tự động biên soạn tri thức - Kimi K2.6]\nChủ đề: {seed}\nReasoning Tokens: {reasoning_tokens}\n</think>\n{content}"
             }
             line = json.dumps(record, ensure_ascii=False) + "\n"
 
-            # Tìm file phù hợp nhất để ghi (Resuming-friendly)
+            # Tìm file phù hợp nhất để ghi
             file_path, file_name, current_lines = self.get_next_file_info(topic)
             
-            # Ghi file (Thread-safe append qua Asyncio Lock nếu cần, nhưng chạy file riêng độc lập)
             try:
                 with open(file_path, "a", encoding="utf-8") as f:
                     f.write(line)
@@ -235,35 +247,30 @@ class KimiDistiller:
                 
                 self.save_manifest()
                 
-                logging.info(f"✔ Ghi thành công luồng #{job_id} vào {file_name} ({current_lines+1}/{MAX_LINES_PER_FILE}) | Est. Tokens: {tokens}")
+                logging.info(f"✔ Ghi thành công luồng #{job_id} vào {file_name} ({current_lines+1}/{MAX_LINES_PER_FILE}) | Est. Tokens: {tokens} (Reasoning: {reasoning_tokens})")
             except Exception as e:
                 logging.error(f"Lỗi ghi dữ liệu xuống ổ đĩa: {e}")
 
     async def run_pipeline(self):
         logging.info("====================================================")
-        logging.info("  KÍCH HOẠT HỆ THỐNG CHƯNG CẤT CÔNG NGHIỆP KIMI K2.6")
+        logging.info("  KÍCH HOẠT HỆ THỐNG CHƯNG CẤT CÔNG NGHIỆP KIMI K2.6 (OPENROUTER SDK)")
         logging.info(f"  Model target: {MODEL_NAME}")
         logging.info(f"  Thư mục đầu ra: {OUTPUT_DIR.resolve()}")
         logging.info(f"  Trạng thái hiện tại: {self.manifest['total_lines_generated']} dòng | ~{self.manifest['estimated_tokens']:,} tokens")
         logging.info("====================================================")
 
-        connector = aiohttp.TCPConnector(limit=50)
-        async with aiohttp.ClientSession(connector=connector) as session:
-            job_id = 0
-            while True: # Vòng lặp công nghiệp vĩnh cửu
-                tasks = []
-                # Tạo batch gồm các tasks chạy song song
-                for _ in range(CONCURRENT_REQUESTS):
-                    job_id += 1
-                    # Phân bổ đều các luồng chủ đề Toán, CS, Vật lý
-                    topic = random.choice(["math", "cs", "physics"])
-                    tasks.append(self.worker(session, topic, job_id))
-                
-                # Chờ toàn bộ batch hiện tại hoàn thành trước khi sang batch tiếp theo
-                await asyncio.gather(*tasks)
-                
-                # Tránh spam API quá mức gây khóa IP tạm thời trên tài khoản Free OpenRouter
-                await asyncio.sleep(12)
+        job_id = 0
+        while True:
+            tasks = []
+            for _ in range(CONCURRENT_REQUESTS):
+                job_id += 1
+                topic = random.choice(["math", "cs", "physics"])
+                tasks.append(self.worker(topic, job_id))
+            
+            await asyncio.gather(*tasks)
+            
+            # Giảm thời gian chờ xuống 2s vì cơ chế SDK Streaming cực kỳ bền bỉ, ít bị dính 429
+            await asyncio.sleep(2)
 
 if __name__ == "__main__":
     distiller = KimiDistiller()
