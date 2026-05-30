@@ -70,6 +70,11 @@ QUY TẮC THỰC THI SẢN XUẤT CÔNG NGHIỆP:
    - Hãy chạy liên tục trong một vòng lặp (loop) tự động hóa của bạn. Không được phép lười biếng sinh ra vài dòng rồi báo hoàn thành. Mục tiêu của bạn đêm nay là sản xuất tối đa công suất phần cứng và token giới hạn có thể, hướng tới hàng trăm ngàn dòng dữ liệu thô sạch.
    - Hãy viết liên tục, nếu gặp giới hạn token hoặc bị ngắt quãng, ở lượt chạy tiếp theo hãy đọc file manifest để xác định file đang viết dở và viết nối tiếp (append) hoặc tăng index để viết tiếp. Không bao giờ bỏ cuộc hoặc cắt bớt nội dung bài học.
    - Các nội dung sách giáo khoa phải cực kỳ dài, đầy đủ tri thức học thuật sâu sắc, tuyệt đối không dùng placeholder hoặc cắt ngắn ví dụ.
+7. **ĐỊNH NGHĨA HOÀN THÀNH 100% ĐỂ TRỘN PRETRAIN (100% PRETRAIN-MIX COMPLETION DEFINITION)**:
+   - Bạn chỉ được phép công bố 'HOÀN THÀNH 100%' và kết thúc toàn bộ chiến dịch chưng cất khi tổng sản lượng trong `distill_manifest.json` đạt mốc **20 Tỷ tokens** (hoặc chỉ tiêu cụ thể do người dùng cấu hình).
+   - Chỉ khi đạt 100% mục tiêu này, tập dữ liệu mới được coi là SẴN SÀNG để chạy nén nhị phân qua `prepare_data.py` và trộn vào kho Pretrain của Bigram V2.
+   - Nếu chưa đạt đủ số lượng này, dù có bị ngắt quãng bao nhiêu lần, nhiệm vụ của bạn vẫn ở trạng thái 'In Progress' và bạn phải tự động tiếp tục ghi tiếp ở phiên làm việc tiếp theo mà không được phép tự ý dừng lại.
 
 Hãy khởi động hệ thống sản xuất, cập nhật file manifest và bắt đầu ghi liên tục các tệp dữ liệu vào thư mục `distilldata/` ngay bây giờ!
 ```
+
