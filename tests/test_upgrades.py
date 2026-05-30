@@ -21,7 +21,7 @@ if hasattr(sys.stderr, "reconfigure"):
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from bigram.config import tiny_config
+from bigram.config import tiny_config, bigram_v2_1_8b_a6000_config
 from bigram.tokenizer import VietnameseSyllableAwareTokenizer
 from bigram.model.bigram import BigramModel
 from bigram.model.attention import MultiHeadLatentAttention
@@ -121,6 +121,16 @@ class TestBigramV2Upgrades(unittest.TestCase):
         loss_dict["total"].backward()
         # Đảm bảo gradient truyền qua được ponder_halt_head
         self.assertIsNotNone(model.ponder_halt_head.weight.grad)
+
+    def test_bigram_v2_1_8b_a6000_config(self):
+        """Xác minh cấu hình siêu lõi 1.8B tối ưu A6000 hợp lệ."""
+        cfg = bigram_v2_1_8b_a6000_config()
+        self.assertEqual(cfg.model.vocab_size, 32000)
+        self.assertEqual(cfg.model.hidden_size, 2048)
+        self.assertTrue(cfg.model.use_mla)
+        self.assertTrue(cfg.model.use_pondernet)
+        self.assertTrue(cfg.model.use_mamba)
+        self.assertTrue(cfg.model.use_moe)
 
 def run_all():
     print("Đang chạy test_upgrades...")
