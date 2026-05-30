@@ -1,200 +1,73 @@
-# ĐẶC TẢ TỰ ĐỘNG CHƯNG CẤT DỮ LIỆU PRETRAIN QUA ĐÊM (PRETRAIN DISTILLATION PIPELINE SPECIFICATION)
-*Dành cho AI Agent thực thi cào và chưng cất dữ liệu sách giáo khoa/tri thức chuẩn bị cho Pretrain Bigram V2.*
+# ĐẶC TẢ CHƯNG CẤT DỮ LIỆU TRỰC TIẾP BẰNG AI AGENT (DIRECT AGENT DISTILLATION BLUEPRINT)
+*Đặc tả kỹ thuật yêu cầu AI Agent tự sinh và ghi trực tiếp dữ liệu học tập cao cấp vào thư mục `distilldata/`.*
+
+Tài liệu này đóng vai trò là bản hướng dẫn hành động (Actionable Handoff Prompt) để bạn giao việc trực tiếp cho một AI Agent có khả năng lập trình/ghi file. AI Agent sẽ tự đóng vai trò là bộ máy chưng cất tri thức, tự sinh nội dung học thuật tiếng Việt chất lượng cao và ghi trực tiếp thành các tệp tin JSONL sạch tại thư mục `distilldata/` bằng công cụ viết file của mình mà không cần gọi qua API hay chạy code Python phụ trợ.
 
 ---
 
-## 🎯 1. MỤC TIÊU & QUY MÔ (TARGET & SCALE)
-* **Mục tiêu**: Tạo ra tập dữ liệu chưng cất chất lượng cao dạng sách giáo khoa (textbook), toán logic, giải thuật và code sạch bằng tiếng Việt.
-* **Quy mô thí điểm (Pilot Run)**: **100 Triệu đến 1 Tỷ tokens** (khoảng 50,000 đến 500,000 văn bản dài).
-* **Quy mô mục tiêu lớn (Full Scale)**: **20 Tỷ đến 40 Tỷ tokens** chạy qua Batch API của **OpenAI (GPT-4o-mini)** và **Anthropic (Claude 3.5 Haiku)**.
-* **Hình thức thực thi**: AI Agent chạy tự động không đồng bộ qua đêm (chạy ngầm, gọi Batch API giảm 50% chi phí).
+## 📂 1. CẤU TRÚC THƯ MỤC & ĐỊNH DẠNG DỮ LIỆU ĐẦU RA
+
+AI Agent phải tạo thư mục `distilldata/` ở thư mục gốc của dự án (nếu chưa tồn tại) và phân bổ các tệp tin dữ liệu theo định dạng **JSON Lines (JSONL)**:
+
+```
+bigram/
+├── distilldata/
+│   ├── pretrain_math_001.jsonl      <-- Dữ liệu sách giáo khoa Toán & Logic
+│   ├── pretrain_cs_001.jsonl        <-- Dữ liệu Khoa học Máy tính & Giải thuật
+│   └── pretrain_physics_001.jsonl   <-- Dữ liệu Vật lý & Khoa học Tự nhiên
+```
+
+### Định dạng từng dòng (JSON Line Schema):
+Mỗi dòng phải là một đối tượng JSON chuẩn hóa UTF-8 NFC, chứa cấu trúc:
+```json
+{"prompt": "Yêu cầu học tập/Câu hỏi chuyên sâu", "response": "<think>\nSuy nghĩ lập luận đa bước của AI\n</think>\nNội dung chi tiết sách giáo khoa/Code/Ví dụ minh họa chi tiết..."}
+```
 
 ---
 
-## 📂 2. THƯ VIỆN PROMPTS SINH SÁCH GIÁO KHOA CHUYÊN BIỆT (DISTILLATION PROMPT LIBRARY)
+## 🎯 2. TIÊU CHUẨN NỘI DUNG THEO TỪNG CHỦ ĐỀ
 
-AI Agent sử dụng các System Prompts sau để đa dạng hóa chủ đề sinh dữ liệu Pretrain:
+AI Agent phải tuân thủ nghiêm ngặt các tiêu chuẩn chất lượng khi tự sinh nội dung:
 
-### 2.1. Chủ đề 1: Sách giáo khoa Toán học & Logic (Math & Logic Textbook)
+### 2.1. Chủ đề 1: Sách giáo khoa Toán học & Logic (`pretrain_math_*.jsonl`)
+* **Nội dung**: Lý thuyết tập hợp, tổ hợp, xác suất, hình học giải tích, đại số tuyến tính, logic mệnh đề.
+* **Yêu cầu**: 
+  - Giải thích định nghĩa toán học rõ ràng bằng tiếng Việt học thuật chuẩn xác.
+  - Phải có phần lập luận logic rõ ràng từng bước trong thẻ `<think>`.
+  - Đưa ra tối thiểu 3 ví dụ trực quan kèm bài tập tự luyện và lời giải chi tiết.
+
+### 2.2. Chủ đề 2: Sách giáo khoa Khoa học Máy tính & Giải thuật (`pretrain_cs_*.jsonl`)
+* **Nội dung**: Quy hoạch động, cấu trúc dữ liệu nâng cao (Segment Tree, Fenwick), giải thuật đồ thị, hệ thống phân tán, cơ chế đồng thuận.
+* **Yêu cầu**:
+  - Giải thích nguyên lý hoạt động và phân tích độ phức tạp thời gian/không gian $O(N)$.
+  - Viết code minh họa sạch, tối ưu (C++, Python, Rust hoặc Go) kèm giải thích chi tiết.
+
+### 2.3. Chủ đề 3: Sách giáo khoa Vật lý & Khoa học Tự nhiên (`pretrain_physics_*.jsonl`)
+* **Nội dung**: Cơ học lượng tử, điện từ trường, thuyết tương đối, quang học, hóa lý.
+* **Yêu cầu**:
+  - Thiết lập phương trình toán học mô tả hiện tượng vật lý.
+  - Giải thích tường tận ý nghĩa vật lý của các hằng số/biến số.
+  - Đưa ra bài tập thực tiễn kèm lời giải chi tiết.
+
+---
+
+## 📋 YÊU CẦU GIAO VIỆC CHO AI AGENT THỰC THI (HANDOFF PROMPT TO AGENT)
+> *Sao chép toàn bộ nội dung dưới đây và dán trực tiếp vào khung chat của AI Agent có quyền ghi file để bắt đầu quá trình sinh dữ liệu tự động:*
+
 ```markdown
-BẠN LÀ MỘT GIÁO SƯ TOÁN HỌC VÀ LOGIC HỌC ĐẦU NGÀNH.
-Nhiệm vụ: Viết một chương sách giáo khoa chi tiết bằng tiếng Việt giảng giải về một chủ đề toán học hoặc logic cụ thể (ví dụ: Lý thuyết tập hợp, Tổ hợp, Xác suất, Đại số tuyến tính, Logic mệnh đề, Hình học giải tích).
-Yêu cầu nội dung bắt buộc:
-1. Định nghĩa chi tiết, toán học chuẩn xác, giải thích trực quan bằng tiếng Việt chuẩn khoa học.
-2. Đưa ra ít nhất 3 ví dụ minh họa từ cơ bản đến nâng cao.
-3. Cung cấp bài tập tự luyện kèm lời giải chi tiết từng bước (CoT) sử dụng các suy luận logic chặt chẽ.
-4. Định dạng các công thức toán học rõ ràng.
-Tuyệt đối không viết lan man, không sử dụng tiếng Anh bồi. Hãy viết dài, chi tiết và học thuật.
+Nhiệm vụ của bạn là hoạt động như một Bộ Máy Chưng Cất Dữ Liệu Học Máy (ML Data Distillation Engine). Bạn sẽ tự suy nghĩ và sinh ra kho dữ liệu học thuật tiếng Việt cao cấp, sau đó sử dụng công cụ ghi file của mình để tạo trực tiếp các file JSONL sạch vào thư mục `distilldata/` của dự án.
+
+QUY TẮC THỰC THI BẮT BUỘC:
+1. Hãy tạo thư mục `distilldata/` tại thư mục gốc của dự án (nếu chưa có).
+2. Hãy sinh trực tiếp dữ liệu học tập cao cấp cho 3 nhóm chủ đề: Toán học (Math), Khoa học máy tính (CS), và Vật lý (Physics).
+3. Ghi dữ liệu vào các file tương ứng:
+   - `distilldata/pretrain_math_001.jsonl` (Ít nhất 50 mẫu chuyên sâu về Toán/Logic)
+   - `distilldata/pretrain_cs_001.jsonl` (Ít nhất 50 mẫu chuyên sâu về Giải thuật/Code)
+   - `distilldata/pretrain_physics_001.jsonl` (Ít nhất 50 mẫu chuyên sâu về Vật lý/Khoa học tự nhiên)
+4. Mỗi mẫu phải là một dòng JSONL chuẩn:
+   {"prompt": "Câu hỏi/Yêu cầu học tập", "response": "<think>\nLập luận logic\n</think>\nNội dung bài học/Code/Lời giải chi tiết"}
+5. Tuyệt đối không viết code chạy Python để gọi API hay gửi Batch API nào cả. Nhiệm vụ của bạn là TỰ SUY NGHĨ, SINH NỘI DUNG VÀ GHI TRỰC TIẾP thành các tệp tin dữ liệu thô này vào thư mục `distilldata/` bằng công cụ ghi file của mình.
+6. Đảm bảo ngôn ngữ tiếng Việt tự nhiên, chuẩn NFC, học thuật, không pha tạp tiếng Anh bồi. Các đoạn code minh họa phải tối ưu và được định dạng markdown chuẩn trong chuỗi JSON.
+
+Hãy tiến hành sinh dữ liệu chi tiết và ghi trực tiếp vào các tệp tin trên ngay bây giờ!
 ```
-
-### 2.2. Chủ đề 2: Sách giáo khoa Khoa học Máy tính & Giải thuật (CS & Algorithms)
-```markdown
-BẠN LÀ MỘT NHÀ KHOA HỌC MÁY TÍNH KIỆT XUẤT.
-Nhiệm vụ: Viết một bài viết học thuật chuyên sâu bằng tiếng Việt về cấu trúc dữ liệu hoặc giải thuật (ví dụ: Cây phân đoạn - Segment Tree, Quy hoạch động, Đồ thị luồng cực đại, Thuật toán so khớp chuỗi, Cơ chế đồng thuận Paxos/Raft).
-Yêu cầu nội dung bắt buộc:
-1. Giải thích tường tận nguyên lý hoạt động và bản chất toán học của thuật toán.
-2. Phân tích độ phức tạp thời gian O(N) và không gian ở các trường hợp tốt nhất, trung bình, xấu nhất.
-3. Viết mã nguồn minh họa sạch, tối ưu bằng một trong các ngôn ngữ: C++, Python, Rust hoặc Go (có comment chi tiết từng dòng).
-4. Phân tích các edge cases và cách gỡ lỗi thực tế.
-```
-
-### 2.3. Chủ đề 3: Sách giáo khoa Vật lý & Khoa học Tự nhiên (Physics & Natural Sciences)
-```markdown
-BẠN LÀ MỘT NHÀ VẬT LÝ HỌC VÀ KHOA HỌC TỰ NHIÊN ĐỈNH CAO.
-Nhiệm vụ: Viết một chương tài liệu khoa học tiếng Việt giảng giải sâu sắc về một hiện tượng lý thuyết hoặc thực nghiệm (ví dụ: Cơ học lượng tử sơ cấp, Điện từ trường Maxwell, Nhiệt động lực học, Thuyết tương đối hẹp, Quang học vật lý).
-Yêu cầu nội dung bắt buộc:
-1. Mô tả hiện tượng vật lý, thiết lập các phương trình toán học mô tả hiện tượng đó.
-2. Giải thích ý nghĩa vật lý của các hằng số và biến số trong phương trình.
-3. Đưa ra các ứng dụng thực tiễn trong công nghệ hiện đại.
-4. Trình bày bài tập vật lý ứng dụng kèm lời giải chi tiết từng bước.
-```
-
----
-
-## ⚙️ 3. KỊCH BẢN CHẠY BATCH API TỰ ĐỘNG QUA ĐÊM (OVERNIGHT PIPELINE PIPELINE)
-
-AI Agent cần thực hiện quy trình 4 bước tự động dưới đây thông qua script Python `scripts/distill_pretrain_batch.py`:
-
-```
-   [Tạo Request List]
-           │
-           ▼
-[Gửi OpenAI/Claude Batch] ──► [Lưu Job ID vào File]
-           │
-     (Chạy qua đêm)
-           │
-           ▼
-    [Script Polling] ──────► [Tải file kết quả về]
-                                    │
-                                    ▼
-                          [Hậu xử lý & Dọn dẹp] ──► [Nén thành file .bin]
-```
-
-### Bước 1: Khởi tạo danh sách yêu cầu (Generator)
-Viết script sinh ra file `pretrain_requests.jsonl` chứa hàng ngàn câu hỏi đa dạng dựa trên danh sách các từ khóa khoa học (keywords seed list).
-
-### Bước 2: Submit Batch Job lên OpenAI GPT-4o-mini
-```python
-# scripts/distill_pretrain_batch.py
-import json
-import time
-from openai import OpenAI
-
-client = OpenAI()
-
-# 1. Tạo file dữ liệu yêu cầu gửi OpenAI
-requests = []
-topics = ["math", "cs", "physics"]
-# Ví dụ tạo 50,000 requests ngẫu nhiên từ bộ từ khóa để chạy qua đêm
-for i in range(10000):  
-    topic = topics[i % len(topics)]
-    system_prompt = ""
-    if topic == "math":
-        system_prompt = "Hệ thống prompt Giáo sư Toán..."
-    elif topic == "cs":
-        system_prompt = "Hệ thống prompt Khoa học máy tính..."
-    else:
-        system_prompt = "Hệ thống prompt Vật lý..."
-
-    requests.append({
-        "custom_id": f"pretrain_{topic}_{i:05d}",
-        "method": "POST",
-        "url": "/v1/chat/completions",
-        "body": {
-            "model": "gpt-4o-mini",
-            "max_tokens": 4096,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": f"Hãy viết chi tiết chương sách về chủ đề số hiệu {i}."}
-            ]
-        }
-    })
-
-# Ghi file jsonl cục bộ
-with open("data/openai_pretrain_requests.jsonl", "w", encoding="utf-8") as f:
-    for req in requests:
-        f.write(json.dumps(req, ensure_ascii=False) + "\n")
-
-# 2. Upload file lên OpenAI
-print("Đang tải file request lên OpenAI...")
-uploaded_file = client.files.create(
-    file=open("data/openai_pretrain_requests.jsonl", "rb"),
-    purpose="batch"
-)
-
-# 3. Tạo Batch Job
-print("Đang khởi chạy OpenAI Batch Job...")
-batch_job = client.batches.create(
-    input_file_id=uploaded_file.id,
-    endpoint="/v1/chat/completions",
-    completion_window="24h"
-)
-
-# 4. Ghi lại Job ID để theo dõi qua đêm
-with open("data/active_batch_jobs.txt", "a") as log_file:
-    log_file.write(f"{batch_job.id}\n")
-print(f"Đã gửi Batch thành công! Job ID: {batch_job.id}")
-```
-
-### Bước 3: Polling & Tải dữ liệu tự động (Cron/Loop Monitor)
-Viết script `scripts/monitor_and_download.py` chạy ngầm để liên tục kiểm tra trạng thái của các Job ID. Khi Job chuyển sang trạng thái `completed`, tải file kết quả về:
-
-```python
-# scripts/monitor_and_download.py
-import time
-from openai import OpenAI
-
-client = OpenAI()
-
-def check_and_download():
-    # Đọc danh sách Job ID cần kiểm tra
-    with open("data/active_batch_jobs.txt", "r") as f:
-        job_ids = [line.strip() for line in f if line.strip()]
-    
-    remaining_jobs = []
-    for job_id in job_ids:
-        job = client.batches.retrieve(job_id)
-        print(f"Kiểm tra Job {job_id}: Trạng thái = {job.status}")
-        
-        if job.status == "completed":
-            print(f"Job {job_id} đã hoàn thành! Đang tải kết quả...")
-            # Tải file kết quả
-            output_file_id = job.output_file_id
-            file_content = client.files.content(output_file_id).text
-            
-            # Ghi ra thư mục dữ liệu thô
-            output_path = f"data/raw_distilled_{job_id}.jsonl"
-            with open(output_path, "w", encoding="utf-8") as out_f:
-                out_f.write(file_content)
-            print(f"Đã lưu kết quả về: {output_path}")
-        else:
-            remaining_jobs.append(job_id)
-            
-    # Cập nhật lại danh sách các Job chưa xong
-    with open("data/active_batch_jobs.txt", "w") as f:
-        for job_id in remaining_jobs:
-            f.write(f"{job_id}\n")
-
-if __name__ == "__main__":
-    while True:
-        check_and_download()
-        # Đợi 10 phút trước lần quét tiếp theo
-        time.sleep(600)
-```
-
----
-
-## 🧹 4. HẬU XỬ LÝ & NÉN NHỊ PHÂN DỮ LIỆU (POST-PROCESSING & BIN PACK)
-
-Sau khi tải dữ liệu về, AI Agent phải lọc sạch tạp chất và nén nhị phân:
-
-1. **Lọc Regex & AST**: Loại bỏ hoàn toàn các câu thừa (ví dụ: *"Dưới đây là bài viết..."*), chuẩn hóa NFC bằng thư viện `unicodedata.normalize('NFC', text)`.
-2. **Trích xuất nội dung**: Lấy phần text thô trong kết quả trả về của GPT-4o-mini ghép lại thành một file văn bản lớn `data/distilled_pretrain.txt`.
-3. **Nén nhị phân (Data Bin Pack)**: Chạy script `prepare_data.py` (đã có trong codebase) sử dụng Tokenizer **VS-BPE** để mã hóa và nén toàn bộ văn bản thô thành định dạng `.bin` và `.idx` sẵn sàng đưa thẳng vào GPU huấn luyện Pretrain.
-
----
-
-## 📋 YÊU CẦU GIAO VIỆC CHO AI AGENT CHẠY QUA ĐÊM (HANDOFF INSTRUCTION TO AGENT)
-> *Dán trực tiếp câu lệnh này vào cửa sổ chat của AI Agent thực thi:*
->
-> "Chào Agent, hãy đọc tài liệu đặc tả [PRETRAIN-DISTILLATION.md](file:///c:/Users/lhqua/Documents/bigram/PRETRAIN-DISTILLATION.md). Nhiệm vụ của bạn đêm nay là thiết lập toàn bộ pipeline chưng cất dữ liệu sách giáo khoa pretrain tiếng Việt bằng OpenAI GPT-4o-mini Batch API. Hãy viết các script `scripts/distill_pretrain_batch.py` và `scripts/monitor_and_download.py`, chạy thử nghiệm pilot 100 requests trước để kiểm tra lỗi, sau đó kích hoạt submit Job Batch lớn 50,000 requests. Chạy ngầm tiến trình giám sát và tự động tải kết quả về thư mục `data/` khi hoàn thành. Hãy báo cáo trạng thái Job ID trước khi tôi đi ngủ."
