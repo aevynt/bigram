@@ -8,6 +8,13 @@ import aiohttp
 import logging
 from pathlib import Path
 
+# Đảm bảo Windows console in ký tự UTF-8 tiếng Việt chuẩn xác không bị lỗi mã hóa
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except AttributeError:
+        pass
+
 # Cấu hình logging chuyên nghiệp cho giám sát công nghiệp
 logging.basicConfig(
     level=logging.INFO,
@@ -26,9 +33,10 @@ MODEL_NAME = "moonshotai/kimi-k2.6:free"
 OUTPUT_DIR = Path("distilldata")
 MANIFEST_PATH = OUTPUT_DIR / "distill_manifest.json"
 MAX_LINES_PER_FILE = 1000  # Chia nhỏ file để tránh OOM / lỗi đọc ghi
-CONCURRENT_REQUESTS = 5    # Số luồng chạy song song (điều chỉnh tùy thuộc rate limit của tài khoản free)
+CONCURRENT_REQUESTS = 1    # Đặt bằng 1 để tránh lỗi Rate Limit (429) của tài khoản Free OpenRouter
 MAX_RETRIES = 5            # Số lần thử lại tối đa khi gặp lỗi mạng/rate limit
 BACKOFF_FACTOR = 2         # Hệ số tăng thời gian chờ khi bị chặn (exponential backoff)
+
 
 # Danh sách bộ chủ đề đa dạng để sinh dữ liệu Pretrain
 TOPIC_SEEDS = {
@@ -254,8 +262,8 @@ class KimiDistiller:
                 # Chờ toàn bộ batch hiện tại hoàn thành trước khi sang batch tiếp theo
                 await asyncio.gather(*tasks)
                 
-                # Tránh spam API quá mức gây khóa IP tạm thời
-                await asyncio.sleep(1)
+                # Tránh spam API quá mức gây khóa IP tạm thời trên tài khoản Free OpenRouter
+                await asyncio.sleep(12)
 
 if __name__ == "__main__":
     distiller = KimiDistiller()
