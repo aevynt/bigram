@@ -132,6 +132,24 @@ class TestBigramV2Upgrades(unittest.TestCase):
         self.assertTrue(cfg.model.use_mamba)
         self.assertTrue(cfg.model.use_moe)
 
+    def test_generate_with_latent_reasoning(self):
+        """Xác minh bộ sinh suy luận không gian ẩn (System 2) hoạt động."""
+        cfg = tiny_config()
+        cfg.model.use_pondernet = True
+        cfg.model.use_mla = True
+        cfg.model.use_verifier_head = True
+        cfg.model.use_abstention_head = True
+        cfg.model.tokenizer_type = "vs_bpe"
+        
+        model = BigramModel(cfg.model)
+        
+        token_ids = torch.randint(0, 100, (1, 5))
+        out, out_tones, abstained = model.generate_with_latent_reasoning(
+            token_ids, max_new_tokens=4, beam_width=2, num_recurrence=3
+        )
+        self.assertEqual(out.shape[0], 1)
+        self.assertTrue(out.shape[1] >= 5)
+
 def run_all():
     print("Đang chạy test_upgrades...")
     suite = unittest.TestLoader().loadTestsFromTestCase(TestBigramV2Upgrades)

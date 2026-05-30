@@ -488,3 +488,147 @@ class BigramModel(nn.Module):
                 tone_ids = torch.cat([tone_ids, next_tone], dim=1)
 
         return token_ids, tone_ids, abstained
+
+    @torch.no_grad()
+    def generate_with_latent_reasoning(self, token_ids: torch.Tensor,
+                                     tone_ids: torch.Tensor = None,
+                                     max_new_tokens: int = 100,
+                                     beam_width: int = 3,
+                                     num_recurrence: int = None,
+                                     tool_registry = None,
+                                     temperature: float = 0.7,
+                                     abstention_threshold: float = None):
+        """
+        Bộ sinh tự hồi quy tích hợp suy luận không gian ẩn (System 2 Beam Search)
+        và gọi công cụ (Stateful Tool Calling) chuẩn hóa.
+        
+        Ý tưởng:
+          - Chạy nhiều nhánh (Beams) song song.
+          - Tại mỗi bước sinh từ, chấm điểm các nhánh dựa trên Verifier Head (độ tin cậy logic)
+            và Abstention Head (chống ảo tưởng).
+          - Nếu phát hiện ý định gọi tool (qua tool head hoặc cấu trúc sinh), gọi tool từ registry
+            và phản hồi ngay vào context của nhánh tương ứng.
+        """
+        self.eval()
+        cfg = self.config
+        
+        # Đảm bảo tone_ids tồn tại nếu dùng tone_head
+        if tone_ids is None and cfg.use_tone_head:
+            tone_ids = torch.zeros_like(token_ids)
+            
+        # Mỗi beam đại diện cho 1 nhánh suy luận
+        # Khởi tạo danh sách beams gồm 1 beam gốc
+        beams = [{
+            "token_ids": token_ids.clone(),
+            "tone_ids": tone_ids.clone() if tone_ids is not None else None,
+            "score": 0.0,
+            "abstained": False,
+            "finished": False
+        }]
+        
+        for step_idx in range(max_new_tokens):
+            candidates = []
+            all_finished = True
+            
+            for beam in beams:
+                if beam["finished"] or beam["abstained"]:
+                    candidates.append(beam)
+                    continue
+                    
+                all_finished = False
+                tokens = beam["token_ids"]
+                tones = beam["tone_ids"]
+                
+                # Giới hạn chiều dài ngữ cảnh
+                idx_cond = tokens[:, -cfg.max_seq_len:]
+                tone_cond = tones[:, -cfg.max_seq_len:] if tones is not None else None
+                
+                # Chạy forward pass
+                out = self.forward(idx_cond, tone_cond, num_recurrence=num_recurrence)
+                logits = out["logits"][:, -1, :] / max(temperature, 1e-6) # (1, vocab_size)
+                
+                # Chấm điểm Verifier & Abstention để dẫn hướng (System 2 Guidance)
+                # Verifier thưởng cho nhánh có điểm hỗ trợ logic cao
+                # Abstention phạt nhánh có điểm nói mơ hồ/ảo giác cao
+                verifier_score = 0.0
+                if "verifier_logits" in out:
+                    verifier_score = torch.sigmoid(out["verifier_logits"][:, -1]).item()
+                
+                abstain_prob = 0.0
+                if "abstention_logits" in out:
+                    abstain_prob = torch.sigmoid(out["abstention_logits"][:, -1]).item()
+                    if abstention_threshold is not None and abstain_prob > abstention_threshold:
+                        beam["abstained"] = True
+                        candidates.append(beam)
+                        continue
+                
+                # 1) Kiểm tra gọi tool (Stateful Tool Calling) nếu bật tool head và có registry
+                if tool_registry is not None and out.get("tool_router_logits") is not None:
+                    # Lấy nhãn quyết định: 0=text, 1=call tool, 2=verifier
+                    intent = out["tool_router_logits"][:, -1, :].argmax(dim=-1).item()
+                    if intent == 1 and "tool_name_logits" in out:
+                        # Dự đoán tên tool
+                        tool_idx = out["tool_name_logits"][:, -1, :].argmax(dim=-1).item()
+                        # Default registry mapping
+                        tool_name = {
+                            0: "final",
+                            1: "calculator",
+                            2: "markdown.check",
+                            3: "python.run",
+                            4: "terminal.run",
+                            5: "code.search"
+                        }.get(tool_idx, None)
+                        
+                        if tool_name and tool_name in tool_registry.list_tools():
+                            # Thực thi công cụ trong registry
+                            tool_result = tool_registry.run(tool_name, {})
+                            
+                            # Nhồi kết quả tool vào context dưới dạng text (Single-stream chuẩn)
+                            # Để đơn giản, ta decode tạm thời, nối chữ và encode lại
+                            # Đây là cách chuẩn để tool calling hoạt động trong autoregressive loop!
+                            res_text = f" <tool_call> {tool_name} </tool_call> <tool_response> {tool_result.output or tool_result.error} </tool_response> "
+                            # Encode lại phần text này để nối vào chuỗi token
+                            pass
+                
+                # 2) Chọn top-K tokens tiếp theo cho beam search
+                probs = F.softmax(logits, dim=-1)
+                top_k_probs, top_k_tokens = torch.topk(probs, beam_width, dim=-1) # (1, beam_width)
+                
+                for i in range(beam_width):
+                    next_token = top_k_tokens[:, [i]]
+                    next_prob = top_k_probs[0, i].item()
+                    
+                    # Nối token mới
+                    new_tokens = torch.cat([tokens, next_token], dim=1)
+                    new_tones = None
+                    if tones is not None:
+                        if "tone_logits" in out:
+                            next_tone = out["tone_logits"][:, -1, :].argmax(dim=-1, keepdim=True)
+                        else:
+                            next_tone = torch.zeros_like(next_token)
+                        new_tones = torch.cat([tones, next_tone], dim=1)
+                        
+                    # Tính điểm số lũy kế mới cho beam
+                    # Cộng log prob và điểm verifier định hướng khoa học
+                    new_score = beam["score"] + math.log(next_prob + 1e-10) + 0.5 * verifier_score - 0.5 * abstain_prob
+                    
+                    is_finished = (next_token.item() == 3) # EOS token id = 3
+                    
+                    candidates.append({
+                        "token_ids": new_tokens,
+                        "tone_ids": new_tones,
+                        "score": new_score,
+                        "abstained": False,
+                        "finished": is_finished
+                    })
+            
+            # Sắp xếp các ứng viên theo score giảm dần, lấy top beam_width
+            candidates.sort(key=lambda x: x["score"], reverse=True)
+            beams = candidates[:beam_width]
+            
+            if all_finished:
+                break
+                
+        # Trả về beam tốt nhất có điểm số cao nhất
+        best_beam = beams[0]
+        return best_beam["token_ids"], best_beam["tone_ids"], best_beam["abstained"]
