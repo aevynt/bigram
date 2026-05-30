@@ -139,3 +139,38 @@ batch = client.batches.create(
 print(f"Đã gửi OpenAI Batch thành công! Job ID: {batch.id}")
 ```
 AI Agent giám sát trạng thái Job ID của cả hai bên qua đêm, tải kết quả về, lọc sạch tạp chất qua màng lọc Regex/AST và lưu trữ trực tiếp vào thư mục `data/` của dự án Bigram.
+
+---
+
+## 💬 4. PHƯƠNG PHÁP CHƯNG CẤT QUA GIAO DIỆN WEB (CHAT PLATFORMS - CHATGPT & CLAUDE.AI)
+
+Nếu không muốn chạy script gọi API tự động, bạn có thể tự chưng cất thủ công chất lượng cao bằng cách sử dụng các nền tảng chat trực tuyến (ChatGPT, Claude.ai).
+
+### 4.1. Prompt chưng cất "Một Click Copy" (Single-Click Copy Prompt)
+Copy toàn bộ prompt dưới đây và dán vào ChatGPT hoặc Claude.ai. Prompt này được tối ưu để buộc mô hình phản hồi duy nhất một khối code block dạng JSON Lines (JSONL) sạch tinh khiết, giúp bạn dễ dàng ấn nút **"Copy"** trên giao diện Web mà không cần tốn công chỉnh sửa hay lọc bỏ từ ngữ thừa.
+
+```markdown
+Hãy đóng vai trò là một chuyên gia chưng cất dữ liệu học máy (Machine Learning Data Distillation Expert). Nhiệm vụ của bạn là tạo ra 10 mẫu dữ liệu huấn luyện SFT tiếng Việt cao cấp, đa dạng và cực kỳ phức tạp để dạy cho mô hình ngôn ngữ Bigram V2 1.8B.
+
+Các chủ đề cần tạo mẫu bao gồm (hãy phân bổ đều):
+1. Suy luận đa bước chuyên sâu (System 2 CoT Reasoning) về logic, toán học, giải thuật.
+2. Gọi công cụ có trạng thái (Stateful Tool Calling) cho các tác vụ như chạy code python, terminal, calculator, search.
+3. Lập trình nâng cao, tối ưu hóa hệ thống, và gỡ lỗi (C++, Python, Rust, Go).
+
+QUY TẮC ĐỊNH DẠNG ĐẦU RA BẮT BUỘC:
+1. Bạn chỉ được phép phản hồi duy nhất một khối code block dạng JSON Lines (JSONL). Khối code block bắt đầu bằng ```json và kết thúc bằng ```.
+2. Tuyệt đối không thêm bất kỳ văn bản chào hỏi, giải thích, mở đầu hay kết luận nào ngoài khối code đó (ví dụ: Không viết "Dưới đây là...", "Hy vọng giúp được bạn...").
+3. Mỗi dòng trong JSONL phải là một đối tượng JSON độc lập chứa chính xác hai trường: "prompt" và "response".
+4. Trong trường "response", đối với câu hỏi suy luận, phần lập luận phải bắt đầu bằng thẻ `<think>` và kết thúc bằng thẻ `</think>` trước khi đưa ra câu trả lời chính thức. Đối với tool calling, phải dùng các thẻ `<tool_call>` và `<tool_response>` đúng cấu trúc.
+5. Đảm bảo ngôn ngữ tiếng Việt tự nhiên, chuyên nghiệp và chuẩn khoa học.
+
+Hãy bắt đầu tạo ngay 10 mẫu ngẫu nhiên độc đáo và phức tạp.
+```
+
+### 4.2. Hướng dẫn tích hợp thủ công (Manual Appending)
+1. Gửi prompt trên vào **Claude 3.5 Sonnet (Claude.ai)** hoặc **GPT-4o (ChatGPT)**.
+2. Mô hình sẽ sinh ra một khối code block có nút **"Copy code"** ở góc phải trên giao diện web.
+3. Click nút **"Copy code"** đó để sao chép toàn bộ 10 dòng JSONL vào clipboard.
+4. Mở tệp tin `data/sft.jsonl` (hoặc `data/sft_val.jsonl`) trong thư mục dự án và dán trực tiếp (paste) vào cuối tệp.
+5. Lưu tệp tin lại. Quá trình tích hợp diễn ra trơn tru, sẵn sàng cho việc huấn luyện SFT!
+
