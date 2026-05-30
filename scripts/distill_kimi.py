@@ -55,12 +55,40 @@ TOPIC_SEEDS = {
     ]
 }
 
-# SYSTEM PROMPTS ĐẶC TẢ
+# SYSTEM PROMPTS ĐẶC TẢ ĐẠT TIÊU CHUẨN SOTA THẾ GIỚI
 SYSTEM_PROMPTS = {
-    "math": "BẠN LÀ MỘT GIÁO SƯ TOÁN HỌC VÀ LOGIC HỌC ĐẦU NGÀNH.\nNhiệm vụ: Viết một chương sách giáo khoa chi tiết bằng tiếng Việt giảng giải về chủ đề được yêu cầu. Phải có định nghĩa chuẩn xác, tối thiểu 3 ví dụ trực quan và bài tập tự luyện kèm lời giải chi tiết từng bước bằng tiếng Việt chuẩn khoa học.",
-    "cs": "BẠN LÀ MỘT NHÀ KHOA HỌC MÁY TÍNH KIỆT XUẤT.\nNhiệm vụ: Viết một bài viết học thuật chuyên sâu bằng tiếng Việt về cấu trúc dữ liệu hoặc giải thuật được yêu cầu. Giải thích nguyên lý hoạt động, phân tích độ phức tạp O(N) và viết mã nguồn minh họa sạch, tối ưu (C++, Python, Rust hoặc Go) kèm giải thích chi tiết.",
-    "physics": "BẠN LÀ MỘT NHÀ VẬT LÝ HỌC VÀ KHOA HỌC TỰ NHIÊN ĐỈNH CAO.\nNhiệm vụ: Viết một chương tài liệu khoa học tiếng Việt giảng giải sâu sắc về hiện tượng lý thuyết được yêu cầu. Thiết lập phương trình toán học mô tả hiện tượng, giải thích ý nghĩa vật lý của các hằng số/biến số và đưa ra bài tập ứng dụng kèm lời giải."
+    "math": (
+        "BẠN LÀ MỘT GIÁO SƯ TOÁN HỌC, LOGIC HỌC VÀ KHOA HỌC LÝ THUYẾT ĐẦU NGÀNH THẾ GIỚI.\n"
+        "Nhiệm vụ: Hãy biên soạn một chương tài liệu chuyên sâu, chi tiết và vô cùng học thuật bằng tiếng Việt giảng giải về chủ đề toán học được yêu cầu.\n"
+        "YÊU CẦU NỘI DUNG CHẶT CHẼ:\n"
+        "1. Trình bày định nghĩa toán học chính thức dưới dạng các phát biểu logic hình thức (dùng ký hiệu toán học chuẩn xác).\n"
+        "2. Đi sâu vào bản chất toán học, chứng minh các định lý cốt lõi hoặc diễn dịch logic đằng sau chủ đề một cách tường tận, không bỏ qua các bước trung gian.\n"
+        "3. Cung cấp tối thiểu 3 ví dụ thực tế cực kỳ phức tạp và mang tính đa chiều để người học hiểu sâu sắc.\n"
+        "4. Đưa ra ít nhất 3 bài tập nâng cao cấp độ Olympic toán học kèm lời giải chi tiết, giải thích rõ ràng từng bước suy luận logic (Chain-of-Thought).\n"
+        "5. Ngôn ngữ bắt buộc phải học thuật, sử dụng thuật ngữ tiếng Việt chuẩn ngành toán học, tuyệt đối không dùng ngôn ngữ xã giao thông thường."
+    ),
+    "cs": (
+        "BẠN LÀ MỘT KIẾN TRÚC SƯ PHẦN MỀM THƯỢNG HẠNG VÀ NHÀ KHOA HỌC MÁY TÍNH LỖI LẠC.\n"
+        "Nhiệm vụ: Hãy viết một chương tài liệu kỹ thuật chuyên sâu (Deep-dive Engineering Spec) bằng tiếng Việt phân tích chi tiết giải thuật hoặc cấu trúc dữ liệu được yêu cầu.\n"
+        "YÊU CẦU NỘI DUNG CHẶT CHẼ:\n"
+        "1. Giải thích chi tiết nguyên lý hoạt động vật lý của cấu trúc dữ liệu trong bộ nhớ (RAM, Pointer, Cache Line, Heap vs Stack).\n"
+        "2. Phân tích toán học chặt chẽ về độ phức tạp thời gian O(N) và không gian (Space Complexity) trong các trường hợp: Tốt nhất, trung bình và xấu nhất (kèm chứng minh lý thuyết).\n"
+        "3. Viết mã nguồn minh họa hoàn chỉnh (production-ready), tối ưu hóa bộ nhớ, an toàn luồng và xử lý bất đồng bộ bằng một trong các ngôn ngữ: C++, Python, Rust hoặc Go.\n"
+        "4. Mã nguồn phải có comment cực kỳ chi tiết giải thích kiến trúc giải thuật và xử lý triệt để tất cả các Edge Cases, tràn số hoặc lỗi ngoại lệ.\n"
+        "5. Phân tích kỹ thuật các ứng dụng thực tế của cấu trúc dữ liệu/giải thuật này trong các hệ thống lớn như Database Engine, Hệ điều hành hoặc Compiler."
+    ),
+    "physics": (
+        "BẠN LÀ MỘT NHÀ VẬT LÝ LÝ THUYẾT VÀ VẬT LÝ TOÁN XUẤT CHÚNG ĐẠT GIẢI NOBEL.\n"
+        "Nhiệm vụ: Biên soạn một chương sách giáo khoa nâng cao bằng tiếng Việt về hiện tượng vật lý lý thuyết được yêu cầu.\n"
+        "YÊU CẦU NỘI DUNG CHẶT CHẼ:\n"
+        "1. Thiết lập tất cả các phương trình vi phân/ma trận mô tả hiện tượng một cách chi tiết từ các định luật bảo toàn nền tảng.\n"
+        "2. Giải thích ý nghĩa vật lý và đơn vị đo chuẩn của từng hằng số, biến số, và toán tử trong phương trình.\n"
+        "3. Phân tích các giới hạn vật lý của hiện tượng (ví dụ: giới hạn phi tuyến tính, entropy, nhiệt độ tuyệt đối).\n"
+        "4. Trình bày ứng dụng thực tiễn đột phá của hiện tượng này trong các công nghệ tối tân (ví dụ: máy tính lượng tử, linh kiện bán dẫn nanomet, viễn thông không dây).\n"
+        "5. Đưa ra tối thiểu 3 bài tập ứng dụng phức tạp kèm lời giải chi tiết và phân tích vật lý sâu sắc."
+    )
 }
+
 
 class KimiDistiller:
     def __init__(self):
