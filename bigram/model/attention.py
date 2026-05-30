@@ -17,7 +17,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from .layers import RotaryEmbedding, apply_rotary
+from .layers import RotaryEmbedding, apply_rotary, RMSNorm
 
 
 class GroupedQueryAttention(nn.Module):
@@ -153,6 +153,77 @@ class SSKVPAttention(GroupedQueryAttention):
         )
 
         # 6) Gộp các head lại và chiếu về hidden_size.
+        out = out.transpose(1, 2).contiguous().view(b, s, -1)
+        return self.o_proj(out)
+
+
+class MultiHeadLatentAttention(nn.Module):
+    """
+    Multi-Head Latent Attention (MLA) - DeepSeek-V3 Style.
+    Nén KV cache thành một vector ẩn có chiều kích thước nhỏ giúp tiết kiệm 93% bộ nhớ KV.
+    Tách biệt thông tin vị trí (Decoupled RoPE) để giữ tính chính xác.
+    """
+
+    def __init__(self, config):
+        super().__init__()
+        self.n_heads = config.n_heads
+        self.head_dim = config.head_dim
+        self.hidden_size = config.hidden_size
+        self.kv_latent_dim = getattr(config, "kv_latent_dim", 128)
+        self.decoupled_rope_dim = getattr(config, "decoupled_rope_dim", 64)
+        
+        # --- KV Compression ---
+        self.kv_down_proj = nn.Linear(self.hidden_size, self.kv_latent_dim, bias=False)
+        self.kv_down_norm = RMSNorm(self.kv_latent_dim, config.norm_eps)
+        self.kv_up_proj = nn.Linear(self.kv_latent_dim, self.n_heads * (self.head_dim + self.decoupled_rope_dim), bias=False)
+        
+        # --- Q Compression ---
+        self.q_down_proj = nn.Linear(self.hidden_size, self.kv_latent_dim, bias=False)
+        self.q_down_norm = RMSNorm(self.kv_latent_dim, config.norm_eps)
+        self.q_up_proj = nn.Linear(self.kv_latent_dim, self.n_heads * (self.head_dim + self.decoupled_rope_dim), bias=False)
+
+        # Output projection
+        self.o_proj = nn.Linear(self.n_heads * self.head_dim, self.hidden_size, bias=False)
+        
+        self.dropout = config.dropout
+        # RoPE dùng cho phần decoupled position
+        self.rope = RotaryEmbedding(self.decoupled_rope_dim, config.max_seq_len, config.rope_theta)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        b, s, _ = x.shape
+        
+        # 1) Q Compression & Projection
+        q_latent = self.q_down_norm(self.q_down_proj(x))
+        q_up = self.q_up_proj(q_latent).view(b, s, self.n_heads, self.head_dim + self.decoupled_rope_dim).transpose(1, 2)
+        # Tách phần content và phần position
+        q_c, q_r = q_up.split([self.head_dim, self.decoupled_rope_dim], dim=-1)
+        
+        # 2) KV Compression & Projection
+        kv_latent = self.kv_down_norm(self.kv_down_proj(x))
+        kv_up = self.kv_up_proj(kv_latent).view(b, s, self.n_heads, self.head_dim + self.decoupled_rope_dim).transpose(1, 2)
+        # Tách phần content và position của KV
+        k_c, k_r = kv_up.split([self.head_dim, self.decoupled_rope_dim], dim=-1)
+        
+        # Tách V (chỉ là phần content, không xoay RoPE)
+        v = k_c
+        
+        # 3) Áp dụng RoPE lên phần decoupled position (q_r và k_r)
+        cos, sin = self.rope(s)
+        cos = cos.to(q_r.dtype)
+        sin = sin.to(q_r.dtype)
+        q_r, k_r = apply_rotary(q_r, k_r, cos, sin)
+        
+        # 4) Ghép lại Q và K hoàn chỉnh (Content + Position)
+        q = torch.cat([q_c, q_r], dim=-1)
+        k = torch.cat([k_c, k_r], dim=-1)
+        
+        # 5) Scaled dot-product attention
+        dropout_p = self.dropout if self.training else 0.0
+        out = F.scaled_dot_product_attention(
+            q, k, v, is_causal=True, dropout_p=dropout_p
+        )
+        
+        # 6) Gộp các head lại và chiếu về hidden_size
         out = out.transpose(1, 2).contiguous().view(b, s, -1)
         return self.o_proj(out)
 

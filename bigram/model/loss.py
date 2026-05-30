@@ -150,13 +150,19 @@ def compute_total_loss(outputs: dict,
             )
             verifier = raw.masked_select(valid).mean()
 
+    # 6.5) Halting loss — PonderNet halting loss.
+    halting = outputs.get("halting_loss", torch.tensor(0.0, device=lm.device))
+    if not torch.is_tensor(halting):
+        halting = torch.tensor(float(halting), device=lm.device)
+
     # 7) Tổng có trọng số.
     total = (lm
              + config.abstention_loss_coef * abst
              + config.tone_loss_coef * tone
              + config.tool_loss_coef * tool
              + config.verifier_loss_coef * verifier
-             + aux)
+             + aux
+             + halting)
 
     return {
         "total": total,
@@ -168,4 +174,5 @@ def compute_total_loss(outputs: dict,
         "tool_name": name_loss.detach() if torch.is_tensor(name_loss) else name_loss,
         "verifier": verifier.detach() if torch.is_tensor(verifier) else verifier,
         "aux": aux.detach() if torch.is_tensor(aux) else aux,
+        "halting": halting.detach() if torch.is_tensor(halting) else halting,
     }

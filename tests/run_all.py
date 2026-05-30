@@ -23,6 +23,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import test_model
 import test_tokenizer
+import test_upgrades
 import test_data_training
 import test_alignment
 import test_tensor1_config
@@ -42,6 +43,7 @@ def main():
     suites = [
         ("Model", test_model.run_all),
         ("Tokenizer", test_tokenizer.run_all),
+        ("Upgrades (VS-BPE/MLA/PonderNet/Mamba)", test_upgrades.run_all),
         ("Data & Training", test_data_training.run_all),
         ("Alignment (SFT/DPO/Calibration)", test_alignment.run_all),
         ("Tensor 1 Config", test_tensor1_config.run_all),

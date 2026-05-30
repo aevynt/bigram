@@ -69,9 +69,17 @@ class ModelConfig:
     # ra cũng có hai luồng tương ứng: lm_head dự đoán âm gốc, tone_head dự
     # đoán thanh điệu. Nhờ vậy văn bản sinh ra GIỮ ĐƯỢC DẤU THANH.
     use_sskv: bool = True            # bật SS-KVP cho recurrent core
-    tokenizer_type: str = "bmssp"    # "bmssp" hoặc "tonal"
-    use_tone_head: bool = False      # tắt mặc định khi dùng BMSSP
+    tokenizer_type: str = "vs_bpe"   # "bmssp" | "tonal" | "vs_bpe"
+    use_tone_head: bool = False      # tắt mặc định khi dùng BMSSP và VS-BPE
     tone_loss_coef: float = 0.5      # Hệ số cho loss của tone head.
+
+    # --- Bigram V2 SOTA Upgrades (PonderNet, MLA, Mamba-2) ---
+    use_pondernet: bool = True       # Bật unroll động xác suất
+    pondernet_prior_p: float = 0.3   # Phân phối Prior Geometric parameter (lambda)
+    use_mla: bool = True             # Bật Multi-Head Latent Attention
+    kv_latent_dim: int = 128         # Chiều kích thước nén KV của MLA
+    decoupled_rope_dim: int = 64     # Chiều kích thước phần vị trí Decoupled RoPE
+    use_mamba: bool = False          # Bật/tắt block Mamba-2 SSM (PyTorch thuần)
 
     # --- Tool/verifier heads cho Bigram Tensor 1 ---
     use_tool_head: bool = False      # Dự đoán ý định gọi tool, không execute tool trong model.
@@ -109,8 +117,8 @@ class ModelConfig:
                 "Số expert active không thể lớn hơn tổng số expert"
         if self.use_tool_head:
             assert self.n_tools > 0, "n_tools phải > 0 khi bật tool head"
-        assert self.tokenizer_type in {"bmssp", "tonal"}, \
-            "tokenizer_type phải là 'bmssp' hoặc 'tonal'"
+        assert self.tokenizer_type in {"bmssp", "tonal", "vs_bpe"}, \
+            "tokenizer_type phải là 'bmssp', 'tonal' hoặc 'vs_bpe'"
         assert self.state_init_mode in {"zeros", "normal"}, \
             "state_init_mode phải là 'zeros' hoặc 'normal'"
         assert self.recurrent_early_exit_tol >= 0.0, \

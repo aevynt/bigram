@@ -38,7 +38,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils.checkpoint import checkpoint
 
-from .block import TransformerBlock
+from .block import TransformerBlock, PyTorchMambaBlock
 from .layers import RMSNorm
 from .tooling import ToolHead
 
@@ -93,14 +93,16 @@ class BigramModel(nn.Module):
             config.use_moe and config.moe_scope in {"all", "recurrent_only"}
         )
         self.recurrent_adapter = nn.Linear(2 * h, h, bias=False)
-        self.recurrent = nn.ModuleList([
-            TransformerBlock(
-                config,
-                use_moe=recurrent_use_moe,
-                shared_kv=getattr(config, "use_sskv", False),
-            )
-            for _ in range(config.n_recurrent_layers)
-        ])
+        self.recurrent = nn.ModuleList()
+        for i in range(config.n_recurrent_layers):
+            if getattr(config, "use_mamba", False) and (i % 2 == 1):
+                self.recurrent.append(PyTorchMambaBlock(h, config.norm_eps))
+            else:
+                self.recurrent.append(TransformerBlock(
+                    config,
+                    use_moe=recurrent_use_moe,
+                    shared_kv=getattr(config, "use_sskv", False),
+                ))
         # RMSNorm ở cuối khối recurrent.
         self.recurrent_norm = RMSNorm(h, config.norm_eps)
 
@@ -134,6 +136,8 @@ class BigramModel(nn.Module):
             self.tool_head = ToolHead(config)
         if config.use_verifier_head:
             self.verifier_head = nn.Linear(h, 1, bias=True)
+        if getattr(config, "use_pondernet", False):
+            self.ponder_halt_head = nn.Linear(h, 1, bias=True)
 
         # Khởi tạo trọng số.
         self.apply(self._init_weights)
@@ -174,7 +178,7 @@ class BigramModel(nn.Module):
         Nếu tone_ids = None thì coi như không có thông tin thanh điệu.
         """
         x = self.token_embedding(token_ids)
-        if tone_ids is not None:
+        if tone_ids is not None and getattr(self.config, "tokenizer_type", "tonal") == "tonal":
             x = x + self.tone_embedding(tone_ids)
         return x * self.embed_scale
 
@@ -291,39 +295,82 @@ class BigramModel(nn.Module):
         # --- Khởi tạo latent state ---
         state = self.init_recurrent_state(e, generator)
 
-        # --- Vòng lặp recurrent với TRUNCATED BACKPROP ---
-        # Ý tưởng: chỉ k vòng CUỐI mới cần gradient. Các vòng trước chạy trong
-        # torch.no_grad() -> không lưu activation -> tiết kiệm bộ nhớ, và bộ nhớ
-        # này KHÔNG phụ thuộc vào r. Đây là chốt giúp train được r lớn.
+        # --- Vòng lặp recurrent với TRUNCATED BACKPROP / PONDERNET ---
         k = cfg.backprop_depth
-        n_no_grad = max(0, r - k)   # số vòng đầu không cần gradient.
+        if getattr(cfg, "use_pondernet", False):
+            p_n_list = []
+            state_list = []
+            accumulated_not_halt = torch.ones(e.shape[0], e.shape[1], device=e.device, dtype=e.dtype)
+            steps_done = 0
+            
+            for step in range(r):
+                if step >= (r - k) and self.training:
+                    # k vòng cuối có gradient
+                    state, aux = self.run_recurrent_step(e, state)
+                    aux_total = aux_total + aux
+                else:
+                    with torch.no_grad():
+                        state, _ = self.run_recurrent_step(e, state)
+                    if self.training:
+                        state = state.detach()
+                
+                # Halt probability: (b, s, 1) -> (b, s)
+                lambda_n = torch.sigmoid(self.ponder_halt_head(state)).squeeze(-1)
+                
+                if step == r - 1:
+                    p_n = accumulated_not_halt
+                else:
+                    p_n = lambda_n * accumulated_not_halt
+                    accumulated_not_halt = accumulated_not_halt * (1.0 - lambda_n)
+                
+                p_n_list.append(p_n)
+                state_list.append(state)
+                steps_done += 1
+                
+                # Lúc eval: dừng sớm nếu lambda_n vượt 0.5
+                if not self.training:
+                    if (lambda_n > 0.5).all():
+                        break
+            
+            # Tính weighted state:
+            p_n_stack = torch.stack(p_n_list, dim=-1)
+            state_stack = torch.stack(state_list, dim=-2)
+            state = (state_stack * p_n_stack.unsqueeze(-1)).sum(dim=-2)
+            
+            # Tính Halting Loss (KL Divergence với Geometric distribution)
+            prior_p = getattr(cfg, "pondernet_prior_p", 0.3)
+            kl_loss = 0.0
+            for step in range(len(p_n_list)):
+                p_star_n = ((1.0 - prior_p) ** step) * prior_p
+                kl_loss = kl_loss + p_n_list[step] * (torch.log(p_n_list[step] + 1e-10) - math.log(p_star_n + 1e-10))
+            halting_loss = kl_loss.mean()
+        else:
+            halting_loss = torch.tensor(0.0, device=e.device, dtype=e.dtype)
+            n_no_grad = max(0, r - k)   # số vòng đầu không cần gradient.
 
-        # Phần 1: các vòng đầu — không gradient.
-        if n_no_grad > 0:
-            with torch.no_grad():
-                for _ in range(n_no_grad):
-                    state, _ = self.run_recurrent_step(e, state)
-            # Tách khỏi đồ thị tính toán (phòng hờ) — state giờ là "hằng số".
-            state = state.detach()
+            # Phần 1: các vòng đầu — không gradient.
+            if n_no_grad > 0:
+                with torch.no_grad():
+                    for _ in range(n_no_grad):
+                        state, _ = self.run_recurrent_step(e, state)
+                state = state.detach()
 
-        # Phần 2: k vòng cuối — CÓ gradient (sẽ được backprop).
-        n_grad = r - n_no_grad
-        steps_done = n_no_grad
-        for _ in range(n_grad):
-            prev_state = state
-            state, aux = self.run_recurrent_step(e, state)
-            aux_total = aux_total + aux
-            steps_done += 1
+            # Phần 2: k vòng cuối — CÓ gradient.
+            n_grad = r - n_no_grad
+            steps_done = n_no_grad
+            for _ in range(n_grad):
+                prev_state = state
+                state, aux = self.run_recurrent_step(e, state)
+                aux_total = aux_total + aux
+                steps_done += 1
 
-            # Eval-only adaptive compute. If the recurrent latent state has
-            # converged, stop spending extra recurrent steps. Training still
-            # uses the full sampled depth so optimization remains predictable.
-            if (not self.training
-                    and cfg.recurrent_early_exit_tol > 0.0
-                    and steps_done >= cfg.recurrent_early_exit_min_steps):
-                delta = (state - prev_state).float().pow(2).mean().sqrt()
-                if delta.item() <= cfg.recurrent_early_exit_tol:
-                    break
+                # Eval-only adaptive compute.
+                if (not self.training
+                        and cfg.recurrent_early_exit_tol > 0.0
+                        and steps_done >= cfg.recurrent_early_exit_min_steps):
+                    delta = (state - prev_state).float().pow(2).mean().sqrt()
+                    if delta.item() <= cfg.recurrent_early_exit_tol:
+                        break
 
         # --- Coda: giải mã ---
         decoded, aux = self.run_coda(state)
@@ -335,6 +382,7 @@ class BigramModel(nn.Module):
         out = {
             "logits": logits,
             "aux_loss": aux_total,
+            "halting_loss": halting_loss,
             "num_recurrence": r,
         }
         if cfg.use_abstention_head:
